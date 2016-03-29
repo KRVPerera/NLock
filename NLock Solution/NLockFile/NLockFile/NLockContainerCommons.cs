@@ -15,6 +15,7 @@ namespace NLock.NLockFile
         #region Private variables
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(NLockContainerCommons));
+
         private readonly IEncryptionStrategy _encryptionStrategy = new AESEncryptionStrategy();
         private readonly IContainerInterface _container = new NlZipArchive();
         private bool _verified;
@@ -274,7 +275,6 @@ namespace NLock.NLockFile
             {
                 throw new Exception("Container dispose error");
             }
-          
         }
 
         public bool RemoveFile(string file)

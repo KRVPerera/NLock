@@ -250,7 +250,7 @@ namespace NLock
             this.FilelistView.View = System.Windows.Forms.View.Details;
             this.FilelistView.VirtualListSize = 20;
             this.FilelistView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.FilelistViewColumnClick);
-            this.FilelistView.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilelistView_DragDrop);
+            this.FilelistView.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragDrop);
             this.FilelistView.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragEnter);
             // 
             // chFileName

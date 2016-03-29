@@ -4,7 +4,6 @@ using NLock.NLockFile;
 using NLock.NLockFile.Exceptions;
 using NLock.NLockFile.Operations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -62,6 +61,100 @@ namespace NLock
             tssStatus.Text = String.Empty;
         }
 
+        private void UpdateListView(List<NlFile> list)
+        {
+            if (list == null)
+            {
+                tsbLock.Enabled = false;
+                toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
+                return;
+            }
+            if (list.Count <= 0)
+            {
+                tsbLock.Enabled = false;
+                FilelistView.Items.Clear();
+                toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
+                return;
+            }
+            FilelistView.BeginUpdate();
+
+            try
+            {
+                FilelistView.Items.Clear();
+
+                //TODO: add image icon to file list
+                foreach (var key in list)
+                {
+                    var item = new ListViewItem(Path.GetFileName(key.FileName));
+                    string type = " B";
+                    double original = key.OriginalSize;
+                    double compressed = key.CompressedSize;
+                    if (key.OriginalSize > 1024)
+                    {
+                        original = key.OriginalSize / 1024.0;
+                        compressed = key.CompressedSize / 1024.0;
+                        type = "KiB";
+                    }
+
+                    if (key.OriginalSize > 1024 * 1024)
+                    {
+                        original = original / 1024;
+                        compressed = compressed / 1024;
+                        type = "MiB";
+                    }
+
+                    if (key.OriginalSize > 1024 * 1024 * 1024)
+                    {
+                        original = original / 1024;
+                        compressed = compressed / 1024;
+                        type = "GiB";
+                    }
+
+                    item.SubItems.Add(String.Format("{0:N2} {1}", original, type));
+                    item.SubItems.Add(String.Format("{0:N2} {1}", compressed, type));
+
+                    item.SubItems.Add(key.FilePath != null ? key.FilePath + "\\" : "\\");
+                    FilelistView.Items.Add(item);
+
+                    tsbLock.Enabled = FilelistView.Items.Count > 0;
+                }
+            }
+            finally
+            {
+                FilelistView.EndUpdate();
+                toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
+            }
+        }
+
+        private void Extract()
+        {
+            _status = Status.EXTRACTIONFAILED;
+            try
+            {
+                var result = folderBrowserDialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var extractionFolderPath = String.Concat(folderBrowserDialog.SelectedPath, "\\");
+                    if (_nlockContainer.ExtractToFolder(extractionFolderPath))
+                    {
+                        _status = Status.SUCESSFULLYEXTRACTED;
+                        _nlockContainer.Dispose();
+                        _nlockContainer = null;
+                    }
+                    _oldFolderSelectedPath = extractionFolderPath;
+                }
+                else // result == DialogResult.Cancel
+                {
+                    _status = Status.EXTRACTIONCANCELLED;
+                }
+                folderBrowserDialog.SelectedPath = _oldFolderSelectedPath;
+            }
+            catch (Exception)
+            {
+                _status = Status.EXTRACTIONFAILED;
+            }
+        }
+
         #endregion Private Methods
 
         #region Private Form Events
@@ -99,8 +192,8 @@ namespace NLock
                 else
                 {
                     MessageBox.Show("Invalid File!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    Logger.Info("OperationModes.OPENNLOCK Null File Name");
                     Close();
-                    Logger.Debug("Null File Name");
                 }
             }
             else if (_opMode == OperationModes.UNLOCKHERE)
@@ -148,7 +241,7 @@ namespace NLock
                 }
                 else
                 {
-                    Logger.Debug("Null File Name");
+                    Logger.Info("OperationModes.UNLOCKHERE Null File Name");
                 }
             }
             else if (_opMode == OperationModes.UNLOCKTO)
@@ -205,7 +298,7 @@ namespace NLock
                 }
                 else
                 {
-                    Logger.Debug("Null File Name");
+                    Logger.Info("OperationModes.UNLOCKTO Null File Name");
                 }
             }
             else if (_opMode == OperationModes.LOCKFOLDER)
@@ -243,7 +336,7 @@ namespace NLock
                     }
                     else
                     {
-                        Logger.Debug("Null File Name");
+                        Logger.Info("OperationModes.LOCKFOLDER Null File Name");
                     }
                 }
                 catch (Exception)
@@ -282,73 +375,8 @@ namespace NLock
                 }
                 else
                 {
-                    Logger.Debug("Null File Name");
+                    Logger.Info("OperationModes.NLOCKTHISFILE Null File Name");
                 }
-            }
-        }
-
-        private void UpdateListView(List<NlFile> list)
-        {
-            if (list == null)
-            {
-                tsbLock.Enabled = false;
-                toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
-                return;
-            }
-            if (list.Count <= 0)
-            {
-                tsbLock.Enabled = false;
-                FilelistView.Items.Clear();
-                toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
-                return;
-            }
-            FilelistView.BeginUpdate();
-
-            try
-            {
-                FilelistView.Items.Clear();
-
-                //TODO: add image icon to file list
-                foreach (var key in list)
-                {
-                    var item = new ListViewItem(Path.GetFileName(key.FileName));
-                    string type = " B";
-                    double original = key.OriginalSize;
-                    double compressed = key.CompressedSize;
-                    if (key.OriginalSize > 1024)
-                    {
-                        original = key.OriginalSize / 1024.0;
-                        compressed = key.CompressedSize / 1024.0;
-                        type = "KiB";
-                    }
-
-                    if (key.OriginalSize > 1024*1024)
-                    {
-                        original = original / 1024;
-                        compressed = compressed / 1024;
-                        type = "MiB";
-                    }
-
-                    if (key.OriginalSize > 1024 * 1024*1024)
-                    {
-                        original = original / 1024;
-                        compressed = compressed / 1024;
-                        type = "GiB";
-                    }
-
-                    item.SubItems.Add(String.Format("{0:N2} {1}", original, type));
-                    item.SubItems.Add(String.Format("{0:N2} {1}", compressed, type));
-
-                    item.SubItems.Add(key.FilePath != null ? key.FilePath + "\\" : "\\");
-                    FilelistView.Items.Add(item);
-
-                    tsbLock.Enabled = FilelistView.Items.Count > 0;
-                }
-            }
-            finally
-            {
-                FilelistView.EndUpdate();
-                toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
             }
         }
 
@@ -368,44 +396,15 @@ namespace NLock
             }
         }
 
-        private void Extract()
-        {
-            _status = Status.EXTRACTIONFAILED;
-            try
-            {
-                var result = folderBrowserDialog.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    var extractionFolderPath = String.Concat(folderBrowserDialog.SelectedPath, "\\");
-                    if (_nlockContainer.ExtractToFolder(extractionFolderPath))
-                    {
-                        _status = Status.SUCESSFULLYEXTRACTED;
-                        _nlockContainer.Dispose();
-                        _nlockContainer = null;
-                    }
-                    _oldFolderSelectedPath = extractionFolderPath;
-                }
-                else // result == DialogResult.Cancel
-                {
-                    _status = Status.EXTRACTIONCANCELLED;
-                }
-                folderBrowserDialog.SelectedPath = _oldFolderSelectedPath;
-            }
-            catch (Exception)
-            {
-                _status = Status.EXTRACTIONFAILED;
-            }
-        }
-
         private void FilelistViewDragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
         }
 
-        private void FilelistView_DragDrop(object sender, DragEventArgs e)
+        private void FilelistViewDragDrop(object sender, DragEventArgs e)
         {
             var filepaths = new List<string>();
-            foreach (var s in (string[])e.Data.GetData(DataFormats.FileDrop, false))
+            foreach (var s in (string[]) e.Data.GetData(DataFormats.FileDrop, false))
             {
                 if (Directory.Exists(s))
                 {
@@ -488,12 +487,14 @@ namespace NLock
                 _fileName = null;
                 tssStatus.ForeColor = System.Drawing.Color.Red;
                 tssStatus.Text = "Unlocking... Failed";
+                Logger.Info("Unlocking... Failed");
             }
             catch (Exception)
             {
                 _fileName = null;
                 tssStatus.ForeColor = System.Drawing.Color.Red;
                 tssStatus.Text = "Unlocking... Failed";
+                Logger.Info("Unlocking... Failed");
             }
         }
 
@@ -530,6 +531,7 @@ namespace NLock
             catch (OutOfMemoryException)
             {
                 MessageBox.Show("Out of memory", "Not enough memory", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.Error("OutOfMemoryException");
             }
         }
 
@@ -550,6 +552,7 @@ namespace NLock
             catch (FileNotFoundException)
             {
                 MessageBox.Show("No filed added, folder is empty...", "Failed..", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Logger.Error("No filed added, folder is empty...");
             }
         }
 
@@ -612,10 +615,12 @@ namespace NLock
             catch (NLockFileContainerEmptyException)
             {
                 MessageBox.Show("Failed... \nNo files added. Empty container", "Locking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Logger.Error("Failed...No files added. Empty container");
             }
             catch (NullReferenceException)
             {
                 MessageBox.Show("Failed... \nBad image captured", "Locking", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.Error("Failed...Bad image captured");
             }
         }
 
@@ -644,7 +649,7 @@ namespace NLock
             {
                 foreach (var file in FilelistView.SelectedItems)
                 {
-                    var item = (ListViewItem)file;
+                    var item = (ListViewItem) file;
                     var tet = item.SubItems[0].Text;
                     var result = _nlockContainer.RemoveFile(tet);
                     if ((_fileName != null) && !_isDirty && result)
@@ -757,17 +762,17 @@ namespace NLock
 
             if (col == 1 || col == 2)
             {
-                string test = ((ListViewItem)x).SubItems[col].Text.Split()[0];
-                bool xY = double.TryParse(((ListViewItem)x).SubItems[col].Text.Split()[0], out xVal);
-                bool yY = double.TryParse(((ListViewItem)y).SubItems[col].Text.Split()[0], out yVal);
+                string test = ((ListViewItem) x).SubItems[col].Text.Split()[0];
+                bool xY = double.TryParse(((ListViewItem) x).SubItems[col].Text.Split()[0], out xVal);
+                bool yY = double.TryParse(((ListViewItem) y).SubItems[col].Text.Split()[0], out yVal);
 
                 if (xY && yY)
                 {
-                    
                     if (xVal - yVal > Double.Epsilon)
                     {
                         returnVal = 1;
-                    }else if(xVal - yVal < 0 )
+                    }
+                    else if (xVal - yVal < 0)
                     {
                         returnVal = -1;
                     }
@@ -775,13 +780,12 @@ namespace NLock
                     {
                         returnVal = 0;
                     }
-                    
                 }
             }
             else
             {
-                returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
-                             ((ListViewItem)y).SubItems[col].Text);
+                returnVal = String.Compare(((ListViewItem) x).SubItems[col].Text,
+                             ((ListViewItem) y).SubItems[col].Text);
             }
 
             // Determine whether the sort order is descending.
