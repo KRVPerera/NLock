@@ -176,4 +176,42 @@ Duplicate file names are automatically renamed</value>
   <data name="ValidPath" xml:space="preserve">
     <value>Path is valid Press OK...</value>
   </data>
+  <data name="InvalidPath" xml:space="preserve">
+    <value>Invalid path</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Directory not found..</value>
+  </data>
+  <data name="AsktoCreateFolder" xml:space="preserve">
+    <value>Do you want create the folder..</value>
+  </data>
+  <data name="PathIsAFolder" xml:space="preserve">
+    <value>Invalid path - Given path is a folder name</value>
+  </data>
+  <data name="FileExists" xml:space="preserve">
+    <value>File Already Exists</value>
+  </data>
+  <data name="AsktoOverwrite" xml:space="preserve">
+    <value>Do you want overwrite the file..</value>
+  </data>
+  <data name="CameraNotDetected" xml:space="preserve">
+    <value>Could not detect the camera..
+Please connect a camera.</value>
+  </data>
+  <data name="CameraDetected" xml:space="preserve">
+    <value>Camera detected...
+Please continue</value>
+  </data>
+  <data name="CopyrightYear" xml:space="preserve">
+    <value>Copyright © 2015-2016</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>All rights reserved.</value>
+  </data>
+  <data name="VeriLookSDK" xml:space="preserve">
+    <value>VeriLook SDK</value>
+  </data>
+  <data name="CompanyNeurotechnology" xml:space="preserve">
+    <value>Neurotechnology</value>
+  </data>
 </root>

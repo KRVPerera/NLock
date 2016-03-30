@@ -70,12 +70,86 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All rights reserved..
+        /// </summary>
+        public static string AllRightsReserved {
+            get {
+                return ResourceManager.GetString("AllRightsReserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want create the folder...
+        /// </summary>
+        public static string AsktoCreateFolder {
+            get {
+                return ResourceManager.GetString("AsktoCreateFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want overwrite the file...
+        /// </summary>
+        public static string AsktoOverwrite {
+            get {
+                return ResourceManager.GetString("AsktoOverwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera detected...
+        ///Please continue.
+        /// </summary>
+        public static string CameraDetected {
+            get {
+                return ResourceManager.GetString("CameraDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CameraDetectedContinue {
             get {
                 object obj = ResourceManager.GetObject("CameraDetectedContinue", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not detect the camera..
+        ///Please connect a camera..
+        /// </summary>
+        public static string CameraNotDetected {
+            get {
+                return ResourceManager.GetString("CameraNotDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neurotechnology.
+        /// </summary>
+        public static string CompanyNeurotechnology {
+            get {
+                return ResourceManager.GetString("CompanyNeurotechnology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright © 2015-2016.
+        /// </summary>
+        public static string CopyrightYear {
+            get {
+                return ResourceManager.GetString("CopyrightYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory not found...
+        /// </summary>
+        public static string DirectoryNotFound {
+            get {
+                return ResourceManager.GetString("DirectoryNotFound", resourceCulture);
             }
         }
         
@@ -105,6 +179,24 @@ namespace NLock.Properties {
             get {
                 object obj = ResourceManager.GetObject("F12_HelpErrorBoxGrey", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Already Exists.
+        /// </summary>
+        public static string FileExists {
+            get {
+                return ResourceManager.GetString("FileExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid path.
+        /// </summary>
+        public static string InvalidPath {
+            get {
+                return ResourceManager.GetString("InvalidPath", resourceCulture);
             }
         }
         
@@ -152,6 +244,15 @@ namespace NLock.Properties {
         public static string PasswordsMatch {
             get {
                 return ResourceManager.GetString("PasswordsMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid path - Given path is a folder name.
+        /// </summary>
+        public static string PathIsAFolder {
+            get {
+                return ResourceManager.GetString("PathIsAFolder", resourceCulture);
             }
         }
         
@@ -228,6 +329,15 @@ namespace NLock.Properties {
         public static string ValidPath {
             get {
                 return ResourceManager.GetString("ValidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VeriLook SDK.
+        /// </summary>
+        public static string VeriLookSDK {
+            get {
+                return ResourceManager.GetString("VeriLookSDK", resourceCulture);
             }
         }
         

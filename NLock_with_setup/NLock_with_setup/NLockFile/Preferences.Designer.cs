@@ -77,7 +77,7 @@
             // btnLockinPrefApply2
             // 
             this.btnLockinPrefApply2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLockinPrefApply2.Location = new System.Drawing.Point(112, 31);
+            this.btnLockinPrefApply2.Location = new System.Drawing.Point(274, 31);
             this.btnLockinPrefApply2.Name = "btnLockinPrefApply2";
             this.btnLockinPrefApply2.Size = new System.Drawing.Size(75, 23);
             this.btnLockinPrefApply2.TabIndex = 4;
@@ -98,18 +98,18 @@
             // btnLockinPrefSave
             // 
             this.btnLockinPrefSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLockinPrefSave.Location = new System.Drawing.Point(193, 31);
+            this.btnLockinPrefSave.Location = new System.Drawing.Point(112, 31);
             this.btnLockinPrefSave.Name = "btnLockinPrefSave";
             this.btnLockinPrefSave.Size = new System.Drawing.Size(75, 23);
             this.btnLockinPrefSave.TabIndex = 1;
-            this.btnLockinPrefSave.Text = "Save";
+            this.btnLockinPrefSave.Text = "OK";
             this.btnLockinPrefSave.UseVisualStyleBackColor = true;
             this.btnLockinPrefSave.Click += new System.EventHandler(this.ButtonLockinPreferencesSaveClick);
             // 
             // btnLockinPrefCancel
             // 
             this.btnLockinPrefCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLockinPrefCancel.Location = new System.Drawing.Point(274, 31);
+            this.btnLockinPrefCancel.Location = new System.Drawing.Point(193, 31);
             this.btnLockinPrefCancel.Name = "btnLockinPrefCancel";
             this.btnLockinPrefCancel.Size = new System.Drawing.Size(75, 23);
             this.btnLockinPrefCancel.TabIndex = 0;
@@ -159,7 +159,7 @@
             // btnCompressionPrefApply
             // 
             this.btnCompressionPrefApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCompressionPrefApply.Location = new System.Drawing.Point(112, 31);
+            this.btnCompressionPrefApply.Location = new System.Drawing.Point(274, 31);
             this.btnCompressionPrefApply.Name = "btnCompressionPrefApply";
             this.btnCompressionPrefApply.Size = new System.Drawing.Size(75, 23);
             this.btnCompressionPrefApply.TabIndex = 2;
@@ -170,18 +170,18 @@
             // btnCompressionPrefSave
             // 
             this.btnCompressionPrefSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCompressionPrefSave.Location = new System.Drawing.Point(193, 31);
+            this.btnCompressionPrefSave.Location = new System.Drawing.Point(112, 31);
             this.btnCompressionPrefSave.Name = "btnCompressionPrefSave";
             this.btnCompressionPrefSave.Size = new System.Drawing.Size(75, 23);
             this.btnCompressionPrefSave.TabIndex = 1;
-            this.btnCompressionPrefSave.Text = "Save";
+            this.btnCompressionPrefSave.Text = "OK";
             this.btnCompressionPrefSave.UseVisualStyleBackColor = true;
             this.btnCompressionPrefSave.Click += new System.EventHandler(this.ButtonCompressionPreferenceSaveClick);
             // 
             // btnCompressionPrefCancel
             // 
             this.btnCompressionPrefCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCompressionPrefCancel.Location = new System.Drawing.Point(274, 31);
+            this.btnCompressionPrefCancel.Location = new System.Drawing.Point(193, 31);
             this.btnCompressionPrefCancel.Name = "btnCompressionPrefCancel";
             this.btnCompressionPrefCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCompressionPrefCancel.TabIndex = 0;

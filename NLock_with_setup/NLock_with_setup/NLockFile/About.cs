@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using NLock.Properties;
 
 namespace NLock
 {
@@ -12,11 +13,11 @@ namespace NLock
 
         private void AboutForm_Load(object sender, EventArgs e)
         {
-            lblInfo.Text = "Copyright \u00a9 2015-2016";
-            lblInfo2.Text = "All rights reserved.";
-            lblNtInfo.Text = "NLock is using Neurotechnology";
-            linkLabel.Text = "VeriLook SDK";
-            linkLabelNt.Text = "Neurotechnology";
+            lblInfo.Text = Resources.CopyrightYear;
+            lblInfo2.Text = Resources.AllRightsReserved;
+            lblNtInfo.Text = "NLock is using " + Resources.CompanyNeurotechnology;
+            linkLabel.Text = Resources.VeriLookSDK;
+            linkLabelNt.Text = Resources.CompanyNeurotechnology;
         }
 
         private void ButtonOkClick(object sender, EventArgs e)

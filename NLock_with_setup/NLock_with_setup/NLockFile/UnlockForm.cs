@@ -304,8 +304,6 @@ namespace NLock
 
         private void UnlockFormLoad(object sender, EventArgs e)
         {
-            //TODO : Remember last file securely
-            //if not the same file reset, that way still have to restart the whole application (make hacker life a mess)
             Interlocked.Exchange(ref _retryCount, 0);
             FromInit();
             ClientInit();
@@ -427,7 +425,7 @@ namespace NLock
             }
             else
             {
-               
+
                 lblInfo.Text = "Invalid password...";
                 _currentop = Ops.VERIFICATIONFAILEDRETRY;
             }

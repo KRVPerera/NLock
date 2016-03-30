@@ -1,7 +1,7 @@
 ﻿namespace NLock.NLockFile.UI
 {
     /// <summary>
-    ///     From Neurotechnology SDK samples
+    ///     From CompanyNeurotechnology SDK samples
     /// </summary>
     partial class LicensePanel
     {

@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("NLock")]
 [assembly: AssemblyDescription("Biometric file locker.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Neurotechnology Lab (Private) Limited")]
+[assembly: AssemblyCompany("CompanyNeurotechnology Lab (Private) Limited")]
 [assembly: AssemblyProduct("NLockFile")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]

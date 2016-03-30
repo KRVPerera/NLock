@@ -89,7 +89,7 @@
             this.tboxFileName.Location = new System.Drawing.Point(85, 12);
             this.tboxFileName.MinimumSize = new System.Drawing.Size(4, 20);
             this.tboxFileName.Name = "tboxFileName";
-            this.tboxFileName.Size = new System.Drawing.Size(195, 20);
+            this.tboxFileName.Size = new System.Drawing.Size(197, 20);
             this.tboxFileName.TabIndex = 0;
             this.toolTip1.SetToolTip(this.tboxFileName, "Give the file name to save your locked content");
             this.tboxFileName.TextChanged += new System.EventHandler(this.TextboxFileNameTextChanged);
@@ -98,7 +98,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(298, 11);
+            this.btnBrowse.Location = new System.Drawing.Point(301, 11);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(27, 21);
             this.btnBrowse.TabIndex = 1;
@@ -115,6 +115,7 @@
             this.lblInfo.Size = new System.Drawing.Size(314, 29);
             this.lblInfo.TabIndex = 2;
             this.lblInfo.Text = "label1";
+            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnMain
             // 
@@ -123,7 +124,7 @@
             this.btnMain.FlatAppearance.BorderSize = 0;
             this.btnMain.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Teal;
             this.btnMain.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
-            this.btnMain.Location = new System.Drawing.Point(44, 320);
+            this.btnMain.Location = new System.Drawing.Point(34, 320);
             this.btnMain.Name = "btnMain";
             this.btnMain.Size = new System.Drawing.Size(94, 23);
             this.btnMain.TabIndex = 1;
@@ -134,7 +135,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(139, 320);
+            this.btnCancel.Location = new System.Drawing.Point(134, 320);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(94, 23);
             this.btnCancel.TabIndex = 2;
@@ -171,7 +172,7 @@
             // btnReset
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Location = new System.Drawing.Point(254, 262);
+            this.btnReset.Location = new System.Drawing.Point(254, 265);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(74, 23);
             this.btnReset.TabIndex = 3;
@@ -197,7 +198,9 @@
             // 
             // licensePanel1
             // 
-            this.licensePanel1.AutoSize = true;
+            this.licensePanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.licensePanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.licensePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.licensePanel1.Location = new System.Drawing.Point(17, 38);
             this.licensePanel1.Name = "licensePanel1";
@@ -224,7 +227,7 @@
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tboxFileName);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
