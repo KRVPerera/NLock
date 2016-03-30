@@ -70,6 +70,15 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        public static string Alert {
+            get {
+                return ResourceManager.GetString("Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All rights reserved..
         /// </summary>
         public static string AllRightsReserved {
@@ -137,6 +146,15 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Canceled....
+        /// </summary>
+        public static string Canceled___ {
+            get {
+                return ResourceManager.GetString("Canceled___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neurotechnology.
         /// </summary>
         public static string CompanyNeurotechnology {
@@ -174,6 +192,15 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No filed added, folder is empty....
+        /// </summary>
+        public static string EmptyFolderNoFilesAdded {
+            get {
+                return ResourceManager.GetString("EmptyFolderNoFilesAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty password.
         /// </summary>
         public static string EmptyPasswd {
@@ -193,12 +220,48 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit ?.
+        /// </summary>
+        public static string ExitQ {
+            get {
+                return ResourceManager.GetString("ExitQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap F12_HelpErrorBoxGrey {
             get {
                 object obj = ResourceManager.GetObject("F12_HelpErrorBoxGrey", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed !.
+        /// </summary>
+        public static string Failed {
+            get {
+                return ResourceManager.GetString("Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to extract files to : .
+        /// </summary>
+        public static string FailedExtractTo {
+            get {
+                return ResourceManager.GetString("FailedExtractTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File is corrupted or not a valid NLock file : .
+        /// </summary>
+        public static string FileCorrupted {
+            get {
+                return ResourceManager.GetString("FileCorrupted", resourceCulture);
             }
         }
         
@@ -212,11 +275,38 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File opening failed.
+        /// </summary>
+        public static string FileOpeningFailed {
+            get {
+                return ResourceManager.GetString("FileOpeningFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid File !.
+        /// </summary>
+        public static string InvalidFile {
+            get {
+                return ResourceManager.GetString("InvalidFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid path.
         /// </summary>
         public static string InvalidPath {
             get {
                 return ResourceManager.GetString("InvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid User !.
+        /// </summary>
+        public static string InvalidUser {
+            get {
+                return ResourceManager.GetString("InvalidUser", resourceCulture);
             }
         }
         
@@ -249,12 +339,57 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NLock.
+        /// </summary>
+        public static string NLock {
+            get {
+                return ResourceManager.GetString("NLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap NoCameraDetected {
             get {
                 object obj = ResourceManager.GetObject("NoCameraDetected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not enough memory.
+        /// </summary>
+        public static string Not_enough_memory {
+            get {
+                return ResourceManager.GetString("Not_enough_memory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening....
+        /// </summary>
+        public static string Opening___ {
+            get {
+                return ResourceManager.GetString("Opening___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening file !.
+        /// </summary>
+        public static string OpeningFile {
+            get {
+                return ResourceManager.GetString("OpeningFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Out of memory.
+        /// </summary>
+        public static string Out_of_memory {
+            get {
+                return ResourceManager.GetString("Out_of_memory", resourceCulture);
             }
         }
         
@@ -343,12 +478,75 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully extracted files to : .
+        /// </summary>
+        public static string SuccessExtractedTo {
+            get {
+                return ResourceManager.GetString("SuccessExtractedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful.
+        /// </summary>
+        public static string Successful {
+            get {
+                return ResourceManager.GetString("Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully locked files to : .
+        /// </summary>
+        public static string SuccessfullyLockedFilesTo {
+            get {
+                return ResourceManager.GetString("SuccessfullyLockedFilesTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon tick {
             get {
                 object obj = ResourceManager.GetObject("tick", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlocked.. User identified...!.
+        /// </summary>
+        public static string UnlockedUserIdentified {
+            get {
+                return ResourceManager.GetString("UnlockedUserIdentified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlocking.
+        /// </summary>
+        public static string Unlocking {
+            get {
+                return ResourceManager.GetString("Unlocking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlocking....
+        /// </summary>
+        public static string Unlocking___ {
+            get {
+                return ResourceManager.GetString("Unlocking___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlocking failed !.
+        /// </summary>
+        public static string UnlockingFailed {
+            get {
+                return ResourceManager.GetString("UnlockingFailed", resourceCulture);
             }
         }
         
@@ -367,6 +565,16 @@ namespace NLock.Properties {
         public static string VeriLookSDK {
             get {
                 return ResourceManager.GetString("VeriLookSDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to exit NLock
+        ///Exit ?.
+        /// </summary>
+        public static string WantToExitNLock {
+            get {
+                return ResourceManager.GetString("WantToExitNLock", resourceCulture);
             }
         }
         

@@ -36,7 +36,14 @@ namespace NLock.NLockFile.Util
 
         public override byte[] ExtractTemplateFromNLock(byte[] full)
         {
-            return ExtractTemplateFromNLock(full, Headerlength);
+            try
+            {
+                return ExtractTemplateFromNLock(full, Headerlength);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public override byte[] ExtractDataContentFromNLock(string filePath)

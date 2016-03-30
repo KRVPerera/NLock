@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using log4net;
 using NLock.NLockFile.Container;
 using NLock.NLockFile.Encryption;
-using NLock.NLockFile.Exceptions;
 using NLock.NLockFile.Util;
 
 namespace NLock.NLockFile
@@ -19,8 +17,14 @@ namespace NLock.NLockFile
         public enum ContainerStatus
         {
             Ok,
-            ContainerEmpty,
+            Empty,
             NullTemplate
+        }
+
+        public enum VerificationStatus
+        {
+            Verfified,
+            Failed
         }
 
         public NLockContainerCommons()
@@ -32,7 +36,7 @@ namespace NLock.NLockFile
 
         #region Private variables
 
-        private static readonly ILog logger = LogManager.GetLogger(typeof (NLockContainerCommons));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof (NLockContainerCommons));
 
         private readonly IEncryptionStrategy _encryptionStrategy = new AesEncryptionStrategy();
         private readonly IContainerInterface _container = new NlZipArchive();
@@ -72,16 +76,16 @@ namespace NLock.NLockFile
 
         public ContainerStatus Save(string fileName)
         {
-            logger.Debug("Saving as : " + fileName);
+            Logger.Debug("Saving as : " + fileName);
             if (IsEmpty())
             {
-                logger.Warn("No files added cannot save as : " + fileName);
-                return ContainerStatus.ContainerEmpty;
+                Logger.Warn("No files added cannot save as : " + fileName);
+                return ContainerStatus.Empty;
             }
 
             if (Template == null || Template.Length != TemplateOperations.TemplateLength)
             {
-                logger.Warn("Template is null cannot save as : " + fileName);
+                Logger.Warn("Template is null cannot save as : " + fileName);
                 return ContainerStatus.NullTemplate;
             }
             byte[] fileStmWithTempAndFile;
@@ -116,13 +120,13 @@ namespace NLock.NLockFile
 
             if (File.Exists(fileName))
             {
-                logger.Debug(fileName + " already exists so deleting");
+                Logger.Debug(fileName + " already exists so deleting");
                 File.Delete(fileName);
             }
 
             using (var fs2 = File.Create(fileName))
             {
-                logger.Debug(fileName + " is being written");
+                Logger.Debug(fileName + " is being written");
                 fs2.Write(fileStmWithTempAndFile, 0, fileStmWithTempAndFile.Length);
                 fs2.Close();
             }
@@ -137,7 +141,7 @@ namespace NLock.NLockFile
 
         public void AddDirectory(string directoryPath, bool recursively = false)
         {
-            logger.Debug("DirectoryPath : " + directoryPath + " " + "Recursively : " + recursively);
+            Logger.Debug("DirectoryPath : " + directoryPath + " " + "Recursively : " + recursively);
 
             var fileList = Directory.GetFiles(directoryPath + "\\", "*", SearchOption.AllDirectories);
             if (fileList.Length > 0)
@@ -149,42 +153,50 @@ namespace NLock.NLockFile
 
         public void AddFile(string fileName)
         {
-            logger.Debug(fileName);
+            Logger.Debug(fileName);
             var nlfile = new NlFile(fileName);
             if (!_files.Contains(nlfile))
             {
-                logger.Debug("File " + Path.GetFileName(fileName) + " does not contain in the list");
+                Logger.Debug("File " + Path.GetFileName(fileName) + " does not contain in the list");
                 _files.Add(nlfile);
-                logger.Debug("File " + Path.GetFileName(fileName) + " Added to list");
+                Logger.Debug("File " + Path.GetFileName(fileName) + " Added to list");
                 _container.AddFile(fileName);
-                logger.Debug("File " + Path.GetFileName(fileName) + " Added to container");
+                Logger.Debug("File " + Path.GetFileName(fileName) + " Added to container");
             }
             else
             {
-                logger.Debug("File " + Path.GetFileName(fileName) + "File already present");
+                Logger.Debug("File " + Path.GetFileName(fileName) + "File already present");
             }
         }
 
         public void LoadFromFile(string fileName)
         {
-            try
+            IsLocked = true;
+            FileName = fileName;
+            var full = File.ReadAllBytes(fileName);
+            var type = DecideTemplateOperations(fileName);
+            if (type > 0)
             {
-                IsLocked = true;
-                FileName = fileName;
-                var full = File.ReadAllBytes(fileName);
-                var type = DecideTemplateOperations(fileName);
-                logger.Debug("LoadFromFile Type : " + type);
+                Logger.Debug("LoadFromFile Type : " + type);
+
 
                 var zipContent = TemplateOperations.ExtractDataContentFromNLock(full);
-                Template = TemplateOperations.ExtractTemplateFromNLock(full);
-                Template = _encryptionStrategy.Decrypt(zipContent, Template);
+                try
+                {
+                    Template = TemplateOperations.ExtractTemplateFromNLock(full);
+                    Template = _encryptionStrategy.Decrypt(zipContent, Template);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
 
                 UnlockForm loginFrom;
 
                 if (type == 2)
                 {
                     var hash = TemplateOperations.GetHashFromNLock(full);
-                    logger.Debug("LoadFromFile Hash : " + Encoding.UTF8.GetString(hash));
+                    Logger.Debug("LoadFromFile Hash : " + Encoding.UTF8.GetString(hash));
                     loginFrom = new UnlockForm(Template, hash, fileName);
                 }
                 else
@@ -199,21 +211,23 @@ namespace NLock.NLockFile
                 if (result != DialogResult.Cancel)
                 {
                     _verified = loginFrom.Verified;
-                    Unlock();
+                    if (Unlock() == VerificationStatus.Failed)
+                    {
+                        throw new Exception("Loading from file failed");
+                    }
                 }
                 loginFrom.Dispose();
             }
-            catch (Exception ex)
+            else
             {
-                logger.Debug("LoadFromFile ex : " + ex);
-                throw new Exception("Loading from file failed", ex);
+                throw new Exception("Loading from file failed");
             }
         }
 
         private int DecideTemplateOperations(string fileName)
         {
             var type = NLockTemplateOperations.IsNLock(fileName);
-            logger.Debug("DecideTemplateOperations Type : " + type);
+            Logger.Debug("DecideTemplateOperations Type : " + type);
             switch (type)
             {
                 case 1:
@@ -225,41 +239,43 @@ namespace NLock.NLockFile
                     break;
 
                 default:
-                    throw new InvalidNLockFileException();
+                    Logger.Error("Invalid NLock file type");
+                    break;
             }
             return type;
         }
 
         public void Lock()
         {
-            logger.Debug("Locking");
-            logger.Debug("Perform encryption");
+            Logger.Debug("Locking");
+            Logger.Debug("Perform encryption");
             _lockedContent = _encryptionStrategy.Encrypt(Template, _container.GetContent());
-            logger.Debug("lockedContent created");
+            Logger.Debug("lockedContent created");
             Template = _encryptionStrategy.Encrypt(_lockedContent, Template);
             IsLocked = true;
-            logger.Debug("Locked");
+            Logger.Debug("Locked");
         }
 
-        private void Unlock()
+        private VerificationStatus Unlock()
         {
-            logger.Debug("Unlocking");
+            Logger.Debug("Unlocking");
             if (_verified)
             {
                 if (FileName != null)
                 {
                     var zipContent = TemplateOperations.ExtractDataContentFromNLock(FileName);
-                    logger.Debug("ExtractDataContentFromNLock");
+                    Logger.Debug("ExtractDataContentFromNLock");
                     _lockedContent = _encryptionStrategy.Decrypt(Template, zipContent);
                     _container.LoadFromMemory(_lockedContent);
                     IsLocked = false;
                 }
+                return VerificationStatus.Verfified;
             }
             else
             {
-                logger.Debug("Not verified");
+                Logger.Debug("Not verified");
                 IsLocked = true;
-                throw new NLockUnidentifiedUserException("Unlocking Failed");
+                return VerificationStatus.Failed;
             }
         }
 

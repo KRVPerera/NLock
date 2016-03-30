@@ -225,4 +225,74 @@ No files added. Empty container</value>
     <value>Failed... 
 Bad image captured</value>
   </data>
+  <data name="NLock" xml:space="preserve">
+    <value>NLock</value>
+  </data>
+  <data name="OpeningFile" xml:space="preserve">
+    <value>Opening file !</value>
+  </data>
+  <data name="InvalidFile" xml:space="preserve">
+    <value>Invalid File !</value>
+  </data>
+  <data name="SuccessExtractedTo" xml:space="preserve">
+    <value>Successfully extracted files to : </value>
+  </data>
+  <data name="Unlocking" xml:space="preserve">
+    <value>Unlocking</value>
+  </data>
+  <data name="FailedExtractTo" xml:space="preserve">
+    <value>Failed to extract files to : </value>
+  </data>
+  <data name="ExitQ" xml:space="preserve">
+    <value>Exit ?</value>
+  </data>
+  <data name="UnlockingFailed" xml:space="preserve">
+    <value>Unlocking failed !</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="InvalidUser" xml:space="preserve">
+    <value>Invalid User !</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed !</value>
+  </data>
+  <data name="SuccessfullyLockedFilesTo" xml:space="preserve">
+    <value>Successfully locked files to : </value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Successful</value>
+  </data>
+  <data name="EmptyFolderNoFilesAdded" xml:space="preserve">
+    <value>No filed added, folder is empty...</value>
+  </data>
+  <data name="WantToExitNLock" xml:space="preserve">
+    <value>Do you want to exit NLock
+Exit ?</value>
+  </data>
+  <data name="Opening___" xml:space="preserve">
+    <value>Opening...</value>
+  </data>
+  <data name="Unlocking___" xml:space="preserve">
+    <value>Unlocking...</value>
+  </data>
+  <data name="UnlockedUserIdentified" xml:space="preserve">
+    <value>Unlocked.. User identified...!</value>
+  </data>
+  <data name="FileCorrupted" xml:space="preserve">
+    <value>File is corrupted or not a valid NLock file : </value>
+  </data>
+  <data name="FileOpeningFailed" xml:space="preserve">
+    <value>File opening failed</value>
+  </data>
+  <data name="Canceled___" xml:space="preserve">
+    <value>Canceled...</value>
+  </data>
+  <data name="Out_of_memory" xml:space="preserve">
+    <value>Out of memory</value>
+  </data>
+  <data name="Not_enough_memory" xml:space="preserve">
+    <value>Not enough memory</value>
+  </data>
 </root>

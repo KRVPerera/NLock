@@ -143,7 +143,7 @@ namespace NLock
             this.toolStripTopMenu.MaximumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.MinimumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.Name = "toolStripTopMenu";
-            this.toolStripTopMenu.Size = new System.Drawing.Size(588, 27);
+            this.toolStripTopMenu.Size = new System.Drawing.Size(587, 27);
             this.toolStripTopMenu.TabIndex = 12;
             this.toolStripTopMenu.Text = "toolStrip1";
             // 

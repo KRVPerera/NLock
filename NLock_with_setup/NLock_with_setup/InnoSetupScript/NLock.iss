@@ -166,7 +166,7 @@ Type: filesandordirs; Name: "{localappdata}\Neurotechnology\{#MyAppName}"
 [Code]
 function IsDotNetDetected(version: string; service: cardinal): boolean;
 // Indicates whether the specified version and service pack of the .NET Framework is installed.
-//
+// ref http://www.kynosarges.de/DotNetVersion.html
 // version -- Specify one of these strings for the required .NET Framework version:
 //    'v1.1'          .NET Framework 1.1
 //    'v2.0'          .NET Framework 2.0

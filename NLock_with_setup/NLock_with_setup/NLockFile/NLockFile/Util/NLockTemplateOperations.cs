@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using NLock.NLockFile.Exceptions;
 
 namespace NLock.NLockFile.Util
 {
@@ -110,7 +109,7 @@ namespace NLock.NLockFile.Util
             }
             catch (Exception)
             {
-                throw new NLockFileCorruptedException("Template extraction failed");
+                throw new Exception("Template extraction failed");
             }
             return null;
         }

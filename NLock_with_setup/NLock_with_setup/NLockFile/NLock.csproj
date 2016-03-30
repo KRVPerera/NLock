@@ -197,7 +197,6 @@
     <Compile Include="NLockFile\Util\ArgumentParser.cs" />
     <Compile Include="NLockFile\Container\IContainerInterface.cs" />
     <Compile Include="NLockFile\Encryption\EncryptionStratergy.cs" />
-    <Compile Include="NLockFile\Exceptions\NLockExceptions.cs" />
     <Compile Include="NLockFile\NLFile.cs" />
     <Compile Include="NLockFile\Container\NlZipArchive.cs" />
     <Compile Include="NLockFile\Util\NLockTemplateOperationsCommon.cs" />

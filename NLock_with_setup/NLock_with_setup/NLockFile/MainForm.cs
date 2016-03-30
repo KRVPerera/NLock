@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using log4net;
 using log4net.Config;
 using NLock.NLockFile;
-using NLock.NLockFile.Exceptions;
 using NLock.NLockFile.Util;
 using NLock.Properties;
 
@@ -173,25 +172,26 @@ namespace NLock
                 {
                     try
                     {
-                        Text = "NLock " + _fileName;
+                        Text = Resources.NLock + _fileName;
                         _nlockContainer.LoadFromFile(_fileName);
                         UpdateListView(_nlockContainer.GetFileList());
                         tsbLock.Enabled = true;
                         tsbExtract.Enabled = true;
                         Focus();
                     }
-                    catch (InvalidOperationException)
+                    catch (Exception)
                     {
-                        Close();
-                    }
-                    catch (NLockUnidentifiedUserException)
-                    {
+                        using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                        {
+                            MessageBox.Show(Resources.OpeningFile, Resources.Alert, MessageBoxButtons.OK,
+                                MessageBoxIcon.Stop);
+                        }
                         Close();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Invalid File!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(Resources.InvalidFile, Resources.Alert, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     Logger.Info("OperationModes.OPENNLOCK Null File Name");
                     Close();
                 }
@@ -212,7 +212,8 @@ namespace NLock
                             using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
                                 result = MessageBox.Show(form,
-                                    "Successfully extracted files to : " + currentPath + "\n Exit ?", "Unlocking",
+                                    Resources.SuccessExtractedTo + currentPath + "\n" + Resources.ExitQ,
+                                    Resources.Unlocking,
                                     MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                             }
                         }
@@ -221,7 +222,8 @@ namespace NLock
                             using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
                                 result = MessageBox.Show(form,
-                                    "Failed to extract files to : " + currentPath + "\n Exit ?", "Unlocking Failed",
+                                    Resources.FailedExtractTo + currentPath + "\n" + Resources.ExitQ,
+                                    Resources.UnlockingFailed,
                                     MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                             }
                         }
@@ -240,7 +242,13 @@ namespace NLock
                     }
                     catch (InvalidOperationException)
                     {
-                        MessageBox.Show("Invalid User!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show(Resources.InvalidUser, Resources.Alert, MessageBoxButtons.OK,
+                            MessageBoxIcon.Stop);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(Resources.UnlockingFailed, Resources.Alert, MessageBoxButtons.OK,
+                            MessageBoxIcon.Stop);
                     }
                 }
                 else
@@ -269,7 +277,8 @@ namespace NLock
                             using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
                                 result = MessageBox.Show(form,
-                                    "Successfully extracted files to : " + unlockingPath + "\n Exit ?", "Unlocking",
+                                    Resources.SuccessExtractedTo + unlockingPath + "\n" + Resources.ExitQ,
+                                    Resources.Unlocking,
                                     MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                             }
                         }
@@ -277,7 +286,8 @@ namespace NLock
                         {
                             using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
-                                result = MessageBox.Show(form, "Failed " + "\n Exit ?", "Unlocking",
+                                result = MessageBox.Show(form, Resources.Failed + "\n" + Resources.ExitQ,
+                                    Resources.Unlocking,
                                     MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                             }
                         }
@@ -299,7 +309,16 @@ namespace NLock
                     {
                         using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                         {
-                            MessageBox.Show(form, "Invalid User!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show(form, Resources.InvalidUser, Resources.Alert, MessageBoxButtons.OK,
+                                MessageBoxIcon.Stop);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                        {
+                            MessageBox.Show(Resources.UnlockingFailed, Resources.Alert, MessageBoxButtons.OK,
+                                MessageBoxIcon.Stop);
                         }
                     }
                 }
@@ -329,7 +348,8 @@ namespace NLock
                             using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
                                 var result = MessageBox.Show(form,
-                                    "Successfully locked files to : " + copiedName + "\n Exit ?", "Successful",
+                                    Resources.SuccessfullyLockedFilesTo + copiedName + "\n" + Resources.ExitQ,
+                                    Resources.Successful,
                                     MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                                 if (result == DialogResult.Yes)
@@ -350,7 +370,7 @@ namespace NLock
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("No filed added, folder is empty...", "Failed..", MessageBoxButtons.OK,
+                    MessageBox.Show(Resources.EmptyFolderNoFilesAdded, Resources.Failed, MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                 }
             }
@@ -369,7 +389,7 @@ namespace NLock
 
                     using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                     {
-                        var result = MessageBox.Show(form, "Do you want to exit NLock\n Exit ?", Resources.Locking,
+                        var result = MessageBox.Show(form, Resources.WantToExitNLock, Resources.Locking,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                         saveFileDialog.InitialDirectory = Path.GetDirectoryName(_fileName);
@@ -443,16 +463,16 @@ namespace NLock
         private void ToolstripButtonOpenClick(object sender, EventArgs e)
         {
             tssStatus.ForeColor = Color.Blue;
-            tssStatus.Text = "Opening...";
+            tssStatus.Text = Resources.Opening___;
             try
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     FilelistView.Items.Clear();
-                    Text = @"NLock";
+                    Text = Resources.NLock;
                     toolStripFileCountLabel.Text = string.Empty;
                     tssStatus.ForeColor = Color.Blue;
-                    tssStatus.Text = "Unlocking...";
+                    tssStatus.Text = Resources.Unlocking___;
                     if (NLockTemplateOperations.IsNLock(openFileDialog.FileName) > 0)
                     {
                         if (_nlockContainer != null)
@@ -466,13 +486,13 @@ namespace NLock
                         _nlockContainer.LoadFromFile(_fileName);
                         if (!_nlockContainer.IsLocked)
                         {
-                            Text = "NLock " + _fileName;
+                            Text = Resources.NLock + _fileName;
                             UpdateListView(_nlockContainer.GetFileList());
 
                             tsbExtract.Enabled = true;
 
                             tssStatus.ForeColor = Color.Green;
-                            tssStatus.Text = "Unlocked.. User identified...!";
+                            tssStatus.Text = Resources.UnlockedUserIdentified;
                         }
                         else
                         {
@@ -482,30 +502,23 @@ namespace NLock
                     else
                     {
                         MessageBox.Show(
-                            "File is corrupted or not a valid NLock file : " + Path.GetFileName(openFileDialog.FileName),
-                            "File opening failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Resources.FileCorrupted + Path.GetFileName(openFileDialog.FileName),
+                            Resources.FileOpeningFailed, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         tssStatus.ForeColor = Color.Red;
-                        tssStatus.Text = "Unlocking... Failed";
+                        tssStatus.Text = Resources.Unlocking___ + Resources.Failed;
                     }
                 }
                 else
                 {
                     tssStatus.ForeColor = Color.Blue;
-                    tssStatus.Text = "Canceled...";
+                    tssStatus.Text = Resources.Canceled___;
                 }
-            }
-            catch (NLockUnidentifiedUserException)
-            {
-                _fileName = null;
-                tssStatus.ForeColor = Color.Red;
-                tssStatus.Text = "Unlocking... Failed";
-                Logger.Info("Unlocking... Failed");
             }
             catch (Exception)
             {
                 _fileName = null;
                 tssStatus.ForeColor = Color.Red;
-                tssStatus.Text = "Unlocking... Failed";
+                tssStatus.Text = Resources.UnlockingFailed;
                 Logger.Info("Unlocking... Failed");
             }
         }
@@ -514,9 +527,9 @@ namespace NLock
         {
             tssStatus.Text = string.Empty;
 
-            if (Text != "NLock")
+            if (Text != Resources.NLock)
             {
-                Text = "NLock";
+                Text = Resources.NLock;
             }
             if (_nlockContainer == null)
             {
@@ -542,7 +555,7 @@ namespace NLock
             }
             catch (OutOfMemoryException)
             {
-                MessageBox.Show("Out of memory", "Not enough memory", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Out_of_memory, Resources.Not_enough_memory, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Logger.Error("OutOfMemoryException");
             }
         }
@@ -563,9 +576,9 @@ namespace NLock
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("No filed added, folder is empty...", "Failed..", MessageBoxButtons.OK,
+                MessageBox.Show(Resources.EmptyFolderNoFilesAdded, Resources.Failed, MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-                Logger.Error("No filed added, folder is empty...");
+                Logger.Error(Resources.EmptyFolderNoFilesAdded);
             }
         }
 
@@ -602,7 +615,7 @@ namespace NLock
                             lockForm.SaveFileName = lockForm.SaveFileName + ".nlk";
                         }
                         var status = _nlockContainer.Save(lockForm.SaveFileName);
-                        if (status == NLockContainerCommons.ContainerStatus.ContainerEmpty)
+                        if (status == NLockContainerCommons.ContainerStatus.Empty)
                         {
                             MessageBox.Show(Resources.EmptyContainer, Resources.Locking,
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -654,7 +667,7 @@ namespace NLock
             else // status == Status.EXTRACTIONCANCELLED
             {
                 tssStatus.ForeColor = Color.Blue;
-                tssStatus.Text = "Canceled...";
+                tssStatus.Text = Resources.Canceled___;
             }
         }
 
