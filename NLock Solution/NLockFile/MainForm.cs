@@ -138,8 +138,8 @@ namespace NLock
                     if (_nlockContainer.ExtractToFolder(extractionFolderPath))
                     {
                         _status = Status.SUCESSFULLYEXTRACTED;
-                        _nlockContainer.Dispose();
-                        _nlockContainer = null;
+                        //_nlockContainer.Dispose();
+                        //_nlockContainer = null;
                     }
                     _oldFolderSelectedPath = extractionFolderPath;
                 }
@@ -403,7 +403,15 @@ namespace NLock
 
         private void FilelistViewDragDrop(object sender, DragEventArgs e)
         {
+            if (_nlockContainer == null)
+            {
+                _nlockContainer = new NLockContainerCommons();
+            }
             var filepaths = new List<string>();
+            if (_nlockContainer == null)
+            {
+                _nlockContainer = new NLockContainerCommons();
+            }
             foreach (var s in (string[]) e.Data.GetData(DataFormats.FileDrop, false))
             {
                 if (Directory.Exists(s))

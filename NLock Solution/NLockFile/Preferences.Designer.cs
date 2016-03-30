@@ -197,6 +197,7 @@
             this.Controls.Add(this.tabControlPreferences);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PreferencesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Preferences";
             this.Load += new System.EventHandler(this.PreferencesFormLoad);
             this.tabControlPreferences.ResumeLayout(false);

@@ -80,7 +80,7 @@ namespace NLock
 
         private void CloseButtonCapSuccessConfig()
         {
-            lblInfo.Text = "Click Save to save and exit...";
+            lblInfo.Text = "Click OK...";
             lblInfo.ForeColor = System.Drawing.Color.Green;
         }
 
