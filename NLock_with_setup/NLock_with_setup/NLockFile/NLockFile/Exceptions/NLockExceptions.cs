@@ -20,23 +20,6 @@ namespace NLock.NLockFile.Exceptions
         }
     }
 
-    [Serializable]
-    public class NLockFileContainerEmptyException : Exception
-    {
-        public NLockFileContainerEmptyException()
-        {
-        }
-
-        public NLockFileContainerEmptyException(string message)
-            : base(message)
-        {
-        }
-
-        public NLockFileContainerEmptyException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
-    }
 
     [Serializable]
     public class NLockUnidentifiedUserException : Exception

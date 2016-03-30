@@ -43,7 +43,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAddPassword = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.licensePanel1 = new NLock.NLockFile.UI.LicensePanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnCapture = new System.Windows.Forms.Button();
@@ -51,6 +50,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.filePathErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.captureErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.licensePanel1 = new NLock.NLockFile.UI.LicensePanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -231,16 +231,6 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
-            // licensePanel1
-            // 
-            this.licensePanel1.AutoSize = true;
-            this.licensePanel1.Location = new System.Drawing.Point(3, 16);
-            this.licensePanel1.Name = "licensePanel1";
-            this.licensePanel1.OptionalComponents = "";
-            this.licensePanel1.RequiredComponents = "Biometrics.FaceExtraction,Biometrics.FaceDetection,Devices.Cameras";
-            this.licensePanel1.Size = new System.Drawing.Size(382, 52);
-            this.licensePanel1.TabIndex = 8;
-            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -295,6 +285,16 @@
             // captureErrorProvider
             // 
             this.captureErrorProvider.ContainerControl = this;
+            // 
+            // licensePanel1
+            // 
+            this.licensePanel1.AutoSize = true;
+            this.licensePanel1.Location = new System.Drawing.Point(3, 16);
+            this.licensePanel1.Name = "licensePanel1";
+            this.licensePanel1.OptionalComponents = "";
+            this.licensePanel1.RequiredComponents = "Biometrics.FaceExtraction,Biometrics.FaceDetection,Devices.Cameras";
+            this.licensePanel1.Size = new System.Drawing.Size(382, 52);
+            this.licensePanel1.TabIndex = 8;
             // 
             // LockForm
             // 

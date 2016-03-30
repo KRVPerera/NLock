@@ -1,21 +1,35 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 using log4net;
 using log4net.Config;
 using NLock.NLockFile;
 using NLock.NLockFile.Exceptions;
-using NLock.NLockFile.Operations;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
+using NLock.NLockFile.Util;
 using NLock.Properties;
 
 namespace NLock
 {
     public partial class MainForm : Form
     {
+        #region Public constructors
+
+        public MainForm(OperationModes mode, string file = null)
+        {
+            XmlConfigurator.Configure();
+            _opMode = mode;
+            _fileName = file;
+            InitializeComponent();
+        }
+
+        #endregion Public constructors
+
         #region Private variables
 
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(MainForm));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof (MainForm));
         private NLockContainerCommons _nlockContainer;
         private string _fileName;
         private readonly OperationModes _opMode;
@@ -27,27 +41,15 @@ namespace NLock
 
         #endregion Private variables
 
-        #region Public constructors
-
-        public MainForm(OperationModes mode, String file = null)
-        {
-            XmlConfigurator.Configure();
-            _opMode = mode;
-            _fileName = file;
-            InitializeComponent();
-        }
-
-        #endregion Public constructors
-
         #region Private Methods
 
         private void InitializeForm()
         {
-            this.Text = @"NLock";
+            Text = @"NLock";
             tsbLock.Enabled = false;
             tsbExtract.Enabled = false;
-            saveFileDialog.FileName = String.Empty;
-            saveFileDialog.InitialDirectory = String.Empty;
+            saveFileDialog.FileName = string.Empty;
+            saveFileDialog.InitialDirectory = string.Empty;
             openFileDialog.Multiselect = true;
             openFileDialog.CheckPathExists = true;
             openFileDialog.CheckFileExists = true;
@@ -55,8 +57,8 @@ namespace NLock
             openFileDialog.RestoreDirectory = true;
             folderBrowserDialog.ShowNewFolderButton = true;
             folderBrowserDialog.Description = Resources.Warnning;
-            toolStripFileCountLabel.Text = String.Empty;
-            tssStatus.Text = String.Empty;
+            toolStripFileCountLabel.Text = string.Empty;
+            tssStatus.Text = string.Empty;
         }
 
         private void UpdateListView(List<NlFile> list)
@@ -84,32 +86,32 @@ namespace NLock
                 foreach (var key in list)
                 {
                     var item = new ListViewItem(Path.GetFileName(key.FileName));
-                    string type = " B";
+                    var type = " B";
                     double original = key.OriginalSize;
                     double compressed = key.CompressedSize;
                     if (key.OriginalSize > 1024)
                     {
-                        original = key.OriginalSize / 1024.0;
-                        compressed = key.CompressedSize / 1024.0;
+                        original = key.OriginalSize/1024.0;
+                        compressed = key.CompressedSize/1024.0;
                         type = "KiB";
                     }
 
-                    if (key.OriginalSize > 1024 * 1024)
+                    if (key.OriginalSize > 1024*1024)
                     {
-                        original = original / 1024;
-                        compressed = compressed / 1024;
+                        original = original/1024;
+                        compressed = compressed/1024;
                         type = "MiB";
                     }
 
-                    if (key.OriginalSize > 1024 * 1024 * 1024)
+                    if (key.OriginalSize > 1024*1024*1024)
                     {
-                        original = original / 1024;
-                        compressed = compressed / 1024;
+                        original = original/1024;
+                        compressed = compressed/1024;
                         type = "GiB";
                     }
 
-                    item.SubItems.Add(String.Format("{0:N2} {1}", original, type));
-                    item.SubItems.Add(String.Format("{0:N2} {1}", compressed, type));
+                    item.SubItems.Add(string.Format("{0:N2} {1}", original, type));
+                    item.SubItems.Add(string.Format("{0:N2} {1}", compressed, type));
 
                     item.SubItems.Add(key.FilePath != null ? key.FilePath + "\\" : "\\");
                     FilelistView.Items.Add(item);
@@ -132,7 +134,7 @@ namespace NLock
                 var result = folderBrowserDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    var extractionFolderPath = String.Concat(folderBrowserDialog.SelectedPath, "\\");
+                    var extractionFolderPath = string.Concat(folderBrowserDialog.SelectedPath, "\\");
                     if (_nlockContainer.ExtractToFolder(extractionFolderPath))
                     {
                         _status = Status.Sucessfullyextracted;
@@ -171,12 +173,12 @@ namespace NLock
                 {
                     try
                     {
-                        this.Text = "NLock " + _fileName;
+                        Text = "NLock " + _fileName;
                         _nlockContainer.LoadFromFile(_fileName);
                         UpdateListView(_nlockContainer.GetFileList());
                         tsbLock.Enabled = true;
                         tsbExtract.Enabled = true;
-                        this.Focus();
+                        Focus();
                     }
                     catch (InvalidOperationException)
                     {
@@ -203,20 +205,24 @@ namespace NLock
                     {
                         _nlockContainer.LoadFromFile(_fileName);
 
-                        var currentPath = String.Concat(Path.GetDirectoryName(_fileName), "\\");
+                        var currentPath = string.Concat(Path.GetDirectoryName(_fileName), "\\");
                         DialogResult result;
                         if (_nlockContainer.ExtractToFolder(currentPath))
                         {
-                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
+                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
-                                result = MessageBox.Show(form, "Successfully extracted files to : " + currentPath + "\n Exit ?", "Unlocking", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                result = MessageBox.Show(form,
+                                    "Successfully extracted files to : " + currentPath + "\n Exit ?", "Unlocking",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                             }
                         }
                         else
                         {
-                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
+                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
-                                result = MessageBox.Show(form, "Failed to extract files to : " + currentPath + "\n Exit ?", "Unlocking Failed", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                                result = MessageBox.Show(form,
+                                    "Failed to extract files to : " + currentPath + "\n Exit ?", "Unlocking Failed",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                             }
                         }
 
@@ -226,7 +232,7 @@ namespace NLock
                         }
                         else
                         {
-                            this.Focus();
+                            Focus();
                             tsbExtract.Enabled = true;
                             folderBrowserDialog.SelectedPath = currentPath;
                             UpdateListView(_nlockContainer.GetFileList());
@@ -251,7 +257,7 @@ namespace NLock
                     {
                         _nlockContainer.LoadFromFile(_fileName);
                         tsbExtract.Enabled = true;
-                        var unlockingPath = String.Concat(Path.GetDirectoryName(_fileName), "\\");
+                        var unlockingPath = string.Concat(Path.GetDirectoryName(_fileName), "\\");
                         folderBrowserDialog.SelectedPath = unlockingPath;
                         Extract();
 
@@ -260,19 +266,22 @@ namespace NLock
                         if (_status == Status.Sucessfullyextracted)
                         {
                             tsbExtract.Enabled = false;
-                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
+                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
-                                result = MessageBox.Show(form, "Successfully extracted files to : " + unlockingPath + "\n Exit ?", "Unlocking", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                result = MessageBox.Show(form,
+                                    "Successfully extracted files to : " + unlockingPath + "\n Exit ?", "Unlocking",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                             }
                         }
                         else if (_status == Status.Extractionfailed)
                         {
-                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
+                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
-                                result = MessageBox.Show(form, "Failed " + "\n Exit ?", "Unlocking", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                                result = MessageBox.Show(form, "Failed " + "\n Exit ?", "Unlocking",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                             }
                         }
-                        else  // status == Status.EXTRACTIONCANCELLED)
+                        else // status == Status.EXTRACTIONCANCELLED)
                         {
                             Close();
                         }
@@ -283,12 +292,12 @@ namespace NLock
                         }
                         else // result == DialogResult.No
                         {
-                            this.Focus();
+                            Focus();
                         }
                     }
                     catch (InvalidOperationException)
                     {
-                        using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
+                        using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                         {
                             MessageBox.Show(form, "Invalid User!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
@@ -317,9 +326,11 @@ namespace NLock
 
                         if (_saved)
                         {
-                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
+                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                             {
-                                var result = MessageBox.Show(form, "Successfully locked files to : " + copiedName + "\n Exit ?", "Successful", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                var result = MessageBox.Show(form,
+                                    "Successfully locked files to : " + copiedName + "\n Exit ?", "Successful",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                                 if (result == DialogResult.Yes)
                                 {
@@ -339,7 +350,8 @@ namespace NLock
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("No filed added, folder is empty...", "Failed..", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No filed added, folder is empty...", "Failed..", MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
                 }
             }
             else // _opMode == OperationModes.NLOCKTHISFILE
@@ -355,9 +367,10 @@ namespace NLock
                     tsbLock.Enabled = true;
                     tsbLock.PerformClick();
 
-                    using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
+                    using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
                     {
-                        var result = MessageBox.Show(form, "Do you want to exit NLock\n Exit ?", "Locking", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        var result = MessageBox.Show(form, "Do you want to exit NLock\n Exit ?", Resources.Locking,
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                         saveFileDialog.InitialDirectory = Path.GetDirectoryName(_fileName);
 
@@ -429,16 +442,16 @@ namespace NLock
 
         private void ToolstripButtonOpenClick(object sender, EventArgs e)
         {
-            tssStatus.ForeColor = System.Drawing.Color.Blue;
+            tssStatus.ForeColor = Color.Blue;
             tssStatus.Text = "Opening...";
             try
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     FilelistView.Items.Clear();
-                    this.Text = @"NLock";
-                    toolStripFileCountLabel.Text = String.Empty;
-                    tssStatus.ForeColor = System.Drawing.Color.Blue;
+                    Text = @"NLock";
+                    toolStripFileCountLabel.Text = string.Empty;
+                    tssStatus.ForeColor = Color.Blue;
                     tssStatus.Text = "Unlocking...";
                     if (NLockTemplateOperations.IsNLock(openFileDialog.FileName) > 0)
                     {
@@ -453,12 +466,12 @@ namespace NLock
                         _nlockContainer.LoadFromFile(_fileName);
                         if (!_nlockContainer.IsLocked)
                         {
-                            this.Text = "NLock " + _fileName;
+                            Text = "NLock " + _fileName;
                             UpdateListView(_nlockContainer.GetFileList());
 
                             tsbExtract.Enabled = true;
 
-                            tssStatus.ForeColor = System.Drawing.Color.Green;
+                            tssStatus.ForeColor = Color.Green;
                             tssStatus.Text = "Unlocked.. User identified...!";
                         }
                         else
@@ -468,29 +481,30 @@ namespace NLock
                     }
                     else
                     {
-                        MessageBox.Show("File is corrupted or not a valid NLock file : " + Path.GetFileName(openFileDialog.FileName),
+                        MessageBox.Show(
+                            "File is corrupted or not a valid NLock file : " + Path.GetFileName(openFileDialog.FileName),
                             "File opening failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        tssStatus.ForeColor = System.Drawing.Color.Red;
+                        tssStatus.ForeColor = Color.Red;
                         tssStatus.Text = "Unlocking... Failed";
                     }
                 }
                 else
                 {
-                    tssStatus.ForeColor = System.Drawing.Color.Blue;
+                    tssStatus.ForeColor = Color.Blue;
                     tssStatus.Text = "Canceled...";
                 }
             }
             catch (NLockUnidentifiedUserException)
             {
                 _fileName = null;
-                tssStatus.ForeColor = System.Drawing.Color.Red;
+                tssStatus.ForeColor = Color.Red;
                 tssStatus.Text = "Unlocking... Failed";
                 Logger.Info("Unlocking... Failed");
             }
             catch (Exception)
             {
                 _fileName = null;
-                tssStatus.ForeColor = System.Drawing.Color.Red;
+                tssStatus.ForeColor = Color.Red;
                 tssStatus.Text = "Unlocking... Failed";
                 Logger.Info("Unlocking... Failed");
             }
@@ -498,11 +512,11 @@ namespace NLock
 
         private void ToolstripButtonAddFileClick(object sender, EventArgs e)
         {
-            tssStatus.Text = String.Empty;
+            tssStatus.Text = string.Empty;
 
-            if (this.Text != "NLock")
+            if (Text != "NLock")
             {
-                this.Text = "NLock";
+                Text = "NLock";
             }
             if (_nlockContainer == null)
             {
@@ -549,76 +563,79 @@ namespace NLock
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("No filed added, folder is empty...", "Failed..", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No filed added, folder is empty...", "Failed..", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 Logger.Error("No filed added, folder is empty...");
             }
         }
 
         private void ToolstrioButtonLockClick(object sender, EventArgs e)
         {
-            tssStatus.ForeColor = System.Drawing.Color.Blue;
+            tssStatus.ForeColor = Color.Blue;
             tssStatus.Text = "Locking...";
 
-            try
+            if (FilelistView.Items.Count > 0)
             {
-                if (FilelistView.Items.Count > 0)
+                using (var lockForm = new LockForm())
                 {
-                    using (LockForm lockForm = new LockForm())
+                    lockForm.ShowDialog();
+                    var result = lockForm.DialogResult;
+                    if (result == DialogResult.OK)
                     {
-                        lockForm.ShowDialog();
-                        var result = lockForm.DialogResult;
-                        if (result == DialogResult.OK)
+                        _nlockContainer.Template = lockForm.TemplateLoginForm;
+
+                        if (lockForm.AddPassword)
                         {
-                            _nlockContainer.Template = lockForm.TemplateLoginForm;
+                            _nlockContainer.TemplateOperations = new NLockTemplateOperationsCommon();
+                            _nlockContainer.Password = lockForm.Password;
+                            _nlockContainer.AddPassword = true;
+                        }
+                        else
+                        {
+                            _nlockContainer.AddPassword = false;
+                            _nlockContainer.Password = null;
+                        }
 
-                            if (lockForm.AddPassword)
-                            {
-                                _nlockContainer.TemplateOperations = new NLockTemplateOperationsCommon();
-                                _nlockContainer.Password = lockForm.Password;
-                                _nlockContainer.AddPassword = true;
-                            }
-                            else
-                            {
-                                _nlockContainer.AddPassword = false;
-                                _nlockContainer.Password = null;
-                            }
-
-                            _nlockContainer.Lock();
-                            if (!lockForm.SaveFileName.EndsWith(".nlk"))
-                            {
-                                lockForm.SaveFileName = lockForm.SaveFileName + ".nlk";
-                            }
-                            _nlockContainer.Save(lockForm.SaveFileName);
+                        _nlockContainer.Lock();
+                        if (!lockForm.SaveFileName.EndsWith(".nlk"))
+                        {
+                            lockForm.SaveFileName = lockForm.SaveFileName + ".nlk";
+                        }
+                        var status = _nlockContainer.Save(lockForm.SaveFileName);
+                        if (status == NLockContainerCommons.ContainerStatus.ContainerEmpty)
+                        {
+                            MessageBox.Show(Resources.EmptyContainer, Resources.Locking,
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Logger.Error("Failed...No files added. Empty container");
+                        }
+                        else if (status == NLockContainerCommons.ContainerStatus.NullTemplate)
+                        {
+                            MessageBox.Show(Resources.BadFaceCaptured, Resources.Locking,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Logger.Error("Failed...Bad image captured");
+                        }
+                        else
+                        {
                             FilelistView.Items.Clear();
                             tsbLock.Enabled = false;
                             tsbExtract.Enabled = false;
-                            tssStatus.ForeColor = System.Drawing.Color.Green;
+                            tssStatus.ForeColor = Color.Green;
                             tssStatus.Text = "Locking Successful...";
                             _saved = true;
-                            this.Text = "NLock";
+                            Text = "NLock";
                             _fileName = null;
                             _isDirty = false;
-                            toolStripFileCountLabel.Text = String.Empty;
+                            toolStripFileCountLabel.Text = string.Empty;
 
                             _nlockContainer = null;
                         }
-                        else // result == DialogResult.Cancel
-                        {
-                            tssStatus.ForeColor = System.Drawing.Color.Red;
-                            tssStatus.Text = "Locking Canceled...";
-                        }
+                    }
+                    else // result == DialogResult.Cancel
+                    {
+                        tssStatus.ForeColor = Color.Red;
+                        tssStatus.Text = "Locking Canceled...";
                     }
                 }
-            }
-            catch (NLockFileContainerEmptyException)
-            {
-                MessageBox.Show("Failed... \nNo files added. Empty container", "Locking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Logger.Error("Failed...No files added. Empty container");
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Failed... \nBad image captured", "Locking", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Logger.Error("Failed...Bad image captured");
             }
         }
 
@@ -636,7 +653,7 @@ namespace NLock
             }
             else // status == Status.EXTRACTIONCANCELLED
             {
-                tssStatus.ForeColor = System.Drawing.Color.Blue;
+                tssStatus.ForeColor = Color.Blue;
                 tssStatus.Text = "Canceled...";
             }
         }
@@ -675,7 +692,8 @@ namespace NLock
         {
             if (_isDirty && (_fileName != null))
             {
-                var result = MessageBox.Show("Lock file..", "File is changed", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                var result = MessageBox.Show("Lock file..", "File is changed", MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
                     e.Cancel = true;
@@ -694,7 +712,7 @@ namespace NLock
 
         private void ToolstripButtonAboutClick(object sender, EventArgs e)
         {
-            using (AboutForm aboutfrom = new AboutForm())
+            using (var aboutfrom = new AboutForm())
             {
                 aboutfrom.ShowDialog();
             }
@@ -702,14 +720,14 @@ namespace NLock
 
         private void ToolstripButtonPreferencesClick(object sender, EventArgs e)
         {
-            using (PreferencesForm pref = new PreferencesForm())
+            using (var pref = new PreferencesForm())
             {
                 pref.ShowDialog();
             }
         }
 
         /// <summary>
-        ///         ref : https://msdn.microsoft.com/en-us/library/ms996467.aspx
+        ///     ref : https://msdn.microsoft.com/en-us/library/ms996467.aspx
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -724,21 +742,23 @@ namespace NLock
             }
             else
             {
-                FilelistView.Sorting = FilelistView.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+                FilelistView.Sorting = FilelistView.Sorting == SortOrder.Ascending
+                    ? SortOrder.Descending
+                    : SortOrder.Ascending;
             }
 
             FilelistView.Sort();
-            this.FilelistView.ListViewItemSorter = new ListViewItemComparer(e.Column,
-                                                              FilelistView.Sorting);
+            FilelistView.ListViewItemSorter = new ListViewItemComparer(e.Column,
+                FilelistView.Sorting);
         }
 
         #endregion Private Form Events
     }
 
-    internal class ListViewItemComparer : System.Collections.IComparer
+    internal class ListViewItemComparer : IComparer
     {
-        private int col;
-        private SortOrder order;
+        private readonly int col;
+        private readonly SortOrder order;
 
         public ListViewItemComparer()
         {
@@ -754,19 +774,19 @@ namespace NLock
 
         public int Compare(object x, object y)
         {
-            int returnVal = -1;
+            var returnVal = -1;
             double xVal;
             double yVal;
 
             if (col == 1 || col == 2)
             {
-                string test = ((ListViewItem) x).SubItems[col].Text.Split()[0];
-                bool xY = double.TryParse(((ListViewItem) x).SubItems[col].Text.Split()[0], out xVal);
-                bool yY = double.TryParse(((ListViewItem) y).SubItems[col].Text.Split()[0], out yVal);
+                var test = ((ListViewItem) x).SubItems[col].Text.Split()[0];
+                var xY = double.TryParse(((ListViewItem) x).SubItems[col].Text.Split()[0], out xVal);
+                var yY = double.TryParse(((ListViewItem) y).SubItems[col].Text.Split()[0], out yVal);
 
                 if (xY && yY)
                 {
-                    if (xVal - yVal > Double.Epsilon)
+                    if (xVal - yVal > double.Epsilon)
                     {
                         returnVal = 1;
                     }
@@ -782,8 +802,8 @@ namespace NLock
             }
             else
             {
-                returnVal = String.Compare(((ListViewItem) x).SubItems[col].Text,
-                             ((ListViewItem) y).SubItems[col].Text);
+                returnVal = string.Compare(((ListViewItem) x).SubItems[col].Text,
+                    ((ListViewItem) y).SubItems[col].Text);
             }
 
             // Determine whether the sort order is descending.

@@ -5,11 +5,11 @@ using Neurotec.Devices;
 using Neurotec.Images;
 using Neurotec.IO;
 using Neurotec.Licensing;
-using NLock.NLockFile.Biometric;
 using System;
 using System.Collections.Specialized;
 using System.Threading;
 using System.Windows.Forms;
+using NLock.NLockFile.Util;
 
 namespace NLock
 {
@@ -141,7 +141,7 @@ namespace NLock
 
         private void ClientInit()
         {
-            _biometricClient = BiometricOperations.BiometricClient;
+            _biometricClient = new NBiometricClient { BiometricTypes = NBiometricType.Face, UseDeviceManager = true };
             _biometricClient.Initialize();
             _biometricClient.MatchingThreshold = 48;
             _biometricClient.FacesMatchingSpeed = NMatchingSpeed.High;

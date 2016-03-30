@@ -1,12 +1,10 @@
 ﻿using log4net;
 using Microsoft.VisualBasic.ApplicationServices;
 using Neurotec.Licensing;
-using NLock.NLockFile.ContextMenus;
-using NLock.NLockFile.Operations;
-using NLock.NLockFile.OperationsNew;
 using NLock.Properties;
 using System;
 using System.Windows.Forms;
+using NLock.NLockFile.Util;
 
 namespace NLock
 {

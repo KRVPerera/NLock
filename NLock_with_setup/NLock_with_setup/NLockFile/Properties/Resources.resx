@@ -214,4 +214,15 @@ Please continue</value>
   <data name="CompanyNeurotechnology" xml:space="preserve">
     <value>Neurotechnology</value>
   </data>
+  <data name="Locking" xml:space="preserve">
+    <value>Locking</value>
+  </data>
+  <data name="EmptyContainer" xml:space="preserve">
+    <value>Failed... 
+No files added. Empty container</value>
+  </data>
+  <data name="BadFaceCaptured" xml:space="preserve">
+    <value>Failed... 
+Bad image captured</value>
+  </data>
 </root>

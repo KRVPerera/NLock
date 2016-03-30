@@ -161,11 +161,10 @@
     <Compile Include="PasswordForm.Designer.cs">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NLockFile\Exceptions\ExceptionHelper.cs" />
     <Compile Include="NLockFile\NLockContainerCommons.cs" />
     <Compile Include="NLockFile\Encryption\AESEncryptionStrategy.cs" />
-    <Compile Include="NLockFile\Operations\OperationsNew.cs" />
-    <Compile Include="NLockFile\Operations\Operations.cs" />
+    <Compile Include="NLockFile\Util\OperationsNew.cs" />
+    <Compile Include="NLockFile\Util\Operations.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,25 +188,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="System\Collections\Generic\IComparer.cs" />
     <Compile Include="UnlockForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UnlockForm.Designer.cs">
       <DependentUpon>UnlockForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NLockFile\ContextMenus\ArgumentParser.cs" />
-    <Compile Include="NLockFile\Biometric\BiometricOperations.cs" />
+    <Compile Include="NLockFile\Util\ArgumentParser.cs" />
     <Compile Include="NLockFile\Container\IContainerInterface.cs" />
-    <Compile Include="NLockFile\Encryption\DefaultEncryptionStratergy.cs" />
     <Compile Include="NLockFile\Encryption\EncryptionStratergy.cs" />
     <Compile Include="NLockFile\Exceptions\NLockExceptions.cs" />
     <Compile Include="NLockFile\NLFile.cs" />
-    <Compile Include="NLockFile\NlZip\NlZipArchive.cs" />
-    <Compile Include="NLockFile\Operations\OperationsCommon.cs" />
-    <Compile Include="NLockFile\TemplateOperations\NLockTemplateOperationsCommon.cs" />
-    <Compile Include="NLockFile\TemplateOperations\NLockTemplateOperationsAES.cs" />
-    <Compile Include="NLockFile\TemplateOperations\NLockTemplateOperations.cs" />
+    <Compile Include="NLockFile\Container\NlZipArchive.cs" />
+    <Compile Include="NLockFile\Util\NLockTemplateOperationsCommon.cs" />
+    <Compile Include="NLockFile\Util\NLockTemplateOperationsAES.cs" />
+    <Compile Include="NLockFile\Util\NLockTemplateOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="About.resx">

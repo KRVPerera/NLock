@@ -9,10 +9,8 @@ namespace NLock.NLockFile.Encryption
     ///
     ///     TODO : Use asynchronous operations here to handle large tasks
     /// </summary>
-    internal class AESEncryptionStrategy : IEncryptionStrategy
+    internal class AesEncryptionStrategy : IEncryptionStrategy
     {
-        public string Stratergy { get; set; }
-
         public byte[] Encrypt(byte[] keyArray, byte[] content, byte[] keyAdd = null)
         {
             byte[] encryptedBytes = null;

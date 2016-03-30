@@ -97,6 +97,16 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed... 
+        ///Bad image captured.
+        /// </summary>
+        public static string BadFaceCaptured {
+            get {
+                return ResourceManager.GetString("BadFaceCaptured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Camera detected...
         ///Please continue.
         /// </summary>
@@ -154,6 +164,16 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed... 
+        ///No files added. Empty container.
+        /// </summary>
+        public static string EmptyContainer {
+            get {
+                return ResourceManager.GetString("EmptyContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty password.
         /// </summary>
         public static string EmptyPasswd {
@@ -207,6 +227,15 @@ namespace NLock.Properties {
             get {
                 object obj = ResourceManager.GetObject("Lock_64x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locking.
+        /// </summary>
+        public static string Locking {
+            get {
+                return ResourceManager.GetString("Locking", resourceCulture);
             }
         }
         
