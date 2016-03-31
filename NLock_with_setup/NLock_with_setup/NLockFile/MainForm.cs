@@ -60,7 +60,7 @@ namespace NLock
             tssStatus.Text = string.Empty;
         }
 
-        private void UpdateListView(List<NlFile> list)
+        private void UpdateListView(IReadOnlyCollection<NlFile> list)
         {
             if (list == null)
             {

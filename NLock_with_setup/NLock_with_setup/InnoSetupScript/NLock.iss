@@ -56,7 +56,7 @@ Source: "..\NLockFile\bin\Win32_x86\log4net.xml"; DestDir: "{app}"; Flags: ignor
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Biometrics.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Biometrics.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Biometrics.Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\NLockFile\bin\Win32_x86\Neurotec.Devices.dll"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\NLockFile\bin\Win32_x86\Neurotec.Devices.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Media.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -64,9 +64,9 @@ Source: "..\NLockFile\bin\Win32_x86\Neurotec.Media.Processing.dll"; DestDir: "{a
 Source: "..\NLockFile\bin\Win32_x86\LiveMedia.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NCore.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NMedia.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\NLockFile\bin\Win32_x86\NMediaProc.dll"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\NLockFile\bin\Win32_x86\NMediaProc.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NBiometricClient.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\NLockFile\bin\Win32_x86\NBiometrics.dll"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\NLockFile\bin\Win32_x86\NBiometrics.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NDevices.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Ndm files
 Source: "..\NLockFile\bin\Win32_x86\NdmMedia.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -95,6 +95,7 @@ Source: "..\NLockFile\bin\Win32_x86\msvcr90.dll"; DestDir: "{app}"; Flags: ignor
 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: "..\NLockFile\Resources\license.txt"; DestDir: "{app}\Docs"; DestName: "license-EN.txt"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Resources\Login_6031.ico"
