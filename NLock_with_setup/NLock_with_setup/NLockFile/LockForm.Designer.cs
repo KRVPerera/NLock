@@ -1,33 +1,33 @@
 ﻿namespace NLock
 {
-    partial class LockForm
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class LockForm
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LockForm));
             this.lockFormFaceView = new Neurotec.Biometrics.Gui.NFaceView();
@@ -90,9 +90,10 @@
             this.tboxFileName.MinimumSize = new System.Drawing.Size(4, 20);
             this.tboxFileName.Name = "tboxFileName";
             this.tboxFileName.Size = new System.Drawing.Size(197, 20);
-            this.tboxFileName.TabIndex = 0;
+            this.tboxFileName.TabIndex = 4;
             this.toolTip1.SetToolTip(this.tboxFileName, "Give the file name to save your locked content");
             this.tboxFileName.TextChanged += new System.EventHandler(this.TextboxFileNameTextChanged);
+            this.tboxFileName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tboxFileName_KeyDown);
             this.tboxFileName.Leave += new System.EventHandler(this.TextBoxFileNameLeave);
             // 
             // btnBrowse
@@ -101,7 +102,7 @@
             this.btnBrowse.Location = new System.Drawing.Point(301, 11);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(27, 21);
-            this.btnBrowse.TabIndex = 1;
+            this.btnBrowse.TabIndex = 0;
             this.btnBrowse.Text = "...";
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.ButtonBrowseClick);
@@ -175,8 +176,9 @@
             this.btnReset.Location = new System.Drawing.Point(254, 265);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(74, 23);
-            this.btnReset.TabIndex = 3;
-            this.btnReset.Text = "Reset";
+            this.btnReset.TabIndex = 4;
+            this.btnReset.TabStop = false;
+            this.btnReset.Text = "&Reset";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.ButtonResetClick);
             // 
@@ -243,23 +245,23 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
 		private Neurotec.Biometrics.Gui.NFaceView lockFormFaceView;
-        private System.Windows.Forms.Button btnMain;
-        private System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.Button btnMain;
+		private System.Windows.Forms.Label lblInfo;
+		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tboxFileName;
-        private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ErrorProvider filePathErrorProvider;
-        private System.Windows.Forms.Button btnAddPassword;
-        private NLockFile.UI.LicensePanel licensePanel1;
-    }
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox tboxFileName;
+		private System.Windows.Forms.Button btnBrowse;
+		private System.Windows.Forms.Button btnReset;
+		private System.Windows.Forms.SaveFileDialog saveFileDialog;
+		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.ErrorProvider filePathErrorProvider;
+		private System.Windows.Forms.Button btnAddPassword;
+		private NLockFile.UI.LicensePanel licensePanel1;
+	}
 }

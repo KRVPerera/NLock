@@ -11,5 +11,29 @@
     <Setting Name="compressionLevel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="LockFormWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">356</Value>
+    </Setting>
+    <Setting Name="LockFormHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">311</Value>
+    </Setting>
+    <Setting Name="LockFormWidthDefault" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">356</Value>
+    </Setting>
+    <Setting Name="LockFormHeightDefault" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">311</Value>
+    </Setting>
+    <Setting Name="UnlockFormWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">485</Value>
+    </Setting>
+    <Setting Name="UnlockFormHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">303</Value>
+    </Setting>
+    <Setting Name="UnlockFormWidthDefault" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">485</Value>
+    </Setting>
+    <Setting Name="UnlockFormHeightDefault" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">303</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -15,8 +15,8 @@ namespace NLock
         {
             lblInfo.Text = Resources.CopyrightYear;
             lblInfo2.Text = Resources.AllRightsReserved;
-            lblNtInfo.Text = "NLock is using " + Resources.CompanyNeurotechnology;
-            linkLabel.Text = Resources.VeriLookSDK;
+            lblNtInfo.Text = "NLock is using " ;
+            linkLabel.Text = Resources.CompanyNeurotechnology + " " +Resources.VeriLookSDK;
             linkLabelNt.Text = Resources.CompanyNeurotechnology;
         }
 

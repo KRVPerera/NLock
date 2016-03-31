@@ -35,8 +35,8 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.licensePanel1 = new NLock.NLockFile.UI.LicensePanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblHelpText = new System.Windows.Forms.Label();
             this.tbPw = new System.Windows.Forms.TextBox();
+            this.lblHelpText = new System.Windows.Forms.Label();
             this.llblRetryWithPW = new System.Windows.Forms.LinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.llblCancel = new System.Windows.Forms.LinkLabel();
@@ -118,6 +118,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Password";
             // 
+            // tbPw
+            // 
+            this.tbPw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbPw.Location = new System.Drawing.Point(9, 202);
+            this.tbPw.Name = "tbPw";
+            this.tbPw.Size = new System.Drawing.Size(156, 20);
+            this.tbPw.TabIndex = 4;
+            this.tbPw.UseSystemPasswordChar = true;
+            this.tbPw.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextboxPwKeyDown);
+            // 
             // lblHelpText
             // 
             this.lblHelpText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -128,16 +138,6 @@
             this.lblHelpText.TabIndex = 4;
             this.lblHelpText.Text = "Adding a password will give you ability to unlock a file using the same password " +
     "again.";
-            // 
-            // tbPw
-            // 
-            this.tbPw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPw.Location = new System.Drawing.Point(9, 202);
-            this.tbPw.Name = "tbPw";
-            this.tbPw.Size = new System.Drawing.Size(156, 20);
-            this.tbPw.TabIndex = 6;
-            this.tbPw.UseSystemPasswordChar = true;
-            this.tbPw.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextboxPwKeyDown);
             // 
             // llblRetryWithPW
             // 
@@ -173,7 +173,7 @@
             this.llblCancel.Location = new System.Drawing.Point(418, 368);
             this.llblCancel.Name = "llblCancel";
             this.llblCancel.Size = new System.Drawing.Size(40, 13);
-            this.llblCancel.TabIndex = 0;
+            this.llblCancel.TabIndex = 2;
             this.llblCancel.TabStop = true;
             this.llblCancel.Text = "Cancel";
             this.llblCancel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelCancelLinkClicked);
@@ -222,6 +222,7 @@
             this.Name = "UnlockForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "NLock Unlocker - Face";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UnlockFormFormClosed);
             this.Load += new System.EventHandler(this.UnlockFormLoad);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

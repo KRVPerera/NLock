@@ -64,6 +64,11 @@ namespace NLock
         {
             TemplateLoginForm = null;
             _cboxSkipPWcheckState = false;
+
+            if (Settings.Default.LockFormWidth < Settings.Default.LockFormWidthDefault &&
+                Settings.Default.LockFormHeight < Settings.Default.LockFormHeightDefault) return;
+            Width = Settings.Default.LockFormWidth;
+            Height = Settings.Default.LockFormHeight;
         }
 
         private void CloseButtonCapSuccessConfig()
@@ -296,6 +301,7 @@ namespace NLock
             if (valid > 0)
             {
                 filePathErrorProvider.Clear();
+               
             }
             else
                 switch (valid)
@@ -326,6 +332,7 @@ namespace NLock
                 }
                 lblInfo.Text = Resources.ValidPath;
                 lblInfo.ForeColor = Color.Green;
+                btnMain.Focus();
             }
         }
 
@@ -334,12 +341,33 @@ namespace NLock
             if (_subject != null)
             {
                 _subject.Dispose();
+                _subject = null;
             }
+
+            if (_biometricClient != null)
+            {
+                _biometricClient.Dispose();
+                _biometricClient = null;
+            }
+
+            Settings.Default.LockFormWidth = Width;
+            Settings.Default.LockFormHeight = Height;
+            Settings.Default.Save();
+            Settings.Default.Reload();
         }
 
         private void ButtonAddPasswordClick(object sender, EventArgs e)
         {
             ShowPasswordDialog();
+        }
+
+        private void tboxFileName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                tboxFileName.SelectNextControl(tboxFileName, true, true, false, true);
+            }
         }
 
         #endregion Private Form Events
@@ -540,6 +568,9 @@ namespace NLock
             }
         }
 
+
         #endregion Private Methods
+
+      
     }
 }

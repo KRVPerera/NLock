@@ -54,7 +54,7 @@
             this.tboxEnterPW.Location = new System.Drawing.Point(114, 97);
             this.tboxEnterPW.Name = "tboxEnterPW";
             this.tboxEnterPW.PasswordChar = '*';
-            this.tboxEnterPW.Size = new System.Drawing.Size(198, 20);
+            this.tboxEnterPW.Size = new System.Drawing.Size(189, 20);
             this.tboxEnterPW.TabIndex = 0;
             this.tboxEnterPW.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextboxEnterPWKeyUp);
             // 
@@ -65,7 +65,7 @@
             this.tboxReenterPW.Location = new System.Drawing.Point(114, 126);
             this.tboxReenterPW.Name = "tboxReenterPW";
             this.tboxReenterPW.PasswordChar = '*';
-            this.tboxReenterPW.Size = new System.Drawing.Size(198, 20);
+            this.tboxReenterPW.Size = new System.Drawing.Size(189, 20);
             this.tboxReenterPW.TabIndex = 1;
             this.tboxReenterPW.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextboxReenterPWKeyUp);
             // 
@@ -92,7 +92,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(3, 16);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(294, 57);
+            this.label3.Size = new System.Drawing.Size(285, 57);
             this.label3.TabIndex = 2;
             this.label3.Text = "     Adding a password will make it available for you to unlock this file again i" +
     "n the future using only the password. Consider this as a fall back option when y" +
@@ -105,7 +105,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(300, 76);
+            this.groupBox1.Size = new System.Drawing.Size(291, 76);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Recommended";
@@ -113,7 +113,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(156, 162);
+            this.btnCancel.Location = new System.Drawing.Point(146, 162);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -124,7 +124,7 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(237, 162);
+            this.btnOk.Location = new System.Drawing.Point(228, 162);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;

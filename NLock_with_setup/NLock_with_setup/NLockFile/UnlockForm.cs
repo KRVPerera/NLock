@@ -10,6 +10,7 @@ using System.Collections.Specialized;
 using System.Threading;
 using System.Windows.Forms;
 using NLock.NLockFile.Util;
+using NLock.Properties;
 
 namespace NLock
 {
@@ -319,6 +320,11 @@ namespace NLock
         {
             _verified = false;
             this.DialogResult = DialogResult.Cancel;
+            if (Settings.Default.UnlockFormWidth < Settings.Default.UnlockFormWidthDefault &&
+               Settings.Default.UnlockFormHeight < Settings.Default.UnlockFormHeightDefault)
+                return;
+            Width = Settings.Default.UnlockFormWidth;
+            Height = Settings.Default.UnlockFormHeight;
         }
 
         private void LinkLabelAddPWLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -386,6 +392,30 @@ namespace NLock
                     Logger.Error("Invalid current operation");
                     this.Close();
                     break;
+            }
+        }
+
+        private void UnlockFormFormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings.Default.UnlockFormWidth = Width;
+            Settings.Default.UnlockFormHeight = Height;
+            Settings.Default.Save();
+            Settings.Default.Reload();
+
+            if (_biometricClient != null)
+            {
+                _biometricClient.Dispose();
+                _biometricClient = null;
+            }
+            if (_subject != null)
+            {
+                _subject.Dispose();
+                _subject = null;
+            }
+            if (_subjectFromFile != null)
+            {
+                _subjectFromFile.Dispose();
+                _subjectFromFile = null;
             }
         }
 
@@ -513,5 +543,7 @@ namespace NLock
         }
 
         #endregion Private Methods
+
+        
     }
 }

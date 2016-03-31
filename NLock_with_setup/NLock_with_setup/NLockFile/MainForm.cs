@@ -419,6 +419,11 @@ namespace NLock
 
         private void DragAdd(List<string> Files)
         {
+            if (_nlockContainer == null)
+            {
+                _nlockContainer = new NLockContainerCommons();
+            }
+
             foreach (var file in Files)
             {
                 Logger.Debug("File dragged : " + file);
