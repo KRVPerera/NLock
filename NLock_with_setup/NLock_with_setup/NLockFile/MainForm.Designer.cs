@@ -30,10 +30,7 @@ namespace NLock
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-=======
             this.components = new System.ComponentModel.Container();
->>>>>>> refactoring
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -42,11 +39,6 @@ namespace NLock
             this.toolStripFileCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-<<<<<<< HEAD
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-=======
->>>>>>> refactoring
             this.toolStripTopMenu = new System.Windows.Forms.ToolStrip();
             this.tsbOpen = new System.Windows.Forms.ToolStripButton();
             this.tsbAddFile = new System.Windows.Forms.ToolStripButton();
@@ -61,12 +53,6 @@ namespace NLock
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-<<<<<<< HEAD
-            this.statusStripBottom.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.toolStripTopMenu.SuspendLayout();
-=======
             this.contextMenuStripFileList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,7 +70,6 @@ namespace NLock
             this.statusStripBottom.SuspendLayout();
             this.toolStripTopMenu.SuspendLayout();
             this.contextMenuStripFileList.SuspendLayout();
->>>>>>> refactoring
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -102,15 +87,9 @@ namespace NLock
             this.toolStripStatusLabel2,
             this.toolStripFileCountLabel,
             this.tssStatus});
-<<<<<<< HEAD
-            this.statusStripBottom.Location = new System.Drawing.Point(0, 430);
-            this.statusStripBottom.Name = "statusStripBottom";
-            this.statusStripBottom.Size = new System.Drawing.Size(594, 22);
-=======
             this.statusStripBottom.Location = new System.Drawing.Point(0, 472);
             this.statusStripBottom.Name = "statusStripBottom";
             this.statusStripBottom.Size = new System.Drawing.Size(451, 22);
->>>>>>> refactoring
             this.statusStripBottom.TabIndex = 10;
             this.statusStripBottom.Text = "statusStrip1";
             // 
@@ -132,41 +111,9 @@ namespace NLock
             this.tssStatus.Size = new System.Drawing.Size(53, 17);
             this.tssStatus.Text = "tssStatus";
             // 
-<<<<<<< HEAD
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.FilelistView, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.870842F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.12916F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(594, 430);
-            this.tableLayoutPanel1.TabIndex = 14;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.toolStripTopMenu);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.MinimumSize = new System.Drawing.Size(0, 29);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(588, 29);
-            this.flowLayoutPanel1.TabIndex = 13;
-            // 
             // toolStripTopMenu
             // 
-            this.toolStripTopMenu.Dock = System.Windows.Forms.DockStyle.None;
-=======
-            // toolStripTopMenu
-            // 
->>>>>>> refactoring
+
             this.toolStripTopMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripTopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbOpen,
@@ -181,14 +128,9 @@ namespace NLock
             this.toolStripTopMenu.MaximumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.MinimumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.Name = "toolStripTopMenu";
-<<<<<<< HEAD
-            this.toolStripTopMenu.Size = new System.Drawing.Size(587, 27);
-            this.toolStripTopMenu.TabIndex = 12;
-=======
             this.toolStripTopMenu.Size = new System.Drawing.Size(451, 27);
             this.toolStripTopMenu.TabIndex = 0;
             this.toolStripTopMenu.TabStop = true;
->>>>>>> refactoring
             this.toolStripTopMenu.Text = "toolStrip1";
             // 
             // tsbOpen
@@ -197,11 +139,7 @@ namespace NLock
             this.tsbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpen.Name = "tsbOpen";
             this.tsbOpen.Size = new System.Drawing.Size(60, 24);
-<<<<<<< HEAD
-            this.tsbOpen.Text = "Open";
-=======
             this.tsbOpen.Text = "&Open";
->>>>>>> refactoring
             this.tsbOpen.ToolTipText = "Open a NLock file";
             this.tsbOpen.Click += new System.EventHandler(this.ToolstripButtonOpenClick);
             // 
@@ -211,11 +149,7 @@ namespace NLock
             this.tsbAddFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAddFile.Name = "tsbAddFile";
             this.tsbAddFile.Size = new System.Drawing.Size(74, 24);
-<<<<<<< HEAD
-            this.tsbAddFile.Text = "Add File";
-=======
             this.tsbAddFile.Text = "&Add File";
->>>>>>> refactoring
             this.tsbAddFile.ToolTipText = "Add Files";
             this.tsbAddFile.Click += new System.EventHandler(this.ToolstripButtonAddFileClick);
             // 
@@ -237,11 +171,7 @@ namespace NLock
             this.tsbRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbRemoveItem.Name = "tsbRemoveItem";
             this.tsbRemoveItem.Size = new System.Drawing.Size(74, 24);
-<<<<<<< HEAD
-            this.tsbRemoveItem.Text = "Remove";
-=======
             this.tsbRemoveItem.Text = "&Remove";
->>>>>>> refactoring
             this.tsbRemoveItem.Click += new System.EventHandler(this.ToolstripButtonRemoveItemClick);
             // 
             // tsbLock
@@ -251,11 +181,7 @@ namespace NLock
             this.tsbLock.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbLock.Name = "tsbLock";
             this.tsbLock.Size = new System.Drawing.Size(56, 24);
-<<<<<<< HEAD
-            this.tsbLock.Text = "Lock";
-=======
             this.tsbLock.Text = "&Lock";
->>>>>>> refactoring
             this.tsbLock.ToolTipText = "Lock and Save";
             this.tsbLock.Click += new System.EventHandler(this.ToolstrioButtonLockClick);
             // 
@@ -266,11 +192,7 @@ namespace NLock
             this.tsbExtract.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbExtract.Name = "tsbExtract";
             this.tsbExtract.Size = new System.Drawing.Size(66, 24);
-<<<<<<< HEAD
-            this.tsbExtract.Text = "Extract";
-=======
             this.tsbExtract.Text = "&Extract";
->>>>>>> refactoring
             this.tsbExtract.ToolTipText = "Extract a locked file to a given path";
             this.tsbExtract.Click += new System.EventHandler(this.ToolstripButtonUnlockCick);
             // 
@@ -289,46 +211,27 @@ namespace NLock
             this.tsbPreferences.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPreferences.Name = "tsbPreferences";
             this.tsbPreferences.Size = new System.Drawing.Size(92, 24);
-<<<<<<< HEAD
-            this.tsbPreferences.Text = "Preferences";
-=======
             this.tsbPreferences.Text = "&Preferences";
->>>>>>> refactoring
             this.tsbPreferences.Click += new System.EventHandler(this.ToolstripButtonPreferencesClick);
             // 
             // FilelistView
             // 
             this.FilelistView.AllowDrop = true;
-<<<<<<< HEAD
-            this.FilelistView.AutoArrange = false;
-=======
             this.FilelistView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FilelistView.BorderStyle = System.Windows.Forms.BorderStyle.None;
->>>>>>> refactoring
             this.FilelistView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chFileName,
             this.columnHeader2,
             this.columnHeader3,
             this.path});
-<<<<<<< HEAD
-            this.FilelistView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FilelistView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FilelistView.FullRowSelect = true;
-            this.FilelistView.GridLines = true;
-            this.FilelistView.Location = new System.Drawing.Point(3, 28);
-            this.FilelistView.MinimumSize = new System.Drawing.Size(4, 75);
-            this.FilelistView.Name = "FilelistView";
-            this.FilelistView.Size = new System.Drawing.Size(588, 399);
-=======
             this.FilelistView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilelistView.FullRowSelect = true;
             this.FilelistView.Location = new System.Drawing.Point(1, 27);
             this.FilelistView.MinimumSize = new System.Drawing.Size(4, 75);
             this.FilelistView.Name = "FilelistView";
             this.FilelistView.Size = new System.Drawing.Size(450, 442);
->>>>>>> refactoring
             this.FilelistView.TabIndex = 0;
             this.FilelistView.UseCompatibleStateImageBehavior = false;
             this.FilelistView.View = System.Windows.Forms.View.Details;
@@ -336,11 +239,9 @@ namespace NLock
             this.FilelistView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.FilelistViewColumnClick);
             this.FilelistView.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragDrop);
             this.FilelistView.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragEnter);
-<<<<<<< HEAD
-=======
             this.FilelistView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilelistViewKeyDown);
             this.FilelistView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilelistView_MouseDown);
->>>>>>> refactoring
+
             // 
             // chFileName
             // 
@@ -351,11 +252,8 @@ namespace NLock
             // 
             this.columnHeader2.Text = "Size";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-<<<<<<< HEAD
-            this.columnHeader2.Width = 50;
-=======
             this.columnHeader2.Width = 72;
->>>>>>> refactoring
+
             // 
             // columnHeader3
             // 
@@ -366,9 +264,6 @@ namespace NLock
             // path
             // 
             this.path.Text = "Path";
-<<<<<<< HEAD
-            this.path.Width = 99;
-=======
             this.path.Width = 100;
             // 
             // contextMenuStripFileList
@@ -474,7 +369,6 @@ namespace NLock
             this.replaceFileToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.replaceFileToolStripMenuItem.Text = "Replace file";
             this.replaceFileToolStripMenuItem.Click += new System.EventHandler(this.ReplaceFileToolStripMenuItemClick);
->>>>>>> refactoring
             // 
             // MainForm
             // 
@@ -483,15 +377,6 @@ namespace NLock
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-<<<<<<< HEAD
-            this.ClientSize = new System.Drawing.Size(594, 452);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.statusStripBottom);
-            this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.IsMdiContainer = true;
-            this.MinimumSize = new System.Drawing.Size(16, 92);
-=======
             this.ClientSize = new System.Drawing.Size(451, 494);
             this.Controls.Add(this.toolStripTopMenu);
             this.Controls.Add(this.FilelistView);
@@ -499,29 +384,18 @@ namespace NLock
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(185, 167);
->>>>>>> refactoring
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nlock";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormClosed);
             this.Load += new System.EventHandler(this.MainFormLoad);
-<<<<<<< HEAD
-            this.statusStripBottom.ResumeLayout(false);
-            this.statusStripBottom.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            this.toolStripTopMenu.ResumeLayout(false);
-            this.toolStripTopMenu.PerformLayout();
-=======
             this.ResizeEnd += new System.EventHandler(this.MainFormResizeEnd);
             this.statusStripBottom.ResumeLayout(false);
             this.statusStripBottom.PerformLayout();
             this.toolStripTopMenu.ResumeLayout(false);
             this.toolStripTopMenu.PerformLayout();
             this.contextMenuStripFileList.ResumeLayout(false);
->>>>>>> refactoring
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -534,18 +408,10 @@ namespace NLock
         private System.Windows.Forms.ToolStripStatusLabel toolStripFileCountLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
-<<<<<<< HEAD
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-=======
->>>>>>> refactoring
         private System.Windows.Forms.ColumnHeader chFileName;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripStatusLabel tssStatus;
-<<<<<<< HEAD
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-=======
->>>>>>> refactoring
         private System.Windows.Forms.ToolStrip toolStripTopMenu;
         private System.Windows.Forms.ToolStripButton tsbAddFile;
         private System.Windows.Forms.ToolStripButton tsbAddFolder;
@@ -557,8 +423,6 @@ namespace NLock
         private System.Windows.Forms.ListView FilelistView;
         private System.Windows.Forms.ToolStripButton tsbAbout;
         private System.Windows.Forms.ToolStripButton tsbPreferences;
-<<<<<<< HEAD
-=======
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFileList;
         private System.Windows.Forms.ToolStripMenuItem itemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
@@ -573,6 +437,5 @@ namespace NLock
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
->>>>>>> refactoring
     }
 }
