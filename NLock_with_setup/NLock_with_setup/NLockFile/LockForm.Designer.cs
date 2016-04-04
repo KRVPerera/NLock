@@ -93,7 +93,7 @@
             this.tboxFileName.TabIndex = 4;
             this.toolTip1.SetToolTip(this.tboxFileName, "Give the file name to save your locked content");
             this.tboxFileName.TextChanged += new System.EventHandler(this.TextboxFileNameTextChanged);
-            this.tboxFileName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tboxFileName_KeyDown);
+            this.tboxFileName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TboxFileNameKeyDown);
             this.tboxFileName.Leave += new System.EventHandler(this.TextBoxFileNameLeave);
             // 
             // btnBrowse
@@ -239,7 +239,7 @@
             this.Text = "NLock Locker - Face";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LockFormFormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LockFormFormClosed);
-            this.Load += new System.EventHandler(this.LoginForm_Load);
+            this.Load += new System.EventHandler(this.LoginFormLoad);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.filePathErrorProvider)).EndInit();
             this.ResumeLayout(false);

@@ -50,9 +50,9 @@ namespace NLock
 
         #region Public properties
 
-        public String SaveFileName { get; set; }
+        public string SaveFileName { get; set; }
 
-        public String Password { get; private set; }
+        public string Password { get; private set; }
 
         public bool AddPassword { get; private set; }
 
@@ -80,8 +80,7 @@ namespace NLock
         private void CapStartButtonInitConfig()
         {
             lblInfo.Text = Resources.StartMsg;
-            lockFormFaceView.Face = new NFace();
-            lockFormFaceView.Face.Image = NImage.FromBitmap(Resources.StartImage);
+            lockFormFaceView.Face = new NFace {Image = NImage.FromBitmap(Resources.StartImage)};
         }
 
         #endregion Form VisualChanges
@@ -191,7 +190,7 @@ namespace NLock
 
         #region Private Form Events
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private void LoginFormLoad(object sender, EventArgs e)
         {
             FromInit();
             ClientInit();
@@ -200,7 +199,7 @@ namespace NLock
 
             _cboxSkipPWcheckState = Settings.Default.skippassword;
 
-            tboxFileName.Text = !String.IsNullOrEmpty(Settings.Default.previoussave)
+            tboxFileName.Text = !string.IsNullOrEmpty(Settings.Default.previoussave)
                 ? Settings.Default.previoussave
                 : Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
@@ -301,7 +300,6 @@ namespace NLock
             if (valid > 0)
             {
                 filePathErrorProvider.Clear();
-               
             }
             else
                 switch (valid)
@@ -361,11 +359,10 @@ namespace NLock
             ShowPasswordDialog();
         }
 
-        private void tboxFileName_KeyDown(object sender, KeyEventArgs e)
+        private void TboxFileNameKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-
                 tboxFileName.SelectNextControl(tboxFileName, true, true, false, true);
             }
         }
@@ -383,7 +380,7 @@ namespace NLock
         {
             Logger.Debug("");
 
-            FileInfo fi = null;
+            FileInfo fi;
             try
             {
                 fi = new FileInfo(filePath);
@@ -449,7 +446,7 @@ namespace NLock
                     if (result == DialogResult.Yes)
                     {
                         var fi = new FileInfo(tboxFileName.Text);
-                        fi.Directory.Create();
+                        if (fi.Directory != null) fi.Directory.Create();
                         SaveFileName = tboxFileName.Text;
 
                         DialogResult = DialogResult.OK;
@@ -522,15 +519,13 @@ namespace NLock
                 {
                     lblInfo.ForeColor = Color.Red;
                     lblInfo.Text = Resources.CameraNotDetected;
-                    lockFormFaceView.Face = new NFace();
-                    lockFormFaceView.Face.Image = NImage.FromBitmap(Resources.NoCameraDetected);
+                    lockFormFaceView.Face = new NFace {Image = NImage.FromBitmap(Resources.NoCameraDetected)};
                 }
                 else
                 {
                     lblInfo.Text = Resources.CameraDetected;
                     lblInfo.ForeColor = Color.Green;
-                    lockFormFaceView.Face = new NFace();
-                    lockFormFaceView.Face.Image = NImage.FromBitmap(Resources.StartImage);
+                    lockFormFaceView.Face = new NFace {Image = NImage.FromBitmap(Resources.StartImage)};
                 }
             }
         }
@@ -568,9 +563,6 @@ namespace NLock
             }
         }
 
-
         #endregion Private Methods
-
-      
     }
 }

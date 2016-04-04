@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Forms;
+using NLock.Properties;
 
 namespace NLock.NLockFile.Util
 {
@@ -31,14 +32,14 @@ namespace NLock.NLockFile.Util
             }
             else
             {
-                MessageBox.Show("Not a valid NLock File : " + Path.GetFileName(args[1]));
+                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]));
             }
             return app;
         }
 
         internal static App UnlockHere(string[] args)
         {
-            ///TODO :  Check the header content and add a CRC
+            //TODO :  Check the header content and add a CRC
             App app = null;
             if (Path.GetExtension(args[1]) == ".nlk" && NLockTemplateOperations.IsNLock(args[1]) > 0)
             {
@@ -46,7 +47,7 @@ namespace NLock.NLockFile.Util
             }
             else
             {
-                MessageBox.Show("Not a valid NLock File : " + Path.GetFileName(args[1]));
+                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]));
             }
             return app;
         }
@@ -60,7 +61,7 @@ namespace NLock.NLockFile.Util
             }
             else
             {
-                MessageBox.Show("Not a valid NLock File : " + Path.GetFileName(args[1]));
+                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]));
             }
             return app;
         }

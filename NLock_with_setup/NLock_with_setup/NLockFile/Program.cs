@@ -41,12 +41,12 @@ namespace NLock
         public void Activate()
         {
             //TODO : Remove this
-            this.MainForm.Activate();
+            MainForm.Activate();
         }
 
         public void FocusMe()
         {
-            this.MainForm.Focus();
+            MainForm.Focus();
         }
 
         public App(Form frm)
@@ -57,15 +57,15 @@ namespace NLock
 
     public class SingleInstanceManager : WindowsFormsApplicationBase
     {
-        private App app;
+        private App _app;
         private static readonly ILog Logger = LogManager.GetLogger(typeof(SingleInstanceManager));
 
         public SingleInstanceManager()
         {
-            this.IsSingleInstance = true;
+            IsSingleInstance = true;
         }
 
-        protected override bool OnStartup(Microsoft.VisualBasic.ApplicationServices.StartupEventArgs e)
+        protected override bool OnStartup(StartupEventArgs e)
         {
             const int Port = 5000;
             const string Address = "/local";
@@ -94,38 +94,38 @@ namespace NLock
                     switch (choice)
                     {
                         case 0:
-                            app = Operations.OpenNLockFile(args);
+                            _app = Operations.OpenNLockFile(args);
                             break;
 
                         case 1:
-                            app = Operations.UnlockTo(args);
+                            _app = Operations.UnlockTo(args);
                             break;
 
                         case 2:
-                            app = Operations.UnlockHere(args);
+                            _app = Operations.UnlockHere(args);
                             break;
 
                         case 3:
-                            app = Operations.NLockThisFile(args);
+                            _app = Operations.NLockThisFile(args);
                             break;
 
                         case 4:
-                            app = Operations.LockThisFolder(args);
+                            _app = Operations.LockThisFolder(args);
                             break;
 
                         default:
-                            MessageBox.Show("Invalid command, please contact System Administrator", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Resources.Invalid_command, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                     }
                 }
                 else
                 {
-                    app = new App(new MainForm(OperationModes.Default));
+                    _app = new App(new MainForm(OperationModes.Default));
                 }
 
-                if (app != null)
+                if (_app != null)
                 {
-                    Application.Run(app);
+                    Application.Run(_app);
                 }
             }
             catch (Exception rx)
@@ -164,9 +164,9 @@ namespace NLock
                             break;
 
                         case 3:
-                            var nwForm = (MainForm)app.MainForm;
+                            var nwForm = (MainForm)_app.MainForm;
                             nwForm.AddThisFiletoNLock(args[1]);
-                            app.FocusMe();
+                            _app.FocusMe();
                             break;
 
                         case 4:
@@ -174,13 +174,13 @@ namespace NLock
                             break;
 
                         default:
-                            MessageBox.Show("Invalid command, please contact System Administrator", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Resources.Invalid_command, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                     }
                 }
                 else
                 {
-                    app.FocusMe();
+                    _app.FocusMe();
                 }
             }
             catch (Exception rx)

@@ -17,6 +17,6 @@ namespace NLock.NLockFile.Container
 
         bool AddFolder(String folderPath, bool recursively = false, string folderName = null);
 
-        List<NlFile> GetNLFileList();
+        List<NlFile> GetNlFileList();
     }
 }

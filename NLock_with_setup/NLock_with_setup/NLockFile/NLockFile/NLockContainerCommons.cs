@@ -68,7 +68,7 @@ namespace NLock.NLockFile
         {
             if (_container != null)
             {
-                _files = _container.GetNLFileList();
+                _files = _container.GetNlFileList();
                 return _files;
             }
             return null;
@@ -203,7 +203,7 @@ namespace NLock.NLockFile
                 {
                     loginFrom = new UnlockForm(Template, fileName)
                     {
-                        PWHash = null
+                        PwHash = null
                     };
                 }
                 loginFrom.ShowDialog();

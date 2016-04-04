@@ -417,14 +417,14 @@ namespace NLock
             UpdateListView(_nlockContainer.GetFileList());
         }
 
-        private void DragAdd(List<string> Files)
+        private void DragAdd(IEnumerable<string> files)
         {
             if (_nlockContainer == null)
             {
                 _nlockContainer = new NLockContainerCommons();
             }
 
-            foreach (var file in Files)
+            foreach (var file in files)
             {
                 Logger.Debug("File dragged : " + file);
                 _nlockContainer.AddFile(file);
@@ -590,7 +590,7 @@ namespace NLock
         private void ToolstrioButtonLockClick(object sender, EventArgs e)
         {
             tssStatus.ForeColor = Color.Blue;
-            tssStatus.Text = "Locking...";
+            tssStatus.Text = Resources.Locking___;
 
             if (FilelistView.Items.Count > 0)
             {
@@ -638,9 +638,9 @@ namespace NLock
                             tsbLock.Enabled = false;
                             tsbExtract.Enabled = false;
                             tssStatus.ForeColor = Color.Green;
-                            tssStatus.Text = "Locking Successful...";
+                            tssStatus.Text = Resources.Locking_Successful___;
                             _saved = true;
-                            Text = "NLock";
+                            Text = Resources.NLock;
                             _fileName = null;
                             _isDirty = false;
                             toolStripFileCountLabel.Text = string.Empty;
@@ -651,7 +651,7 @@ namespace NLock
                     else // result == DialogResult.Cancel
                     {
                         tssStatus.ForeColor = Color.Red;
-                        tssStatus.Text = "Locking Canceled...";
+                        tssStatus.Text = Resources.Locking_Canceled___;
                     }
                 }
             }
@@ -663,11 +663,11 @@ namespace NLock
             if (_status == Status.Sucessfullyextracted)
             {
                 tsbExtract.Enabled = false;
-                MessageBox.Show("Successful...", "Extraction is", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.Successful___, Resources.Extraction_is, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (_status == Status.Extractionfailed)
             {
-                MessageBox.Show("Failed...", "Extraction", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Failed___, Resources.Extraction_is, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else // status == Status.EXTRACTIONCANCELLED
             {
@@ -702,7 +702,7 @@ namespace NLock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error occurred\n" + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.An_error_occurred + ex, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -710,7 +710,7 @@ namespace NLock
         {
             if (_isDirty && (_fileName != null))
             {
-                var result = MessageBox.Show("Lock file..", "File is changed", MessageBoxButtons.YesNoCancel,
+                var result = MessageBox.Show(Resources.Lock_file___, Resources.File_is_changed, MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
@@ -775,32 +775,32 @@ namespace NLock
 
     internal class ListViewItemComparer : IComparer
     {
-        private readonly int col;
-        private readonly SortOrder order;
-
         public ListViewItemComparer()
         {
-            col = 0;
-            order = SortOrder.Ascending;
+            Col = 0;
+            Order = SortOrder.Ascending;
         }
 
         public ListViewItemComparer(int column, SortOrder order)
         {
-            col = column;
-            this.order = order;
+            Col = column;
+            Order = order;
         }
+
+        public int Col { get; }
+
+        public SortOrder Order { get; }
 
         public int Compare(object x, object y)
         {
             var returnVal = -1;
-            double xVal;
-            double yVal;
 
-            if (col == 1 || col == 2)
+            if (Col == 1 || Col == 2)
             {
-                var test = ((ListViewItem) x).SubItems[col].Text.Split()[0];
-                var xY = double.TryParse(((ListViewItem) x).SubItems[col].Text.Split()[0], out xVal);
-                var yY = double.TryParse(((ListViewItem) y).SubItems[col].Text.Split()[0], out yVal);
+                double xVal;
+                var xY = double.TryParse(((ListViewItem) x).SubItems[Col].Text.Split()[0], out xVal);
+                double yVal;
+                var yY = double.TryParse(((ListViewItem) y).SubItems[Col].Text.Split()[0], out yVal);
 
                 if (xY && yY)
                 {
@@ -820,12 +820,12 @@ namespace NLock
             }
             else
             {
-                returnVal = string.Compare(((ListViewItem) x).SubItems[col].Text,
-                    ((ListViewItem) y).SubItems[col].Text);
+                returnVal = string.CompareOrdinal(((ListViewItem) x).SubItems[Col].Text,
+                    ((ListViewItem) y).SubItems[Col].Text);
             }
 
             // Determine whether the sort order is descending.
-            if (order == SortOrder.Descending)
+            if (Order == SortOrder.Descending)
             {
                 // Invert the value returned by String.Compare.
                 returnVal *= -1;

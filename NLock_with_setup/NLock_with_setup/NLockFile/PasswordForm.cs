@@ -26,7 +26,7 @@ namespace NLock
 		private void ButtonCancelClick(object sender, EventArgs e)
 		{
 			Password = null;
-			this.DialogResult = DialogResult.Cancel;
+			DialogResult = DialogResult.Cancel;
 			Close();
 		}
 
@@ -36,22 +36,22 @@ namespace NLock
 			{
 				Password = tboxEnterPW.Text;
 
-				this.DialogResult = DialogResult.Yes;
+				DialogResult = DialogResult.Yes;
 				Close();
 			}
 		}
 
-		private void LockFormPW_Load(object sender, EventArgs e)
+		private void LockFormPwLoad(object sender, EventArgs e)
 		{
 			btnOk.Enabled = false;
 		}
 
-		private void TextboxEnterPWKeyUp(object sender, KeyEventArgs e)
+		private void TextboxEnterPwKeyUp(object sender, KeyEventArgs e)
 		{
 			ValidationLogic();
 		}
 
-		private void TextboxReenterPWKeyUp(object sender, KeyEventArgs e)
+		private void TextboxReenterPwKeyUp(object sender, KeyEventArgs e)
 		{
 			ValidationLogic();
 		}
@@ -94,7 +94,7 @@ namespace NLock
 
 		#endregion Private Methods
 
-		private void LockFormPW_FormClosed(object sender, FormClosedEventArgs e)
+		private void LockFormPwFormClosed(object sender, FormClosedEventArgs e)
 		{
 			Settings.Default.skippassword = cboxSkipSettings.Checked;
 		}

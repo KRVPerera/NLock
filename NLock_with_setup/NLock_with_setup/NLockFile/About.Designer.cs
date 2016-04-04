@@ -135,7 +135,7 @@
             this.linkLabelNt.TabIndex = 2;
             this.linkLabelNt.TabStop = true;
             this.linkLabelNt.Text = "CompanyNeurotechnology";
-            this.linkLabelNt.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelNt_LinkClicked);
+            this.linkLabelNt.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelNtLinkClicked);
             // 
             // label3
             // 
@@ -172,7 +172,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About NLock";
-            this.Load += new System.EventHandler(this.AboutForm_Load);
+            this.Load += new System.EventHandler(this.AboutFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.ResumeLayout(false);
 

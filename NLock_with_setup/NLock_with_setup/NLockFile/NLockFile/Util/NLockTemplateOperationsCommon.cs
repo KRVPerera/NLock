@@ -9,21 +9,21 @@ namespace NLock.NLockFile.Util
 
         public override int TemplateLength
         {
-            get { return TEMPLATESTIZE; }
+            get { return Templatestize; }
         }
 
         #endregion Public properties
 
         #region Private variables
 
-        private const int SALT_BYTE_SIZE = 257;
-        private const int HASH_BYTE_SIZE = 257;
-        private const int PBKDF2_ITERATIONS = 1000;
-        private const int PASSWORDLENGTH = SALT_BYTE_SIZE + HASH_BYTE_SIZE; // 257+257 = 541
-        private const int TEMPLATESTIZE = 4048;
-        private const int NLOCK = 5;
-        private const int HEADERLENGTH = TEMPLATESTIZE + NLOCK + PASSWORDLENGTH; // 4048+5+541 = 4594
-        private const int TEMPLATEEND = TEMPLATESTIZE + NLOCK; // 4053
+        private const int SaltByteSize = 257;
+        private const int HashByteSize = 257;
+        private const int Pbkdf2Iterations = 1000;
+        private const int Passwordlength = SaltByteSize + HashByteSize; // 257+257 = 541
+        private const int Templatestize = 4048;
+        private const int Nlock = 5;
+        private const int Headerlength = Templatestize + Nlock + Passwordlength; // 4048+5+541 = 4594
+        private const int Templateend = Templatestize + Nlock; // 4053
 
         #endregion Private variables
 
@@ -42,25 +42,25 @@ namespace NLock.NLockFile.Util
             // Create header
             var header = CreateHeader(template, password);
 
-            var NLockFileContent = new byte[header.Length + originalFileContent.Length];
+            var nLockFileContent = new byte[header.Length + originalFileContent.Length];
 
-            Buffer.BlockCopy(header, 0, NLockFileContent, 0, header.Length);
+            Buffer.BlockCopy(header, 0, nLockFileContent, 0, header.Length);
 
-            Buffer.BlockCopy(originalFileContent, 0, NLockFileContent, header.Length, originalFileContent.Length);
+            Buffer.BlockCopy(originalFileContent, 0, nLockFileContent, header.Length, originalFileContent.Length);
 
-            return NLockFileContent;
+            return nLockFileContent;
         }
 
         public override byte[] GetHashFromNLock(byte[] full)
         {
-            return ExtractContentFromTo(full, TEMPLATEEND, HEADERLENGTH);
+            return ExtractContentFromTo(full, Templateend, Headerlength);
         }
 
         public override byte[] ExtractTemplateFromNLock(byte[] full)
         {
             try
             {
-                return ExtractTemplateFromNLock(full, TEMPLATEEND);
+                return ExtractTemplateFromNLock(full, Templateend);
             }
             catch (Exception)
             {
@@ -71,12 +71,12 @@ namespace NLock.NLockFile.Util
 
         public override byte[] ExtractDataContentFromNLock(string filePath)
         {
-            return ExtractDataContentFromNLock(filePath, HEADERLENGTH);
+            return ExtractDataContentFromNLock(filePath, Headerlength);
         }
 
         public override byte[] ExtractDataContentFromNLock(byte[] full)
         {
-            return ExtractDataContentFromNLock(full, HEADERLENGTH);
+            return ExtractDataContentFromNLock(full, Headerlength);
         }
 
         #endregion Public overrides
@@ -85,12 +85,12 @@ namespace NLock.NLockFile.Util
 
         public static bool ValidatePassword(byte[] password, byte[] correcthashed)
         {
-            var salt = new byte[SALT_BYTE_SIZE];
-            var hash = new byte[HASH_BYTE_SIZE];
-            Buffer.BlockCopy(correcthashed, 0, salt, 0, SALT_BYTE_SIZE);
-            Buffer.BlockCopy(correcthashed, SALT_BYTE_SIZE, hash, 0, HASH_BYTE_SIZE);
+            var salt = new byte[SaltByteSize];
+            var hash = new byte[HashByteSize];
+            Buffer.BlockCopy(correcthashed, 0, salt, 0, SaltByteSize);
+            Buffer.BlockCopy(correcthashed, SaltByteSize, hash, 0, HashByteSize);
             var pw = GetString(password);
-            var testHash = PBKDF2(pw, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
+            var testHash = PBKDF2(pw, salt, Pbkdf2Iterations, HashByteSize);
             return SlowEquals(hash, testHash);
         }
 
@@ -114,14 +114,14 @@ namespace NLock.NLockFile.Util
             // Generate a random salt
             using (var csprng = new RNGCryptoServiceProvider())
             {
-                var salt = new byte[SALT_BYTE_SIZE];
+                var salt = new byte[SaltByteSize];
                 csprng.GetBytes(salt);
 
                 // Hash the password and encode the parameters
-                var hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
-                var ret = new byte[SALT_BYTE_SIZE + HASH_BYTE_SIZE];
-                Buffer.BlockCopy(salt, 0, ret, 0, SALT_BYTE_SIZE);
-                Buffer.BlockCopy(hash, 0, ret, SALT_BYTE_SIZE, HASH_BYTE_SIZE);
+                var hash = PBKDF2(password, salt, Pbkdf2Iterations, HashByteSize);
+                var ret = new byte[SaltByteSize + HashByteSize];
+                Buffer.BlockCopy(salt, 0, ret, 0, SaltByteSize);
+                Buffer.BlockCopy(hash, 0, ret, SaltByteSize, HashByteSize);
                 return ret;
             }
         }

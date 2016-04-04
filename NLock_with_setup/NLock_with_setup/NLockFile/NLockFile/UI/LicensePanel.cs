@@ -81,7 +81,7 @@ namespace NLock.NLockFile.UI
 
         private string GetRequiredComponentsString()
         {
-            return _requiredComponents != null ? _requiredComponents.Replace(",", " ") : string.Empty;
+            return _requiredComponents?.Replace(",", " ") ?? string.Empty;
         }
 
         private string GetOptionalComponentsString()

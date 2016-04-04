@@ -56,7 +56,7 @@
             this.tboxEnterPW.PasswordChar = '*';
             this.tboxEnterPW.Size = new System.Drawing.Size(189, 20);
             this.tboxEnterPW.TabIndex = 0;
-            this.tboxEnterPW.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextboxEnterPWKeyUp);
+            this.tboxEnterPW.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextboxEnterPwKeyUp);
             // 
             // tboxReenterPW
             // 
@@ -67,7 +67,7 @@
             this.tboxReenterPW.PasswordChar = '*';
             this.tboxReenterPW.Size = new System.Drawing.Size(189, 20);
             this.tboxReenterPW.TabIndex = 1;
-            this.tboxReenterPW.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextboxReenterPWKeyUp);
+            this.tboxReenterPW.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextboxReenterPwKeyUp);
             // 
             // label1
             // 
@@ -174,8 +174,8 @@
             this.Name = "PasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Password";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LockFormPW_FormClosed);
-            this.Load += new System.EventHandler(this.LockFormPW_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LockFormPwFormClosed);
+            this.Load += new System.EventHandler(this.LockFormPwLoad);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pwErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rpwMatchErrorProvider)).EndInit();

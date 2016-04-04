@@ -149,7 +149,7 @@
             this.llblRetryWithPW.TabIndex = 3;
             this.llblRetryWithPW.TabStop = true;
             this.llblRetryWithPW.Text = "Retry with Password";
-            this.llblRetryWithPW.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelAddPWLinkClicked);
+            this.llblRetryWithPW.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelAddPwLinkClicked);
             // 
             // groupBox3
             // 
