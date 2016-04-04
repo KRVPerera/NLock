@@ -17,26 +17,26 @@ namespace NLock
 
         private void ButtonCompressionPreferenceCancelClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void ButtonCompressionPreferenceSaveClick(object sender, EventArgs e)
         {
             SaveNLockSettings();
 
-            this.Close();
+            Close();
         }
 
         private void ButtonLockinPreferencesCancelClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void ButtonLockinPreferencesSaveClick(object sender, EventArgs e)
         {
             SaveNLockSettings();
 
-            this.Close();
+            Close();
         }
 
         private void PreferencesFormLoad(object sender, EventArgs e)

@@ -295,4 +295,103 @@ Exit ?</value>
   <data name="Not_enough_memory" xml:space="preserve">
     <value>Not enough memory</value>
   </data>
+  <data name="NLock_is_using" xml:space="preserve">
+    <value>NLock is using </value>
+  </data>
+  <data name="Locking___" xml:space="preserve">
+    <value>Locking...</value>
+  </data>
+  <data name="Locking_Successful___" xml:space="preserve">
+    <value>Locking Successful...</value>
+  </data>
+  <data name="Locking_Canceled___" xml:space="preserve">
+    <value>Locking Canceled...</value>
+  </data>
+  <data name="Successful___" xml:space="preserve">
+    <value>Successful...</value>
+  </data>
+  <data name="Extraction_is" xml:space="preserve">
+    <value>Extraction is</value>
+  </data>
+  <data name="Failed___" xml:space="preserve">
+    <value>Failed...</value>
+  </data>
+  <data name="An_error_occurred" xml:space="preserve">
+    <value>An error occurred
+</value>
+  </data>
+  <data name="Lock_file___" xml:space="preserve">
+    <value>Lock file...</value>
+  </data>
+  <data name="File_is_changed" xml:space="preserve">
+    <value>File is changed</value>
+  </data>
+  <data name="Device_manager_not_responding___" xml:space="preserve">
+    <value>Device manager not responding..!</value>
+  </data>
+  <data name="Cancel_password_retry" xml:space="preserve">
+    <value>Cancel password retry</value>
+  </data>
+  <data name="Invalid_password___" xml:space="preserve">
+    <value>Invalid password...</value>
+  </data>
+  <data name="Password_not_supported" xml:space="preserve">
+    <value>File does not support password unlocking</value>
+  </data>
+  <data name="NLock_Unlocker_" xml:space="preserve">
+    <value>NLock Unlocker </value>
+  </data>
+  <data name="CaptureFailed" xml:space="preserve">
+    <value>Capture failed..
+Please look at the camera... </value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Press_cancel_to_stop_capturing___" xml:space="preserve">
+    <value>Press cancel to stop capturing...</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Capturing_user___" xml:space="preserve">
+    <value>Capturing user...</value>
+  </data>
+  <data name="Verifying_user___" xml:space="preserve">
+    <value>Verifying user...</value>
+  </data>
+  <data name="User_verification_failed___" xml:space="preserve">
+    <value>User verification failed...</value>
+  </data>
+  <data name="Invalid_command" xml:space="preserve">
+    <value>Invalid command, please contact System Administrator</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="UnlockingFailed_PressRetry" xml:space="preserve">
+    <value>Unlocking failed..
+Press Retry to retry unlocking...</value>
+  </data>
+  <data name="Retry_using_password" xml:space="preserve">
+    <value>Retry using password</value>
+  </data>
+  <data name="Verifying_using_password____" xml:space="preserve">
+    <value>Verifying using password ...</value>
+  </data>
+  <data name="Not_a_valid_NLock_File___" xml:space="preserve">
+    <value>Not a valid NLock File : </value>
+  </data>
+  <data name="NLock_Extention" xml:space="preserve">
+    <value>.nlk</value>
+  </data>
+  <data name="Licenses_obtained" xml:space="preserve">
+    <value>Licenses obtained</value>
+  </data>
+  <data name="Not_all_required_licenses_obtained" xml:space="preserve">
+    <value>Not all required licenses obtained</value>
+  </data>
+  <data name="Failed_to_check__" xml:space="preserve">
+    <value>Failed to check components activation status. Error message:</value>
+  </data>
 </root>

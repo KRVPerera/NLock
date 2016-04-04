@@ -25,12 +25,18 @@ ChangesAssociations = yes
 DefaultDirName={pf}\Neurotechnology\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=..\\NLockFile\Resources\NLock_License_Aggreement.rtf
+LicenseFile=..\\NLockFile\Resources\license.txt
 OutputDir=.\InnoSetupOut
 OutputBaseFilename=NLock-Installer
 SetupIconFile=..\NLockFile\Resources\LockControls_322.ico
 Compression=lzma
 SolidCompression=yes            
+ExtraDiskSpaceRequired=2
+VersionInfoVersion=1.0
+VersionInfoCompany=Neurotechnology
+VersionInfoProductName=NLock
+VersionInfoProductVersion=1.1
+MinVersion=0,5.01
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -50,7 +56,7 @@ Source: "..\NLockFile\bin\Win32_x86\log4net.xml"; DestDir: "{app}"; Flags: ignor
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Biometrics.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Biometrics.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Biometrics.Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\NLockFile\bin\Win32_x86\Neurotec.Devices.dll"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\NLockFile\bin\Win32_x86\Neurotec.Devices.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\Neurotec.Media.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -58,9 +64,9 @@ Source: "..\NLockFile\bin\Win32_x86\Neurotec.Media.Processing.dll"; DestDir: "{a
 Source: "..\NLockFile\bin\Win32_x86\LiveMedia.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NCore.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NMedia.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\NLockFile\bin\Win32_x86\NMediaProc.dll"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\NLockFile\bin\Win32_x86\NMediaProc.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NBiometricClient.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\NLockFile\bin\Win32_x86\NBiometrics.dll"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\NLockFile\bin\Win32_x86\NBiometrics.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\NLockFile\bin\Win32_x86\NDevices.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Ndm files
 Source: "..\NLockFile\bin\Win32_x86\NdmMedia.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -89,6 +95,7 @@ Source: "..\NLockFile\bin\Win32_x86\msvcr90.dll"; DestDir: "{app}"; Flags: ignor
 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: "..\NLockFile\Resources\license.txt"; DestDir: "{app}\Docs"; DestName: "license-EN.txt"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Resources\Login_6031.ico"
@@ -163,10 +170,17 @@ Type: filesandordirs; Name: "{app}"
 ; delete log files
 Type: filesandordirs; Name: "{localappdata}\Neurotechnology\{#MyAppName}"
 
+[Messages]
+ButtonInstall=&Install NLock
+
+
+;Install https://code.google.com/archive/p/inno-download-plugin/
+#include <idp.iss>
 [Code]
+
+// ref http://www.kynosarges.de/DotNetVersion.html
 function IsDotNetDetected(version: string; service: cardinal): boolean;
 // Indicates whether the specified version and service pack of the .NET Framework is installed.
-// ref http://www.kynosarges.de/DotNetVersion.html
 // version -- Specify one of these strings for the required .NET Framework version:
 //    'v1.1'          .NET Framework 1.1
 //    'v2.0'          .NET Framework 2.0
@@ -236,14 +250,62 @@ begin
     result := success and (install = 1) and (serviceCount >= service);
 end;
 
+// Without IDP Framework download simple message to the user asking to download
+//function InitializeSetup(): Boolean;
+//begin
+//    if not IsDotNetDetected('v4.5.2', 0) then begin
+//        MsgBox('NLock requires Microsoft .NET Framework 4.5.'#13#13
+//            'Please use Windows Update to install this version,'#13
+//            'and then re-run the MyApp setup program.', mbInformation, MB_OK);
+//        result := false;
+//    end else
+//        result := true;
+//end;
 
-function InitializeSetup(): Boolean;
+//             ref https://blogs.msdn.microsoft.com/davidrickard/2015/07/17/installing-net-framework-4-5-automatically-with-inno-setup/
+// .NET Framework links : https://msdn.microsoft.com/en-US/library/ee942965%28v=vs.110%29.aspx?f=255&MSPPError=-2147217396#redist
+// .NET Framework 4.5  : http://go.microsoft.com/fwlink/?LinkId=225704
+// .NET Framework 4.5.1: http://go.microsoft.com/fwlink/?LinkId=322115
+// .NET Framework 4.5.2: http://go.microsoft.com/fwlink/?LinkId=397707
+procedure InitializeWizard;
 begin
-    if not IsDotNetDetected('v4.5', 0) then begin
-        MsgBox('NLock requires Microsoft .NET Framework 4.5.'#13#13
-            'Please use Windows Update to install this version,'#13
-            'and then re-run the MyApp setup program.', mbInformation, MB_OK);
-        result := false;
-    end else
-        result := true;
+    if not IsDotNetDetected('v4.5.2', 0) then 
+    begin
+        idpAddFile('http://go.microsoft.com/fwlink/?LinkId=397707', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+        idpDownloadAfter(wpReady);
+    end      
+end;
+
+procedure InstallFramework;
+var
+  StatusText: string;
+  ResultCode: Integer;
+begin
+  StatusText := WizardForm.StatusLabel.Caption;
+  WizardForm.StatusLabel.Caption := 'Installing .NET Framework 4.5.2. This might take a few minutes…';
+  WizardForm.ProgressGauge.Style := npbstMarquee;
+  try
+    if not Exec(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'), '/passive /norestart','', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+    begin
+      MsgBox('.NET installation failed with code: ' + IntToStr(ResultCode) + '.', mbError, MB_OK);
+    end;
+  finally
+    WizardForm.StatusLabel.Caption := StatusText;
+    WizardForm.ProgressGauge.Style := npbstNormal;
+
+    DeleteFile(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+  end;
+end;
+     
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  case CurStep of
+    ssPostInstall:
+      begin
+        if not IsDotNetDetected('v4.5.2', 0) then
+        begin
+          InstallFramework();
+        end;
+      end;
+  end;
 end;

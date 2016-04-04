@@ -13,9 +13,9 @@ namespace NLock.NLockFile.Container
     {
         #region Private variables
 
-        private static readonly ILog logger = LogManager.GetLogger(typeof(NlZipArchive));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(NlZipArchive));
         private Stream _memStream;
-        private readonly Object _lockThis = new Object();
+        private readonly object _lockThis = new object();
         private List<NlFile> _fileList;
 
         #endregion Private variables
@@ -47,18 +47,18 @@ namespace NLock.NLockFile.Container
             _fileList = null;
         }
 
-        public bool AddFile(String filePath)
+        public bool AddFile(string filePath)
         {
             lock (_lockThis)
             {
-                logger.Debug(filePath);
+                Logger.Debug(filePath);
                 if (!IsDirectory(filePath))
                 {
-                    logger.Debug("Is a file");
+                    Logger.Debug("Is a file");
                     using (FileStream fs = File.OpenRead(filePath))
                     using (ZipArchive zip = new ZipArchive(_memStream, ZipArchiveMode.Update, true))
                     {
-                        logger.Debug("Reading file : " + filePath + " Length : " + fs.Length);
+                        Logger.Debug("Reading file : " + filePath + " Length : " + fs.Length);
                         var compressionLevel = (CompressionLevel)Settings.Default.compressionLevel;
                         var entry = zip.CreateEntry(filePath, compressionLevel);
 
@@ -66,13 +66,13 @@ namespace NLock.NLockFile.Container
                         {
                             fs.CopyTo(entryStream, 50);
                         }
-                        logger.Debug("Entry created  : " + filePath);
+                        Logger.Debug("Entry created  : " + filePath);
                     }
                     return true;
                 }
                 else
                 {
-                    logger.Debug("Is a directory");
+                    Logger.Debug("Is a directory");
                     return AddFileWithingAFolder(filePath);
                 }
             }
@@ -84,13 +84,13 @@ namespace NLock.NLockFile.Container
             {
                 if (!recursively)
                 {
-                    logger.Debug("Adding folder non recursively folderPath : " + folderPath);
+                    Logger.Debug("Adding folder non recursively folderPath : " + folderPath);
                     var fileList = Directory.GetFiles(folderPath + "\\");
 
-                    logger.Debug("Folder path : " + folderPath);
+                    Logger.Debug("Folder path : " + folderPath);
                     if (fileList.Length <= 0)
                     {
-                        logger.Warn("Empty directory : " + folderPath);
+                        Logger.Warn("Empty directory : " + folderPath);
                         return false;
                     }
 
@@ -102,14 +102,14 @@ namespace NLock.NLockFile.Container
                 }
                 else
                 {
-                    logger.Debug("Adding folder recursively folderPath : " + folderPath);
+                    Logger.Debug("Adding folder recursively folderPath : " + folderPath);
 
                     var fileList = Directory.GetFiles(folderPath, "*", SearchOption.TopDirectoryOnly);
                     var listi = folderPath.Split(Path.DirectorySeparatorChar);
 
                     if (fileList.Length <= 0)
                     {
-                        logger.Warn("Empty directory : " + folderPath);
+                        Logger.Warn("Empty directory : " + folderPath);
                     }
                     else
                     {
@@ -125,7 +125,7 @@ namespace NLock.NLockFile.Container
                             }
                         }
 
-                        /// Recursive calling on each sub directory in next level
+                        // Recursive calling on each sub directory in next level
                     }
                     var dirList = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
                     if (dirList.Length <= 0)
@@ -137,19 +137,29 @@ namespace NLock.NLockFile.Container
                         foreach (string dir in dirList)
                         {
                             var listd = dir.Split(Path.DirectorySeparatorChar);
-                            AddFolder(dir, recursively, folderName + "\\" + listd[listd.Length - 1]);
-                            logger.Debug(folderName + "\\" + listd[listd.Length - 1]);
+                            AddFolder(dir, true, folderName + "\\" + listd[listd.Length - 1]);
+                            Logger.Debug(folderName + "\\" + listd[listd.Length - 1]);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("AddFolder " + ex);
+                Logger.Error("AddFolder " + ex);
                 throw;
             }
 
             return false;
+        }
+
+        public List<NlFile> GetNlFileList()
+        {
+            var t = Task.Run(() =>
+            {
+                GetNlFileListT();
+            });
+            t.Wait();
+            return _fileList;
         }
 
         public bool RemoveFile(string filePath)
@@ -189,7 +199,7 @@ namespace NLock.NLockFile.Container
 
         public bool ExtractToFolder(string folderPath)
         {
-            logger.Debug("Extracting to : " + folderPath);
+            Logger.Debug("Extracting to : " + folderPath);
             try
             {
                 return ExtractTo(folderPath);
@@ -201,12 +211,12 @@ namespace NLock.NLockFile.Container
             }
             catch (Exception ex)
             {
-                logger.Debug(ex.ToString());
+                Logger.Debug(ex.ToString());
                 throw;
             }
         }
 
-        public static bool IsDirectory(String fullPath)
+        private static bool IsDirectory(string fullPath)
         {
             var list = fullPath.Split();
             if (list.Length < 3)
@@ -217,16 +227,6 @@ namespace NLock.NLockFile.Container
                 return true;
             }
             return false;
-        }
-
-        public List<NlFile> GetNLFileList()
-        {
-            var t = Task.Run(() =>
-            {
-                GetNLFileListT();
-            });
-            t.Wait();
-            return _fileList;
         }
 
         #endregion Public
@@ -259,7 +259,7 @@ namespace NLock.NLockFile.Container
                         }
                         else
                         {
-                            logger.Debug("entry.FullName " + entry.FullName);
+                            Logger.Debug("entry.FullName " + entry.FullName);
 
                             var listi = entry.FullName.Split(new[] { "#####" }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -274,7 +274,7 @@ namespace NLock.NLockFile.Container
                             rootPath.Append("\\");
 
                             var extractionFullPath = rootPath + entry.Name;
-                            logger.Debug("Extracting as a directory item " + rootPath);
+                            Logger.Debug("Extracting as a directory item " + rootPath);
 
                             if (File.Exists(extractionFullPath))
                             {
@@ -327,41 +327,42 @@ namespace NLock.NLockFile.Container
             _memStream = new MemoryStream();
         }
 
-        private bool AddFileWithingAFolder(String filePath)
+        private bool AddFileWithingAFolder(string filePath)
         {
             lock (_lockThis)
             {
                 try
                 {
-                    logger.Debug(filePath);
+                    Logger.Debug(filePath);
                     var listi = filePath.Split(new[] { "<dir>" }, StringSplitOptions.RemoveEmptyEntries);
 
                     using (FileStream fs = File.OpenRead(listi[2]))
                     using (ZipArchive zip = new ZipArchive(_memStream, ZipArchiveMode.Update, true))
                     {
-                        logger.Debug("Reading file : " + listi[2] + " Length : " + fs.Length);
+                        Logger.Debug("Reading file : " + listi[2] + " Length : " + fs.Length);
                         var entry = zip.CreateEntry(listi[0] + "#####" + listi[1] + "#####" + listi[2], CompressionLevel.Optimal);
-                        logger.Debug("Full name : " + entry.FullName + " Name : " + entry.Name + " GetType: " + entry.GetType());
+                        Logger.Debug("Full name : " + entry.FullName + " Name : " + entry.Name + " GetType: " + entry.GetType());
                         using (var entryStream = entry.Open())
                         {
                             fs.CopyTo(entryStream, 1024);
                         }
-                        logger.Debug("Entry created  : " + listi[2] + "CompressionLevel.Optimal");
+                        Logger.Debug("Entry created  : " + listi[2] + "CompressionLevel.Optimal");
                     }
                     return true;
                 }
                 catch (Exception)
-                {
+                {   
+                    // Throw on empty folders within
                     throw;
                 }
             }
         }
 
-        private void GetNLFileListT()
+        private void GetNlFileListT()
         {
             lock (_lockThis)
             {
-                logger.Debug("");
+                Logger.Debug("");
                 try
                 {
                     _fileList = new List<NlFile>();
@@ -369,8 +370,8 @@ namespace NLock.NLockFile.Container
                     {
                         foreach (var entry in zip.Entries)
                         {
-                            logger.Debug("Entry : " + entry.FullName + " size : " + entry.Length + " compressed size : " + entry.CompressedLength);
-                            var listi = entry.FullName.Split(new string[] { "#####" }, StringSplitOptions.RemoveEmptyEntries);
+                            Logger.Debug("Entry : " + entry.FullName + " size : " + entry.Length + " compressed size : " + entry.CompressedLength);
+                            var listi = entry.FullName.Split(new[] { "#####" }, StringSplitOptions.RemoveEmptyEntries);
 
                             if (listi.Length > 2)
                             {
@@ -400,12 +401,12 @@ namespace NLock.NLockFile.Container
                             }
                         }
                     }
-                    logger.Debug("Sorting list");
-                    _fileList.Sort((a, b) => a.FileName.CompareTo(b.FileName));
+                    Logger.Debug("Sorting list");
+                    _fileList.Sort((a, b) => string.Compare(a.FileName, b.FileName, StringComparison.Ordinal));
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex.ToString());
+                    Logger.Error(ex.ToString());
                     _fileList = null;
                     //throw new NLockFileCorruptedException("Get File List failed");
                 }

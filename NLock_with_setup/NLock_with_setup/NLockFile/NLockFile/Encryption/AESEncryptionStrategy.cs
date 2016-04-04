@@ -13,7 +13,7 @@ namespace NLock.NLockFile.Encryption
     {
         public byte[] Encrypt(byte[] keyArray, byte[] content, byte[] keyAdd = null)
         {
-            byte[] encryptedBytes = null;
+            byte[] encryptedBytes;
             var saltBytes = new byte[] { 2, 3, 9, 4, 2, 6, 2, 8 };
             using (MemoryStream inmem = new MemoryStream(content))
 			{
@@ -34,15 +34,14 @@ namespace NLock.NLockFile.Encryption
 							AES.Mode = CipherMode.CBC;
 
 							byte[] buffer = new byte[AES.BlockSize*5];
-							int bufferLength;
-							long bytesProcessed = 0;
+						    long bytesProcessed = 0;
 							long inputFileLength = inmem.Length;
 
 							using (var cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
 							{
 								while (bytesProcessed < inputFileLength)
 								{
-									bufferLength = inmem.Read(buffer, 0, buffer.Length);
+									var bufferLength = inmem.Read(buffer, 0, buffer.Length);
 									cs.Write(buffer, 0, bufferLength);
 									bytesProcessed += bufferLength;
 								}
@@ -59,7 +58,7 @@ namespace NLock.NLockFile.Encryption
 
         public byte[] Decrypt(byte[] keyArray, byte[] content, byte[] keyAdd = null)
         {
-            byte[] decryptedBytes = null;
+            byte[] decryptedBytes;
 
             var saltBytes = new byte[] { 2, 3, 9, 4, 2, 6, 2, 8 };
             using (MemoryStream inmem = new MemoryStream(content))
@@ -79,16 +78,15 @@ namespace NLock.NLockFile.Encryption
 
 							AES.Mode = CipherMode.CBC;
 
-							byte[] buffer = new byte[AES.BlockSize*3];
-							int bufferLength;
-							long bytesProcessed = 0;
-							long inputFileLength = inmem.Length;
+							var buffer = new byte[AES.BlockSize*3];
+						    long bytesProcessed = 0;
+							var inputFileLength = inmem.Length;
 
 							using (var cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
 							{
 								while (bytesProcessed < inputFileLength)
 								{
-									bufferLength = inmem.Read(buffer, 0, buffer.Length);
+									var bufferLength = inmem.Read(buffer, 0, buffer.Length);
 									cs.Write(buffer, 0, bufferLength);
 									bytesProcessed += bufferLength;
 								}

@@ -68,7 +68,7 @@
             this.lockFormFaceView.ShowMouth = false;
             this.lockFormFaceView.ShowNose = false;
             this.lockFormFaceView.ShowProperties = false;
-            this.lockFormFaceView.Size = new System.Drawing.Size(311, 161);
+            this.lockFormFaceView.Size = new System.Drawing.Size(344, 247);
             this.lockFormFaceView.TabIndex = 0;
             // 
             // label1
@@ -89,19 +89,20 @@
             this.tboxFileName.Location = new System.Drawing.Point(85, 12);
             this.tboxFileName.MinimumSize = new System.Drawing.Size(4, 20);
             this.tboxFileName.Name = "tboxFileName";
-            this.tboxFileName.Size = new System.Drawing.Size(197, 20);
-            this.tboxFileName.TabIndex = 0;
+            this.tboxFileName.Size = new System.Drawing.Size(230, 20);
+            this.tboxFileName.TabIndex = 4;
             this.toolTip1.SetToolTip(this.tboxFileName, "Give the file name to save your locked content");
             this.tboxFileName.TextChanged += new System.EventHandler(this.TextboxFileNameTextChanged);
+            this.tboxFileName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TboxFileNameKeyDown);
             this.tboxFileName.Leave += new System.EventHandler(this.TextBoxFileNameLeave);
             // 
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(301, 11);
+            this.btnBrowse.Location = new System.Drawing.Point(334, 11);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(27, 21);
-            this.btnBrowse.TabIndex = 1;
+            this.btnBrowse.TabIndex = 0;
             this.btnBrowse.Text = "...";
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.ButtonBrowseClick);
@@ -110,9 +111,9 @@
             // 
             this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInfo.Location = new System.Drawing.Point(14, 288);
+            this.lblInfo.Location = new System.Drawing.Point(14, 374);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(314, 29);
+            this.lblInfo.Size = new System.Drawing.Size(347, 29);
             this.lblInfo.TabIndex = 2;
             this.lblInfo.Text = "label1";
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -124,7 +125,7 @@
             this.btnMain.FlatAppearance.BorderSize = 0;
             this.btnMain.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Teal;
             this.btnMain.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
-            this.btnMain.Location = new System.Drawing.Point(34, 320);
+            this.btnMain.Location = new System.Drawing.Point(67, 406);
             this.btnMain.Name = "btnMain";
             this.btnMain.Size = new System.Drawing.Size(94, 23);
             this.btnMain.TabIndex = 1;
@@ -135,7 +136,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(134, 320);
+            this.btnCancel.Location = new System.Drawing.Point(167, 406);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(94, 23);
             this.btnCancel.TabIndex = 2;
@@ -146,7 +147,7 @@
             // btnAddPassword
             // 
             this.btnAddPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddPassword.Location = new System.Drawing.Point(234, 320);
+            this.btnAddPassword.Location = new System.Drawing.Point(267, 406);
             this.btnAddPassword.Name = "btnAddPassword";
             this.btnAddPassword.Size = new System.Drawing.Size(94, 23);
             this.btnAddPassword.TabIndex = 3;
@@ -164,7 +165,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(311, 174);
+            this.groupBox2.Size = new System.Drawing.Size(344, 260);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Face";
@@ -172,11 +173,12 @@
             // btnReset
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Location = new System.Drawing.Point(254, 265);
+            this.btnReset.Location = new System.Drawing.Point(287, 351);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(74, 23);
-            this.btnReset.TabIndex = 3;
-            this.btnReset.Text = "Reset";
+            this.btnReset.TabIndex = 4;
+            this.btnReset.TabStop = false;
+            this.btnReset.Text = "&Reset";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.ButtonResetClick);
             // 
@@ -200,14 +202,13 @@
             // 
             this.licensePanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.licensePanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.licensePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.licensePanel1.Location = new System.Drawing.Point(17, 38);
             this.licensePanel1.Name = "licensePanel1";
             this.licensePanel1.OptionalComponents = "";
-            this.licensePanel1.RequiredComponents = "Biometrics.FaceExtraction,Biometrics.FaceDetection,Devices.Cameras";
-            this.licensePanel1.Size = new System.Drawing.Size(311, 47);
-            this.licensePanel1.TabIndex = 8;
+            this.licensePanel1.RequiredComponents = "Biometrics.FaceExtraction,Biometrics.FaceDetection,Biometrics.FaceMatching,Device" +
+    "s.Cameras";
+            this.licensePanel1.Size = new System.Drawing.Size(344, 44);
+            this.licensePanel1.TabIndex = 5;
             // 
             // LockForm
             // 
@@ -215,10 +216,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(340, 351);
+            this.ClientSize = new System.Drawing.Size(373, 437);
             this.ControlBox = false;
-            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.licensePanel1);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnMain);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAddPassword);
@@ -237,7 +238,7 @@
             this.Text = "NLock Locker - Face";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LockFormFormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LockFormFormClosed);
-            this.Load += new System.EventHandler(this.LoginForm_Load);
+            this.Load += new System.EventHandler(this.LockFormLoad);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.filePathErrorProvider)).EndInit();
             this.ResumeLayout(false);
@@ -247,11 +248,11 @@
 
         #endregion
 
-		private Neurotec.Biometrics.Gui.NFaceView lockFormFaceView;
+        private Neurotec.Biometrics.Gui.NFaceView lockFormFaceView;
         private System.Windows.Forms.Button btnMain;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tboxFileName;
         private System.Windows.Forms.Button btnBrowse;

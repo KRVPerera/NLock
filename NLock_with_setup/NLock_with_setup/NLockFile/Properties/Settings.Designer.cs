@@ -58,5 +58,95 @@ namespace NLock.Properties {
                 this["compressionLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("356")]
+        public int LockFormWidth {
+            get {
+                return ((int)(this["LockFormWidth"]));
+            }
+            set {
+                this["LockFormWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("311")]
+        public int LockFormHeight {
+            get {
+                return ((int)(this["LockFormHeight"]));
+            }
+            set {
+                this["LockFormHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("356")]
+        public int LockFormWidthDefault {
+            get {
+                return ((int)(this["LockFormWidthDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("311")]
+        public int LockFormHeightDefault {
+            get {
+                return ((int)(this["LockFormHeightDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("485")]
+        public int UnlockFormWidth {
+            get {
+                return ((int)(this["UnlockFormWidth"]));
+            }
+            set {
+                this["UnlockFormWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("303")]
+        public int UnlockFormHeight {
+            get {
+                return ((int)(this["UnlockFormHeight"]));
+            }
+            set {
+                this["UnlockFormHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("485")]
+        public int UnlockFormWidthDefault {
+            get {
+                return ((int)(this["UnlockFormWidthDefault"]));
+            }
+            set {
+                this["UnlockFormWidthDefault"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("303")]
+        public int UnlockFormHeightDefault {
+            get {
+                return ((int)(this["UnlockFormHeightDefault"]));
+            }
+            set {
+                this["UnlockFormHeightDefault"] = value;
+            }
+        }
     }
 }

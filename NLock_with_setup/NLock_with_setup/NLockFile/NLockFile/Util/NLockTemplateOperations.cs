@@ -70,7 +70,7 @@ namespace NLock.NLockFile.Util
 
         public static int IsNLock(string filePath)
         {
-            var isNlock = -1;
+            int isNlock;
             using (var fs = File.OpenRead(filePath))
             {
                 var b = new byte[5];

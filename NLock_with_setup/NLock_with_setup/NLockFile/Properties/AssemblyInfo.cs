@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,9 +9,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("NLock")]
 [assembly: AssemblyDescription("Biometric file locker.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CompanyNeurotechnology Lab (Private) Limited")]
-[assembly: AssemblyProduct("NLockFile")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Neurotechnology")]
+[assembly: AssemblyProduct("NLock")]
+[assembly: AssemblyCopyright("Copyright ©  2015 Neurotechnology")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -36,4 +37,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.1.0.0")]
 [assembly: InternalsVisibleTo("NLockFile.Tests")]
 [assembly: InternalsVisibleTo("NLockFile.Explorables")]
+[assembly: NeutralResourcesLanguage("en")]
 

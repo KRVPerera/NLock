@@ -1,15 +1,17 @@
-﻿using log4net;
+﻿using System;
+using System.Collections.Specialized;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+using log4net;
 using Neurotec.Biometrics;
 using Neurotec.Biometrics.Client;
 using Neurotec.Devices;
 using Neurotec.Images;
 using Neurotec.IO;
 using Neurotec.Licensing;
-using System;
-using System.Collections.Specialized;
-using System.Threading;
-using System.Windows.Forms;
 using NLock.NLockFile.Util;
+using NLock.Properties;
 
 namespace NLock
 {
@@ -19,13 +21,13 @@ namespace NLock
 
         private enum Ops
         {
-            CAPTURINGFAILED,
-            VERIFICATIONFAILEDRETRY,
-            VERIFIED,
-            VERIFYWITHPASSWORD,
-            PASSWORDNOTSUPPORTED,
-            ONGOING,
-            CANCELLED,
+            Capturingfailed,
+            Verificationfailedretry,
+            Verified,
+            Verifywithpassword,
+            Passwordnotsupported,
+            Ongoing,
+            Cancelled
         }
 
         private NBiometricClient _biometricClient;
@@ -35,21 +37,20 @@ namespace NLock
         private NSubject _subjectFromFile;
         private static int _retryCount;
         private static int _initialRetryDelay = 10;
-        private bool _retryWithPW;
-        private Ops _currentop = Ops.CAPTURINGFAILED;
-        private bool firstTry = true;
-        private bool _verified;
+        private bool _retryWithPw;
+        private Ops _currentop = Ops.Capturingfailed;
+        private bool _firstTry = true;
 
         private readonly byte[] _templateLoginFromFile;
 
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(UnlockForm));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof (UnlockForm));
 
         #endregion Private variables
 
         #region Public properties
 
         /// <summary>
-        ///  operation
+        ///     operation
         ///     1 Capturing
         ///     2 Verification
         ///     3 Cancel
@@ -59,18 +60,9 @@ namespace NLock
         ///     8 Verify failed again //TODO: not implemented
         ///     9 Close after capturing
         /// </summary>
-        ///
+        public byte[] PwHash { set; get; }
 
-        public byte[] PWHash
-        {
-            set;
-            get;
-        }
-
-        public bool Verified
-        {
-            get { return _verified; }
-        }
+        public bool Verified { get; private set; }
 
         #endregion Public properties
 
@@ -79,18 +71,18 @@ namespace NLock
         public UnlockForm(byte[] template, byte[] hash = null)
         {
             InitializeComponent();
-            this._templateLoginFromFile = template;
-            this.PWHash = hash;
+            _templateLoginFromFile = template;
+            PwHash = hash;
         }
 
         public UnlockForm(byte[] template, string fileName) : this(template)
         {
-            this.Text = "NLock Unlocker " + fileName;
+            Text = Resources.NLock_Unlocker_ + fileName;
         }
 
         public UnlockForm(byte[] template, byte[] hash, string fileName) : this(template, hash)
         {
-            this.Text = "NLock Unlocker " + fileName;
+            Text = Resources.NLock_Unlocker_ + fileName;
         }
 
         #endregion Public Constructors
@@ -99,14 +91,14 @@ namespace NLock
 
         private void CaptureFailedFormSettings()
         {
-            lblInfo.Text = "Capture failed..\nPlease look at the camera... ";
-            btnMain.Text = "Retry";
-            btnMain.BackColor = System.Drawing.Color.Yellow;
+            lblInfo.Text = Resources.CaptureFailed;
+            btnMain.Text = Resources.Retry;
+            btnMain.BackColor = Color.Yellow;
         }
 
         private void FromInit()
         {
-            _verified = false;
+            Verified = false;
             llblRetryWithPW.Visible = false;
             tbPw.Visible = false;
         }
@@ -120,19 +112,19 @@ namespace NLock
 
         private void VerificationOperationButtonconfig()
         {
-            lblInfo.Text = "Press cancel to stop capturing...";
-            btnMain.Text = "Cancel";
-            btnMain.BackColor = System.Drawing.Color.GreenYellow;
+            lblInfo.Text = Resources.Press_cancel_to_stop_capturing___;
+            btnMain.Text = Resources.Cancel;
+            btnMain.BackColor = Color.GreenYellow;
             llblRetryWithPW.Visible = false;
         }
 
         private void VeriFailedButtonConfig()
         {
-            lblInfo.Text = "Unlocking failed..\nPress Retry to retry unlocking...";
-            btnMain.Text = "Retry";
-            btnMain.BackColor = System.Drawing.Color.Yellow;
+            lblInfo.Text = Resources.UnlockingFailed_PressRetry;
+            btnMain.Text = Resources.Retry;
+            btnMain.BackColor = Color.Yellow;
             llblRetryWithPW.Visible = true;
-            llblRetryWithPW.Text = "Retry using password";
+            llblRetryWithPW.Text = Resources.Retry_using_password;
         }
 
         #endregion Form VisualChanges
@@ -141,7 +133,7 @@ namespace NLock
 
         private void ClientInit()
         {
-            _biometricClient = new NBiometricClient { BiometricTypes = NBiometricType.Face, UseDeviceManager = true };
+            _biometricClient = new NBiometricClient {BiometricTypes = NBiometricType.Face, UseDeviceManager = true};
             _biometricClient.Initialize();
             _biometricClient.MatchingThreshold = 48;
             _biometricClient.FacesMatchingSpeed = NMatchingSpeed.High;
@@ -160,12 +152,12 @@ namespace NLock
         private void VerificationOperationInit()
         {
             VerificationOperationButtonconfig();
-            lblInfo.Text = "Capturing user...";
+            lblInfo.Text = Resources.Capturing_user___;
             _subject = new NSubject();
-            var face = new NFace { CaptureOptions = NBiometricCaptureOptions.Stream };
+            var face = new NFace {CaptureOptions = NBiometricCaptureOptions.Stream};
             _subject.Faces.Add(face);
             nlockLoginFaceView.Face = _subject.Faces[0];
-            _currentop = Ops.ONGOING;
+            _currentop = Ops.Ongoing;
             _biometricClient.BeginCapture(_subject, OnCapturingCompleted, null);
         }
 
@@ -185,11 +177,11 @@ namespace NLock
                     {
                         CaptureFailedFormSettings();
                         _subject.Faces[0].Image = null;
-                        _currentop = Ops.CAPTURINGFAILED;
+                        _currentop = Ops.Capturingfailed;
                     }
                     else
                     {
-                        _currentop = Ops.ONGOING;
+                        _currentop = Ops.Ongoing;
 
                         _biometricClient.BeginVerify(_subjectFromFile, _subject, OnVerifyCompleted, null);
                     }
@@ -214,26 +206,26 @@ namespace NLock
             {
                 try
                 {
-                    lblInfo.Text = "Verifying user...";
+                    lblInfo.Text = Resources.Verifying_user___;
                     var status = _biometricClient.EndVerify(ar);
                     Logger.Debug(status);
                     if (status == NBiometricStatus.Ok)
                     {
-                        _currentop = Ops.VERIFIED;
-                        _verified = true;
-                        this.DialogResult = DialogResult.OK;
+                        _currentop = Ops.Verified;
+                        Verified = true;
+                        DialogResult = DialogResult.OK;
                     }
                     else
                     {
-                        _verified = false;
+                        Verified = false;
                         EnableRetryCounter();
-                        if (PWHash != null || firstTry)
+                        if (PwHash != null || _firstTry)
                         {
                             VeriFailedButtonConfig();
-                            firstTry = false;
+                            _firstTry = false;
                         }
-                        _currentop = Ops.VERIFICATIONFAILEDRETRY;
-                        lblInfo.Text = "User verification failed...";
+                        _currentop = Ops.Verificationfailedretry;
+                        lblInfo.Text = Resources.User_verification_failed___;
                     }
                 }
                 catch (Exception)
@@ -254,13 +246,13 @@ namespace NLock
                     switch (ea.Action)
                     {
                         case NotifyCollectionChangedAction.Add:
-                            Logger.Debug("Device added " + (NDevice)ea.NewItems[0]);
+                            Logger.Debug("Device added " + (NDevice) ea.NewItems[0]);
                             CheckCamera();
 
                             break;
 
                         case NotifyCollectionChangedAction.Remove:
-                            Logger.Debug("Device Removed " + (NDevice)ea.OldItems[0]);
+                            Logger.Debug("Device Removed " + (NDevice) ea.OldItems[0]);
                             CheckCamera();
                             break;
 
@@ -276,7 +268,7 @@ namespace NLock
             }
             catch (Exception)
             {
-                MessageBox.Show("Device manager not responding..!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Device_manager_not_responding___, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -295,7 +287,7 @@ namespace NLock
         private void RetryTimerTick(object sender, EventArgs e)
         {
             Interlocked.Decrement(ref _initialRetryDelay);
-            lblInfo.Text = String.Format("Retry after : {0,3} seconds", _initialRetryDelay);
+            lblInfo.Text = string.Format("Retry after : {0,3} seconds", _initialRetryDelay);
             if (_initialRetryDelay <= 0)
             {
                 DisableRetryCounter();
@@ -317,31 +309,36 @@ namespace NLock
 
         private void LinkLabelCancelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            _verified = false;
-            this.DialogResult = DialogResult.Cancel;
+            Verified = false;
+            DialogResult = DialogResult.Cancel;
+            if (Settings.Default.UnlockFormWidth < Settings.Default.UnlockFormWidthDefault &&
+                Settings.Default.UnlockFormHeight < Settings.Default.UnlockFormHeightDefault)
+                return;
+            Width = Settings.Default.UnlockFormWidth;
+            Height = Settings.Default.UnlockFormHeight;
         }
 
-        private void LinkLabelAddPWLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabelAddPwLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!_retryWithPW)
+            if (!_retryWithPw)
             {
-                llblRetryWithPW.Text = "Cancel password retry";
+                llblRetryWithPW.Text = Resources.Cancel_password_retry;
                 tbPw.Enabled = true;
                 tbPw.Visible = true;
                 llblRetryWithPW.LinkVisited = true;
                 tbPw.Focus();
-                _currentop = Ops.VERIFYWITHPASSWORD;
-                _retryWithPW = true;
+                _currentop = Ops.Verifywithpassword;
+                _retryWithPw = true;
             }
             else
             {
-                llblRetryWithPW.Text = "Retry with Password";
+                llblRetryWithPW.Text = Resources.Retry_using_password;
                 tbPw.Enabled = false;
                 tbPw.Visible = false;
 
                 llblRetryWithPW.LinkVisited = false;
-                _retryWithPW = false;
-                _currentop = Ops.VERIFICATIONFAILEDRETRY;
+                _retryWithPw = false;
+                _currentop = Ops.Verificationfailedretry;
             }
         }
 
@@ -349,26 +346,26 @@ namespace NLock
         {
             switch (_currentop)
             {
-                case Ops.PASSWORDNOTSUPPORTED:
-                case Ops.CANCELLED:
+                case Ops.Passwordnotsupported:
+                case Ops.Cancelled:
                     VerificationOperationInit();
 
                     break;
 
-                case Ops.CAPTURINGFAILED:
-                    _currentop = Ops.ONGOING;
+                case Ops.Capturingfailed:
+                    _currentop = Ops.Ongoing;
                     _biometricClient.BeginCapture(_subject, OnCapturingCompleted, null);
                     break;
 
-                case Ops.ONGOING:
+                case Ops.Ongoing:
                     _biometricClient.Cancel();
-                    _currentop = Ops.CANCELLED;
-                    lblInfo.Text = "Canceled ...";
+                    _currentop = Ops.Cancelled;
+                    lblInfo.Text = Resources.Canceled___;
 
                     break;
 
-                case Ops.VERIFICATIONFAILEDRETRY:
-                    if (!_retryWithPW)
+                case Ops.Verificationfailedretry:
+                    if (!_retryWithPw)
                     {
                         VerificationOperationInit();
                     }
@@ -378,14 +375,38 @@ namespace NLock
                     }
                     break;
 
-                case Ops.VERIFYWITHPASSWORD:
+                case Ops.Verifywithpassword:
                     VerifyWithPassword();
                     break;
 
                 default:
                     Logger.Error("Invalid current operation");
-                    this.Close();
+                    Close();
                     break;
+            }
+        }
+
+        private void UnlockFormFormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings.Default.UnlockFormWidth = Width;
+            Settings.Default.UnlockFormHeight = Height;
+            Settings.Default.Save();
+            Settings.Default.Reload();
+
+            if (_biometricClient != null)
+            {
+                _biometricClient.Dispose();
+                _biometricClient = null;
+            }
+            if (_subject != null)
+            {
+                _subject.Dispose();
+                _subject = null;
+            }
+            if (_subjectFromFile != null)
+            {
+                _subjectFromFile.Dispose();
+                _subjectFromFile = null;
             }
         }
 
@@ -395,39 +416,38 @@ namespace NLock
 
         private void VerifyWithPassword()
         {
-            lblInfo.Text = "Verifying with password ...";
-            _verified = false;
-            if (tbPw.Text != null && PWHash != null)
+            lblInfo.Text = Resources.Verifying_using_password____;
+            Verified = false;
+            if (tbPw.Text != null && PwHash != null)
             {
-                if (NLockTemplateOperationsCommon.ValidatePassword(NLockTemplateOperations.GetBytes(tbPw.Text), PWHash))
+                if (NLockTemplateOperationsCommon.ValidatePassword(NLockTemplateOperations.GetBytes(tbPw.Text), PwHash))
                 {
-                    _verified = true;
-                    this.DialogResult = DialogResult.OK;
+                    Verified = true;
+                    DialogResult = DialogResult.OK;
                 }
                 else
                 {
-                    lblInfo.Text = "Invalid password...";
-                    _currentop = Ops.VERIFICATIONFAILEDRETRY;
+                    lblInfo.Text = Resources.Invalid_password___;
+                    _currentop = Ops.Verificationfailedretry;
                     EnableRetryCounter();
                 }
             }
-            else if (PWHash == null)
+            else if (PwHash == null)
             {
-                lblHelpText.Text = "File does not support password unlocking";
-                lblInfo.Text = "Failed...";
+                lblHelpText.Text = Resources.Password_not_supported;
+                lblInfo.Text = Resources.Failed___;
                 llblRetryWithPW.Enabled = false;
                 llblRetryWithPW.Visible = false;
                 tbPw.Enabled = false;
                 tbPw.Visible = false;
 
-                _retryWithPW = false;
-                _currentop = Ops.PASSWORDNOTSUPPORTED;
+                _retryWithPw = false;
+                _currentop = Ops.Passwordnotsupported;
             }
             else
             {
-
-                lblInfo.Text = "Invalid password...";
-                _currentop = Ops.VERIFICATIONFAILEDRETRY;
+                lblInfo.Text = Resources.Invalid_password___;
+                _currentop = Ops.Verificationfailedretry;
             }
         }
 
@@ -438,7 +458,7 @@ namespace NLock
             {
                 btnMain.Visible = false;
 
-                Interlocked.Exchange(ref _initialRetryDelay, 1 * (int)Math.Exp(_retryCount));
+                Interlocked.Exchange(ref _initialRetryDelay, 1*(int) Math.Exp(_retryCount));
                 retryTimer.Start();
             }
         }
@@ -472,37 +492,41 @@ namespace NLock
                     _biometricClient.Cancel();
                 }
 
-                _currentop = Ops.CANCELLED;
+                _currentop = Ops.Cancelled;
 
-                lblInfo.Text = "Could not detect the camera..\nPlease connect a camera.";
+                lblInfo.Text = Resources.CameraNotDetected;
                 btnMain.Enabled = false;
-                btnMain.BackColor = System.Drawing.Color.Gray;
-                nlockLoginFaceView.Face = new NFace();
-                nlockLoginFaceView.Face.Image = NImage.FromBitmap(NLock.Properties.Resources.NoCameraDetected);
+                btnMain.BackColor = Color.Gray;
+                nlockLoginFaceView.Face = new NFace
+                                          {
+                                              Image =
+                                                  NImage.FromBitmap(Resources.NoCameraDetected)
+                                          };
 
                 return false;
             }
-            else
-            {
-                lblInfo.Text = "Camera detected...\nPlease continue";
+            lblInfo.Text = Resources.CameraDetected;
 
-                nlockLoginFaceView.Face = new NFace();
-                nlockLoginFaceView.Face.Image = NImage.FromBitmap(NLock.Properties.Resources.CameraDetectedContinue);
-                btnMain.Enabled = true;
-                btnMain.BackColor = System.Drawing.Color.Green;
-                return true;
-            }
+            nlockLoginFaceView.Face = new NFace
+                                      {
+                                          Image =
+                                              NImage.FromBitmap(
+                                                  Resources.CameraDetectedContinue)
+                                      };
+            btnMain.Enabled = true;
+            btnMain.BackColor = Color.Green;
+            return true;
         }
 
         private void CheckLicense()
         {
             const string Components =
-                 "Biometrics.FaceExtraction," +
-                 "Biometrics.FaceDetection," +
-                 "Biometrics.FaceMatching," +
-                 "Devices.Cameras";
+                "Biometrics.FaceExtraction," +
+                "Biometrics.FaceDetection," +
+                "Biometrics.FaceMatching," +
+                "Devices.Cameras";
 
-            foreach (string component in Components.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var component in Components.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
             {
                 if (!NLicense.IsComponentActivated(component))
                 {

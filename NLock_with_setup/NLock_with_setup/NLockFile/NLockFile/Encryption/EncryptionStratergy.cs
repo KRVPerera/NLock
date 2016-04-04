@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace NLock.NLockFile.Encryption
 {
     internal interface IEncryptionStrategy

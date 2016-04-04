@@ -21,10 +21,14 @@ namespace NLock
         {
             _enumoperation = Modes.Initialization;
             InitializeComponent();
+           
         }
 
         #endregion Public Constructors
 
+
+
+        #region Private variables
         private enum Modes
         {
             Initialization,
@@ -33,8 +37,6 @@ namespace NLock
             Invalidpath,
             Capturesuccessnopassword
         }
-
-        #region Private variables
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof (LockForm));
 
@@ -45,14 +47,15 @@ namespace NLock
         private Modes _enumoperation;
         private bool _cboxSkipPWcheckState;
         public byte[] TemplateLoginForm;
+        private string _predictedFileName;
 
         #endregion Private variables
 
         #region Public properties
 
-        public String SaveFileName { get; set; }
+        public string SaveFileName { get; set; }
 
-        public String Password { get; private set; }
+        public string Password { get; private set; }
 
         public bool AddPassword { get; private set; }
 
@@ -64,6 +67,23 @@ namespace NLock
         {
             TemplateLoginForm = null;
             _cboxSkipPWcheckState = false;
+
+            if (Settings.Default.LockFormWidth < Settings.Default.LockFormWidthDefault &&
+                Settings.Default.LockFormHeight < Settings.Default.LockFormHeightDefault) return;
+            Width = Settings.Default.LockFormWidth;
+            Height = Settings.Default.LockFormHeight;
+
+            _cboxSkipPWcheckState = Settings.Default.skippassword;
+            tboxFileName.Text = !string.IsNullOrEmpty(Settings.Default.previoussave)
+                    ? Settings.Default.previoussave
+                    : Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (_predictedFileName != null)
+            {
+                tboxFileName.Text = tboxFileName.Text +"\\"+ _predictedFileName;
+            }
+
+            ValidateFileName();
+
         }
 
         private void CloseButtonCapSuccessConfig()
@@ -75,8 +95,7 @@ namespace NLock
         private void CapStartButtonInitConfig()
         {
             lblInfo.Text = Resources.StartMsg;
-            lockFormFaceView.Face = new NFace();
-            lockFormFaceView.Face.Image = NImage.FromBitmap(Resources.StartImage);
+            lockFormFaceView.Face = new NFace {Image = NImage.FromBitmap(Resources.StartImage)};
         }
 
         #endregion Form VisualChanges
@@ -172,7 +191,7 @@ namespace NLock
 
         private void CheckLicense()
         {
-            licensePanel1.RefreshComponentsStatus();
+            //licensePanel2.RefreshComponentsStatus();
         }
 
         private void CapturingOperationRest()
@@ -186,18 +205,14 @@ namespace NLock
 
         #region Private Form Events
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private void LockFormLoad(object sender, EventArgs e)
         {
             FromInit();
             ClientInit();
             CapStartButtonInitConfig();
             DeviceManagerUtilication();
 
-            _cboxSkipPWcheckState = Settings.Default.skippassword;
-
-            tboxFileName.Text = !String.IsNullOrEmpty(Settings.Default.previoussave)
-                ? Settings.Default.previoussave
-                : Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+           
 
             btnMain.PerformClick();
         }
@@ -217,6 +232,7 @@ namespace NLock
 
                 case Modes.Capturesuccess:
                 case Modes.Capturesuccessnopassword:
+                    tboxFileName.Focus();
                     if (!_cboxSkipPWcheckState && !AddPassword)
                     {
                         CaptureSuccessClosing();
@@ -292,27 +308,7 @@ namespace NLock
 
         private void TextboxFileNameTextChanged(object sender, EventArgs e)
         {
-            var valid = IsValidFilename(tboxFileName.Text);
-            if (valid > 0)
-            {
-                filePathErrorProvider.Clear();
-            }
-            else
-                switch (valid)
-                {
-                    case -2:
-                        filePathErrorProvider.SetError(tboxFileName, "A Directory exists with this name");
-                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-                        break;
-                    case -3:
-                        filePathErrorProvider.SetError(tboxFileName, "File Already Exists. Will be overwritten");
-                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-                        break;
-                    default:
-                        filePathErrorProvider.SetError(tboxFileName, Resources.InvalidPath);
-                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-                        break;
-                }
+            ValidateFileName();
         }
 
         private void TextBoxFileNameLeave(object sender, EventArgs e)
@@ -320,12 +316,13 @@ namespace NLock
             var valid = IsValidFilename(tboxFileName.Text);
             if (valid == 1)
             {
-                if (!tboxFileName.Text.EndsWith(".nlk"))
+                if (!tboxFileName.Text.EndsWith(Resources.NLock_Extention))
                 {
-                    tboxFileName.Text = tboxFileName.Text + ".nlk";
+                    tboxFileName.Text = tboxFileName.Text + Resources.NLock_Extention;
                 }
                 lblInfo.Text = Resources.ValidPath;
                 lblInfo.ForeColor = Color.Green;
+                btnMain.Focus();
             }
         }
 
@@ -334,12 +331,32 @@ namespace NLock
             if (_subject != null)
             {
                 _subject.Dispose();
+                _subject = null;
             }
+
+            if (_biometricClient != null)
+            {
+                _biometricClient.Dispose();
+                _biometricClient = null;
+            }
+
+            Settings.Default.LockFormWidth = Width;
+            Settings.Default.LockFormHeight = Height;
+            Settings.Default.Save();
+            Settings.Default.Reload();
         }
 
         private void ButtonAddPasswordClick(object sender, EventArgs e)
         {
             ShowPasswordDialog();
+        }
+
+        private void TboxFileNameKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tboxFileName.SelectNextControl(tboxFileName, true, true, false, true);
+            }
         }
 
         #endregion Private Form Events
@@ -355,7 +372,7 @@ namespace NLock
         {
             Logger.Debug("");
 
-            FileInfo fi = null;
+            FileInfo fi;
             try
             {
                 fi = new FileInfo(filePath);
@@ -399,8 +416,34 @@ namespace NLock
             ShowPasswordDialog();
         }
 
+        private void ValidateFileName()
+        {
+            var valid = IsValidFilename(tboxFileName.Text);
+            if (valid > 0)
+            {
+                filePathErrorProvider.Clear();
+            }
+            else
+                switch (valid)
+                {
+                    case -2:
+                        filePathErrorProvider.SetError(tboxFileName, "A Directory exists with this name");
+                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+                        break;
+                    case -3:
+                        filePathErrorProvider.SetError(tboxFileName, "File Already Exists. Will be overwritten");
+                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+                        break;
+                    default:
+                        filePathErrorProvider.SetError(tboxFileName, Resources.InvalidPath);
+                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+                        break;
+                }
+        }
+
         private void FormClose()
         {
+           
             var valid = IsValidFilename(tboxFileName.Text);
 
             if (valid <= 0)
@@ -421,7 +464,8 @@ namespace NLock
                     if (result == DialogResult.Yes)
                     {
                         var fi = new FileInfo(tboxFileName.Text);
-                        fi.Directory.Create();
+                        if (fi.Directory != null) fi.Directory.Create();
+   
                         SaveFileName = tboxFileName.Text;
 
                         DialogResult = DialogResult.OK;
@@ -494,15 +538,13 @@ namespace NLock
                 {
                     lblInfo.ForeColor = Color.Red;
                     lblInfo.Text = Resources.CameraNotDetected;
-                    lockFormFaceView.Face = new NFace();
-                    lockFormFaceView.Face.Image = NImage.FromBitmap(Resources.NoCameraDetected);
+                    lockFormFaceView.Face = new NFace {Image = NImage.FromBitmap(Resources.NoCameraDetected)};
                 }
                 else
                 {
                     lblInfo.Text = Resources.CameraDetected;
                     lblInfo.ForeColor = Color.Green;
-                    lockFormFaceView.Face = new NFace();
-                    lockFormFaceView.Face.Image = NImage.FromBitmap(Resources.StartImage);
+                    lockFormFaceView.Face = new NFace {Image = NImage.FromBitmap(Resources.StartImage)};
                 }
             }
         }
@@ -541,5 +583,12 @@ namespace NLock
         }
 
         #endregion Private Methods
+
+        #region Public Methods
+        public void ChangeSaveFileName(string savePathName)
+        {
+               _predictedFileName = Path.GetFileNameWithoutExtension(savePathName) + ".nlk";
+        }
+        #endregion
     }
 }

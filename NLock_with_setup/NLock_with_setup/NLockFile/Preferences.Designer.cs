@@ -80,7 +80,7 @@
             this.btnLockinPrefApply2.Location = new System.Drawing.Point(274, 31);
             this.btnLockinPrefApply2.Name = "btnLockinPrefApply2";
             this.btnLockinPrefApply2.Size = new System.Drawing.Size(75, 23);
-            this.btnLockinPrefApply2.TabIndex = 4;
+            this.btnLockinPrefApply2.TabIndex = 3;
             this.btnLockinPrefApply2.Text = "Apply";
             this.btnLockinPrefApply2.UseVisualStyleBackColor = true;
             this.btnLockinPrefApply2.Click += new System.EventHandler(this.ButtonLockinPreferenceApplyClick);
@@ -91,7 +91,7 @@
             this.cboxPwSkip.Location = new System.Drawing.Point(6, 6);
             this.cboxPwSkip.Name = "cboxPwSkip";
             this.cboxPwSkip.Size = new System.Drawing.Size(169, 17);
-            this.cboxPwSkip.TabIndex = 3;
+            this.cboxPwSkip.TabIndex = 0;
             this.cboxPwSkip.Text = "Always skip password addition";
             this.cboxPwSkip.UseVisualStyleBackColor = true;
             // 
@@ -112,7 +112,7 @@
             this.btnLockinPrefCancel.Location = new System.Drawing.Point(193, 31);
             this.btnLockinPrefCancel.Name = "btnLockinPrefCancel";
             this.btnLockinPrefCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnLockinPrefCancel.TabIndex = 0;
+            this.btnLockinPrefCancel.TabIndex = 2;
             this.btnLockinPrefCancel.Text = "Cancel";
             this.btnLockinPrefCancel.UseVisualStyleBackColor = true;
             this.btnLockinPrefCancel.Click += new System.EventHandler(this.ButtonLockinPreferencesCancelClick);
@@ -145,7 +145,7 @@
             this.cboxCmpressionLevel.Location = new System.Drawing.Point(114, 6);
             this.cboxCmpressionLevel.Name = "cboxCmpressionLevel";
             this.cboxCmpressionLevel.Size = new System.Drawing.Size(235, 21);
-            this.cboxCmpressionLevel.TabIndex = 4;
+            this.cboxCmpressionLevel.TabIndex = 1;
             // 
             // label2
             // 
@@ -162,7 +162,7 @@
             this.btnCompressionPrefApply.Location = new System.Drawing.Point(274, 31);
             this.btnCompressionPrefApply.Name = "btnCompressionPrefApply";
             this.btnCompressionPrefApply.Size = new System.Drawing.Size(75, 23);
-            this.btnCompressionPrefApply.TabIndex = 2;
+            this.btnCompressionPrefApply.TabIndex = 4;
             this.btnCompressionPrefApply.Text = "Apply";
             this.btnCompressionPrefApply.UseVisualStyleBackColor = true;
             this.btnCompressionPrefApply.Click += new System.EventHandler(this.ButtonCompressionPreferenceApplyClick);
@@ -173,7 +173,7 @@
             this.btnCompressionPrefSave.Location = new System.Drawing.Point(112, 31);
             this.btnCompressionPrefSave.Name = "btnCompressionPrefSave";
             this.btnCompressionPrefSave.Size = new System.Drawing.Size(75, 23);
-            this.btnCompressionPrefSave.TabIndex = 1;
+            this.btnCompressionPrefSave.TabIndex = 2;
             this.btnCompressionPrefSave.Text = "OK";
             this.btnCompressionPrefSave.UseVisualStyleBackColor = true;
             this.btnCompressionPrefSave.Click += new System.EventHandler(this.ButtonCompressionPreferenceSaveClick);
@@ -184,7 +184,7 @@
             this.btnCompressionPrefCancel.Location = new System.Drawing.Point(193, 31);
             this.btnCompressionPrefCancel.Name = "btnCompressionPrefCancel";
             this.btnCompressionPrefCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCompressionPrefCancel.TabIndex = 0;
+            this.btnCompressionPrefCancel.TabIndex = 3;
             this.btnCompressionPrefCancel.Text = "Cancel";
             this.btnCompressionPrefCancel.UseVisualStyleBackColor = true;
             this.btnCompressionPrefCancel.Click += new System.EventHandler(this.ButtonCompressionPreferenceCancelClick);

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using log4net;
+using NLock.Properties;
 
 namespace NLock.NLockFile.Util
 {
@@ -29,14 +30,14 @@ namespace NLock.NLockFile.Util
             }
             else
             {
-                MessageBox.Show("Not a valid NLock File : " + Path.GetFileName(args[1]));
+                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]), Resources.Error, MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
         internal static void UnlockHere(string[] args)
         {
             Logger.Debug("");
-            /// TODO : Check also header content and CRC
+            // TODO : Check also header content and CRC
             if (Path.GetExtension(args[1]) == ".nlk" && NLockTemplateOperations.IsNLock(args[1]) > 0)
             {
                 var thread = new Thread(() => ThreadUnlockHere(args));
@@ -45,7 +46,7 @@ namespace NLock.NLockFile.Util
             }
             else
             {
-                MessageBox.Show("Not a valid NLock File : " + Path.GetFileName(args[1]));
+                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]));
             }
         }
 
@@ -60,7 +61,7 @@ namespace NLock.NLockFile.Util
             }
             else
             {
-                MessageBox.Show("Not a valid NLock File : " + Path.GetFileName(args[1]));
+                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]));
             }
         }
 
@@ -75,16 +76,6 @@ namespace NLock.NLockFile.Util
         #endregion Thread Creation
 
         #region Thread works
-
-        private static void ThreadNLockThisFile(string[] args)
-        {
-            Logger.Debug("");
-            using (var newUnlockerForm = new MainForm(OperationModes.Nlockthisfile, args[1]))
-            {
-                newUnlockerForm.ShowDialog();
-                newUnlockerForm.Focus();
-            }
-        }
 
         private static void ThreadLockThisFolder(string[] args)
         {

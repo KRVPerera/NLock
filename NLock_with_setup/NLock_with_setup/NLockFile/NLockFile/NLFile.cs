@@ -9,8 +9,8 @@ namespace NLock.NLockFile
     {
         #region Private variables
 
-        private static readonly ILog logger = LogManager.GetLogger(typeof(NlFile));
-        private readonly String _fileName;
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(NlFile));
+        private readonly string _fileName;
 
         #endregion Private variables
 
@@ -51,7 +51,7 @@ namespace NLock.NLockFile
 
         public bool Equals(NlFile other)
         {
-            logger.Debug("Equals(NlFile other)");
+            Logger.Debug("Equals(NlFile other)");
             if (other == null)
                 return false;
 
@@ -76,7 +76,7 @@ namespace NLock.NLockFile
             hash = hash * 31 + FilePath.GetHashCode();
             hash = hash * 31 + OriginalSize.GetHashCode();
             hash = hash * 31 + CompressedSize.GetHashCode();
-            logger.Debug("hash code : " + hash);
+            Logger.Debug("hash code : " + hash);
             return hash;
         }
 
