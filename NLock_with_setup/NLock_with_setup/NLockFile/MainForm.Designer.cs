@@ -113,6 +113,7 @@ namespace NLock
             // 
             // toolStripTopMenu
             // 
+
             this.toolStripTopMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripTopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbOpen,
@@ -240,6 +241,7 @@ namespace NLock
             this.FilelistView.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragEnter);
             this.FilelistView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilelistViewKeyDown);
             this.FilelistView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilelistView_MouseDown);
+
             // 
             // chFileName
             // 
@@ -251,6 +253,7 @@ namespace NLock
             this.columnHeader2.Text = "Size";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader2.Width = 72;
+
             // 
             // columnHeader3
             // 
