@@ -30,6 +30,7 @@ namespace NLock
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -52,8 +53,23 @@ namespace NLock
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStripFileList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invertSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lineToolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.removeSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.removeItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripBottom.SuspendLayout();
             this.toolStripTopMenu.SuspendLayout();
+            this.contextMenuStripFileList.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -73,7 +89,7 @@ namespace NLock
             this.tssStatus});
             this.statusStripBottom.Location = new System.Drawing.Point(0, 472);
             this.statusStripBottom.Name = "statusStripBottom";
-            this.statusStripBottom.Size = new System.Drawing.Size(450, 22);
+            this.statusStripBottom.Size = new System.Drawing.Size(451, 22);
             this.statusStripBottom.TabIndex = 10;
             this.statusStripBottom.Text = "statusStrip1";
             // 
@@ -111,7 +127,7 @@ namespace NLock
             this.toolStripTopMenu.MaximumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.MinimumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.Name = "toolStripTopMenu";
-            this.toolStripTopMenu.Size = new System.Drawing.Size(450, 27);
+            this.toolStripTopMenu.Size = new System.Drawing.Size(451, 27);
             this.toolStripTopMenu.TabIndex = 0;
             this.toolStripTopMenu.TabStop = true;
             this.toolStripTopMenu.Text = "toolStrip1";
@@ -211,7 +227,7 @@ namespace NLock
             this.path});
             this.FilelistView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilelistView.FullRowSelect = true;
-            this.FilelistView.Location = new System.Drawing.Point(0, 27);
+            this.FilelistView.Location = new System.Drawing.Point(1, 27);
             this.FilelistView.MinimumSize = new System.Drawing.Size(4, 75);
             this.FilelistView.Name = "FilelistView";
             this.FilelistView.Size = new System.Drawing.Size(450, 442);
@@ -222,6 +238,8 @@ namespace NLock
             this.FilelistView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.FilelistViewColumnClick);
             this.FilelistView.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragDrop);
             this.FilelistView.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragEnter);
+            this.FilelistView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilelistViewKeyDown);
+            this.FilelistView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilelistView_MouseDown);
             // 
             // chFileName
             // 
@@ -232,7 +250,7 @@ namespace NLock
             // 
             this.columnHeader2.Text = "Size";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 50;
+            this.columnHeader2.Width = 72;
             // 
             // columnHeader3
             // 
@@ -243,7 +261,111 @@ namespace NLock
             // path
             // 
             this.path.Text = "Path";
-            this.path.Width = 99;
+            this.path.Width = 100;
+            // 
+            // contextMenuStripFileList
+            // 
+            this.contextMenuStripFileList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemsToolStripMenuItem,
+            this.lineToolStripMenuItem,
+            this.removeItemToolStripMenuItem,
+            this.replaceFileToolStripMenuItem});
+            this.contextMenuStripFileList.Name = "contextMenuStripFileList";
+            this.contextMenuStripFileList.Size = new System.Drawing.Size(137, 76);
+            // 
+            // itemsToolStripMenuItem
+            // 
+            this.itemsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem,
+            this.refreshToolStripMenuItem1,
+            this.toolStripSeparator1,
+            this.selectAllToolStripMenuItem,
+            this.invertSelectionToolStripMenuItem,
+            this.lineToolStripMenuItem1,
+            this.removeSelectedItemsToolStripMenuItem});
+            this.itemsToolStripMenuItem.Name = "itemsToolStripMenuItem";
+            this.itemsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.itemsToolStripMenuItem.Text = "Files";
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.folderToolStripMenuItem});
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Click += new System.EventHandler(this.FileToolStripMenuItemClick);
+            // 
+            // folderToolStripMenuItem
+            // 
+            this.folderToolStripMenuItem.Name = "folderToolStripMenuItem";
+            this.folderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.folderToolStripMenuItem.Text = "Folder";
+            this.folderToolStripMenuItem.Click += new System.EventHandler(this.FolderToolStripMenuItemClick);
+            // 
+            // refreshToolStripMenuItem1
+            // 
+            this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
+            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
+            this.refreshToolStripMenuItem1.Text = "Refresh All";
+            this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.RefreshToolStripMenuItemClick);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.SelectAllToolStripMenuItemClick);
+            // 
+            // invertSelectionToolStripMenuItem
+            // 
+            this.invertSelectionToolStripMenuItem.Name = "invertSelectionToolStripMenuItem";
+            this.invertSelectionToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.invertSelectionToolStripMenuItem.Text = "Invert Selection";
+            this.invertSelectionToolStripMenuItem.Click += new System.EventHandler(this.InvertSelectionToolStripMenuItemClick);
+            // 
+            // lineToolStripMenuItem1
+            // 
+            this.lineToolStripMenuItem1.Name = "lineToolStripMenuItem1";
+            this.lineToolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
+            // 
+            // removeSelectedItemsToolStripMenuItem
+            // 
+            this.removeSelectedItemsToolStripMenuItem.Name = "removeSelectedItemsToolStripMenuItem";
+            this.removeSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.removeSelectedItemsToolStripMenuItem.Text = "Remove selected";
+            this.removeSelectedItemsToolStripMenuItem.Click += new System.EventHandler(this.RemoveSelectedItemsToolStripMenuItemClick);
+            // 
+            // lineToolStripMenuItem
+            // 
+            this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
+            this.lineToolStripMenuItem.Size = new System.Drawing.Size(133, 6);
+            // 
+            // removeItemToolStripMenuItem
+            // 
+            this.removeItemToolStripMenuItem.Name = "removeItemToolStripMenuItem";
+            this.removeItemToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.removeItemToolStripMenuItem.Text = "Remove file";
+            this.removeItemToolStripMenuItem.Click += new System.EventHandler(this.RemoveItemToolStripMenuItemClick);
+            // 
+            // replaceFileToolStripMenuItem
+            // 
+            this.replaceFileToolStripMenuItem.Name = "replaceFileToolStripMenuItem";
+            this.replaceFileToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.replaceFileToolStripMenuItem.Text = "Replace file";
+            this.replaceFileToolStripMenuItem.Click += new System.EventHandler(this.ReplaceFileToolStripMenuItemClick);
             // 
             // MainForm
             // 
@@ -252,7 +374,7 @@ namespace NLock
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(450, 494);
+            this.ClientSize = new System.Drawing.Size(451, 494);
             this.Controls.Add(this.toolStripTopMenu);
             this.Controls.Add(this.FilelistView);
             this.Controls.Add(this.statusStripBottom);
@@ -265,10 +387,12 @@ namespace NLock
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormClosed);
             this.Load += new System.EventHandler(this.MainFormLoad);
+            this.ResizeEnd += new System.EventHandler(this.MainFormResizeEnd);
             this.statusStripBottom.ResumeLayout(false);
             this.statusStripBottom.PerformLayout();
             this.toolStripTopMenu.ResumeLayout(false);
             this.toolStripTopMenu.PerformLayout();
+            this.contextMenuStripFileList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,5 +420,19 @@ namespace NLock
         private System.Windows.Forms.ListView FilelistView;
         private System.Windows.Forms.ToolStripButton tsbAbout;
         private System.Windows.Forms.ToolStripButton tsbPreferences;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripFileList;
+        private System.Windows.Forms.ToolStripMenuItem itemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem removeSelectedItemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator lineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem invertSelectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeItemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator lineToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem replaceFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
     }
 }

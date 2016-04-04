@@ -122,7 +122,10 @@ namespace NLock
             {
                 FilelistView.EndUpdate();
                 toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
+               
             }
+
+
         }
 
         private void Extract()
@@ -154,6 +157,63 @@ namespace NLock
             }
         }
 
+        private void FileListViewResize()
+        {
+            FilelistView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            FilelistView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        private void RemoveSelectedItems()
+        {
+            try
+            {
+                foreach (var file in FilelistView.SelectedItems)
+                {
+                    var item = (ListViewItem)file;
+                    var tet = item.SubItems[0].Text;
+                    var result = _nlockContainer.RemoveFile(tet);
+                    if ((_fileName != null) && !_isDirty && result)
+                    {
+                        _isDirty = true;
+                    }
+                }
+                if (FilelistView.Items.Count > 0)
+                {
+                    UpdateListView(_nlockContainer.GetFileList());
+                }
+                else
+                {
+                    toolStripFileCountLabel.Text = "0";
+                    _nlockContainer = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Resources.An_error_occurred + ex, Resources.Error, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void SelectAllItems()
+        {
+            foreach (ListViewItem item in FilelistView.Items)
+            {
+                item.Selected = true;
+            }
+        }
+
+        private void InvertItemsSelection()
+        {
+            foreach (ListViewItem item in FilelistView.Items)
+            {
+                item.Selected = !item.Selected;
+            }
+        }
+
+        private void RefreshFileList()
+        {
+            UpdateListView(_nlockContainer.GetFileList());
+        }
         #endregion Private Methods
 
         #region Private Form Events
@@ -162,7 +222,7 @@ namespace NLock
         {
             InitializeForm();
             Logger.Debug("---------------(----------- Starting NLock -----------)-----------------------");
-
+            FilelistView.Columns[FilelistView.Columns.Count - 1].Width = -2;
             _nlockContainer = new NLockContainerCommons();
 
             if (_opMode == OperationModes.Opennlock)
@@ -687,33 +747,7 @@ namespace NLock
 
         private void ToolstripButtonRemoveItemClick(object sender, EventArgs e)
         {
-            try
-            {
-                foreach (var file in FilelistView.SelectedItems)
-                {
-                    var item = (ListViewItem) file;
-                    var tet = item.SubItems[0].Text;
-                    var result = _nlockContainer.RemoveFile(tet);
-                    if ((_fileName != null) && !_isDirty && result)
-                    {
-                        _isDirty = true;
-                    }
-                }
-                if (FilelistView.Items.Count > 0)
-                {
-                    UpdateListView(_nlockContainer.GetFileList());
-                }
-                else
-                {
-                    toolStripFileCountLabel.Text = "0";
-                    _nlockContainer = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(Resources.An_error_occurred + ex, Resources.Error, MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
+            RemoveSelectedItems();
         }
 
         private void MainFormClosing(object sender, FormClosingEventArgs e)
@@ -781,7 +815,87 @@ namespace NLock
                 FilelistView.Sorting);
         }
 
+        private void MainFormResizeEnd(object sender, EventArgs e)
+        {
+            FileListViewResize();
+        }
+
+        private void FilelistViewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                SelectAllItems();
+            }
+        }
+
+ 
+        private void FilelistView_MouseDown(object sender, MouseEventArgs e)
+        {
+            ListViewHitTestInfo HI = FilelistView.HitTest(e.Location);
+            if (e.Button == MouseButtons.Right)
+            {
+                if (HI.Location != ListViewHitTestLocations.None)//(FilelistView.FocusedItem.Bounds.Contains(e.Location))
+                {
+                    contextMenuStripFileList.Items[2].Visible = true;
+                    contextMenuStripFileList.Items[3].Visible = true;
+                }
+                else
+                {
+                    contextMenuStripFileList.Items[2].Visible = false;
+                    contextMenuStripFileList.Items[3].Visible = false;
+                }
+                contextMenuStripFileList.Show(Cursor.Position);
+            }
+        }
+        private void RefreshToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            UpdateListView(_nlockContainer.GetFileList());
+            FileListViewResize();
+        }
+
+        private void RemoveSelectedItemsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            RemoveSelectedItems();
+        }
+
+        private void SelectAllToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            SelectAllItems();
+        }
+
+        private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            InvertItemsSelection();
+        }
+
+        private void RemoveItemToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            var tet = FilelistView.FocusedItem.SubItems[0].Text;
+            _nlockContainer.RemoveFile(tet);
+            RefreshFileList();
+        }
+
+        private void ReplaceFileToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            var tet = FilelistView.FocusedItem.SubItems[0].Text;
+            _nlockContainer.RemoveFile(tet);
+            tsbAddFile.PerformClick();
+        }
+
+
+        private void FileToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            tsbAddFile.PerformClick();
+        }
+
+        private void FolderToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            tsbAddFolder.PerformClick();
+        }
+
         #endregion Private Form Events
+
+
     }
 
     internal class ListViewItemComparer : IComparer
@@ -798,9 +912,9 @@ namespace NLock
             Order = order;
         }
 
-        public int Col { get; }
+        public int Col { get; set; }
 
-        public SortOrder Order { get; }
+        public SortOrder Order { get; set; }
 
         private double GetAbsoluteValue(string value, string demention)
         {
