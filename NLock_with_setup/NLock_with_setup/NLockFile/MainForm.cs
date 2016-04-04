@@ -598,16 +598,13 @@ namespace NLock
                 string predictedFileName = null;
                 if (FilelistView.Items.Count == 1)
                 {
-
                     predictedFileName = FilelistView.Items[0].Text;
                 }
 
                 using (var lockForm = new LockForm())
                 {
-                   
-
+                    lockForm.ChangeSaveFileName(predictedFileName);
                     lockForm.ShowDialog();
-
                     var result = lockForm.DialogResult;
                     if (result == DialogResult.OK)
                     {

@@ -45,13 +45,12 @@
             // 
             // lblStatus
             // 
-            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblStatus.AutoSize = true;
+            this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(5, 36);
+            this.lblStatus.Location = new System.Drawing.Point(0, 36);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(111, 13);
+            this.lblStatus.Size = new System.Drawing.Size(380, 16);
             this.lblStatus.TabIndex = 3;
             this.lblStatus.Text = "Licenses not obtained";
             // 
@@ -63,10 +62,10 @@
             this.rtbComponents.Enabled = false;
             this.rtbComponents.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbComponents.HideSelection = false;
-            this.rtbComponents.Location = new System.Drawing.Point(143, 3);
+            this.rtbComponents.Location = new System.Drawing.Point(123, 3);
             this.rtbComponents.Name = "rtbComponents";
             this.rtbComponents.ReadOnly = true;
-            this.rtbComponents.Size = new System.Drawing.Size(234, 46);
+            this.rtbComponents.Size = new System.Drawing.Size(254, 27);
             this.rtbComponents.TabIndex = 5;
             this.rtbComponents.Text = "Components";
             // 

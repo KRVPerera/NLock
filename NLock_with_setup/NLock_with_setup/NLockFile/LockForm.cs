@@ -72,6 +72,18 @@ namespace NLock
                 Settings.Default.LockFormHeight < Settings.Default.LockFormHeightDefault) return;
             Width = Settings.Default.LockFormWidth;
             Height = Settings.Default.LockFormHeight;
+
+            _cboxSkipPWcheckState = Settings.Default.skippassword;
+            tboxFileName.Text = !string.IsNullOrEmpty(Settings.Default.previoussave)
+                    ? Settings.Default.previoussave
+                    : Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (_predictedFileName != null)
+            {
+                tboxFileName.Text = tboxFileName.Text +"\\"+ _predictedFileName;
+            }
+
+            ValidateFileName();
+
         }
 
         private void CloseButtonCapSuccessConfig()
@@ -200,11 +212,7 @@ namespace NLock
             CapStartButtonInitConfig();
             DeviceManagerUtilication();
 
-            _cboxSkipPWcheckState = Settings.Default.skippassword;
-
-            tboxFileName.Text = !string.IsNullOrEmpty(Settings.Default.previoussave)
-                ? Settings.Default.previoussave
-                : Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+           
 
             btnMain.PerformClick();
         }
@@ -224,6 +232,7 @@ namespace NLock
 
                 case Modes.Capturesuccess:
                 case Modes.Capturesuccessnopassword:
+                    tboxFileName.Focus();
                     if (!_cboxSkipPWcheckState && !AddPassword)
                     {
                         CaptureSuccessClosing();
@@ -299,27 +308,7 @@ namespace NLock
 
         private void TextboxFileNameTextChanged(object sender, EventArgs e)
         {
-            var valid = IsValidFilename(tboxFileName.Text);
-            if (valid > 0)
-            {
-                filePathErrorProvider.Clear();
-            }
-            else
-                switch (valid)
-                {
-                    case -2:
-                        filePathErrorProvider.SetError(tboxFileName, "A Directory exists with this name");
-                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-                        break;
-                    case -3:
-                        filePathErrorProvider.SetError(tboxFileName, "File Already Exists. Will be overwritten");
-                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-                        break;
-                    default:
-                        filePathErrorProvider.SetError(tboxFileName, Resources.InvalidPath);
-                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-                        break;
-                }
+            ValidateFileName();
         }
 
         private void TextBoxFileNameLeave(object sender, EventArgs e)
@@ -427,8 +416,34 @@ namespace NLock
             ShowPasswordDialog();
         }
 
+        private void ValidateFileName()
+        {
+            var valid = IsValidFilename(tboxFileName.Text);
+            if (valid > 0)
+            {
+                filePathErrorProvider.Clear();
+            }
+            else
+                switch (valid)
+                {
+                    case -2:
+                        filePathErrorProvider.SetError(tboxFileName, "A Directory exists with this name");
+                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+                        break;
+                    case -3:
+                        filePathErrorProvider.SetError(tboxFileName, "File Already Exists. Will be overwritten");
+                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+                        break;
+                    default:
+                        filePathErrorProvider.SetError(tboxFileName, Resources.InvalidPath);
+                        filePathErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+                        break;
+                }
+        }
+
         private void FormClose()
         {
+           
             var valid = IsValidFilename(tboxFileName.Text);
 
             if (valid <= 0)
@@ -450,6 +465,7 @@ namespace NLock
                     {
                         var fi = new FileInfo(tboxFileName.Text);
                         if (fi.Directory != null) fi.Directory.Create();
+   
                         SaveFileName = tboxFileName.Text;
 
                         DialogResult = DialogResult.OK;
@@ -571,7 +587,7 @@ namespace NLock
         #region Public Methods
         public void ChangeSaveFileName(string savePathName)
         {
-            tboxFileName.Text = savePathName;
+               _predictedFileName = Path.GetFileNameWithoutExtension(savePathName) + ".nlk";
         }
         #endregion
     }

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Neurotec.Licensing;
+using NLock.Properties;
 
 namespace NLock.NLockFile.UI
 {
@@ -134,12 +135,12 @@ namespace NLock.NLockFile.UI
 
                 if (obtainedCount == requiredComponents.Length)
                 {
-                    lblStatus.Text = @"Component licenses obtained";
+                    lblStatus.Text = Resources.Licenses_obtained;
                     lblStatus.ForeColor = Color.Green;
                 }
                 else
                 {
-                    lblStatus.Text = @"Not all required licenses obtained";
+                    lblStatus.Text = Resources.Not_all_required_licenses_obtained;
                     lblStatus.ForeColor = Color.Red;
                 }
             }
@@ -194,7 +195,7 @@ namespace NLock.NLockFile.UI
             }
             catch (Exception ex)
             {
-                lblStatus.Text = string.Format("Failed to check components activation status. Error message: {0}", ex.Message);
+                lblStatus.Text = string.Format(Resources.Failed_to_check__ + " {0}", ex.Message);
                 lblStatus.ForeColor = Color.Red;
             }
         }

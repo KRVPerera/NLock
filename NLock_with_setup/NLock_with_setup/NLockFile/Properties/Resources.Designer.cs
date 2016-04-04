@@ -331,6 +331,15 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to check components activation status. Error message:.
+        /// </summary>
+        public static string Failed_to_check__ {
+            get {
+                return ResourceManager.GetString("Failed_to_check__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to extract files to : .
         /// </summary>
         public static string FailedExtractTo {
@@ -417,6 +426,15 @@ namespace NLock.Properties {
         public static string InvalidUser {
             get {
                 return ResourceManager.GetString("InvalidUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licenses obtained.
+        /// </summary>
+        public static string Licenses_obtained {
+            get {
+                return ResourceManager.GetString("Licenses_obtained", resourceCulture);
             }
         }
         
@@ -536,6 +554,15 @@ namespace NLock.Properties {
         public static string Not_a_valid_NLock_File___ {
             get {
                 return ResourceManager.GetString("Not_a_valid_NLock_File___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not all required licenses obtained.
+        /// </summary>
+        public static string Not_all_required_licenses_obtained {
+            get {
+                return ResourceManager.GetString("Not_all_required_licenses_obtained", resourceCulture);
             }
         }
         

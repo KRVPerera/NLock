@@ -385,4 +385,13 @@ Press Retry to retry unlocking...</value>
   <data name="NLock_Extention" xml:space="preserve">
     <value>.nlk</value>
   </data>
+  <data name="Licenses_obtained" xml:space="preserve">
+    <value>Licenses obtained</value>
+  </data>
+  <data name="Not_all_required_licenses_obtained" xml:space="preserve">
+    <value>Not all required licenses obtained</value>
+  </data>
+  <data name="Failed_to_check__" xml:space="preserve">
+    <value>Failed to check components activation status. Error message:</value>
+  </data>
 </root>
