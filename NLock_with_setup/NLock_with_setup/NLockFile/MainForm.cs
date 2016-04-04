@@ -560,7 +560,8 @@ namespace NLock
             }
             catch (OutOfMemoryException)
             {
-                MessageBox.Show(Resources.Out_of_memory, Resources.Not_enough_memory, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Out_of_memory, Resources.Not_enough_memory, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 Logger.Error("OutOfMemoryException");
             }
         }
@@ -663,7 +664,8 @@ namespace NLock
             if (_status == Status.Sucessfullyextracted)
             {
                 tsbExtract.Enabled = false;
-                MessageBox.Show(Resources.Successful___, Resources.Extraction_is, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.Successful___, Resources.Extraction_is, MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             else if (_status == Status.Extractionfailed)
             {
@@ -702,7 +704,8 @@ namespace NLock
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Resources.An_error_occurred + ex, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.An_error_occurred + ex, Resources.Error, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -710,7 +713,8 @@ namespace NLock
         {
             if (_isDirty && (_fileName != null))
             {
-                var result = MessageBox.Show(Resources.Lock_file___, Resources.File_is_changed, MessageBoxButtons.YesNoCancel,
+                var result = MessageBox.Show(Resources.Lock_file___, Resources.File_is_changed,
+                    MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {

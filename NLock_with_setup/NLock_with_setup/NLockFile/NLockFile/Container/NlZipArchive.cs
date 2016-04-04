@@ -15,7 +15,7 @@ namespace NLock.NLockFile.Container
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof(NlZipArchive));
         private Stream _memStream;
-        private readonly Object _lockThis = new Object();
+        private readonly object _lockThis = new object();
         private List<NlFile> _fileList;
 
         #endregion Private variables
@@ -47,7 +47,7 @@ namespace NLock.NLockFile.Container
             _fileList = null;
         }
 
-        public bool AddFile(String filePath)
+        public bool AddFile(string filePath)
         {
             lock (_lockThis)
             {
@@ -216,7 +216,7 @@ namespace NLock.NLockFile.Container
             }
         }
 
-        public static bool IsDirectory(String fullPath)
+        private static bool IsDirectory(string fullPath)
         {
             var list = fullPath.Split();
             if (list.Length < 3)
@@ -327,7 +327,7 @@ namespace NLock.NLockFile.Container
             _memStream = new MemoryStream();
         }
 
-        private bool AddFileWithingAFolder(String filePath)
+        private bool AddFileWithingAFolder(string filePath)
         {
             lock (_lockThis)
             {

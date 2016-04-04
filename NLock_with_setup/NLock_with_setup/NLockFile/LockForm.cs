@@ -190,7 +190,7 @@ namespace NLock
 
         #region Private Form Events
 
-        private void LoginFormLoad(object sender, EventArgs e)
+        private void LockFormLoad(object sender, EventArgs e)
         {
             FromInit();
             ClientInit();
@@ -324,9 +324,9 @@ namespace NLock
             var valid = IsValidFilename(tboxFileName.Text);
             if (valid == 1)
             {
-                if (!tboxFileName.Text.EndsWith(".nlk"))
+                if (!tboxFileName.Text.EndsWith(Resources.NLock_Extention))
                 {
-                    tboxFileName.Text = tboxFileName.Text + ".nlk";
+                    tboxFileName.Text = tboxFileName.Text + Resources.NLock_Extention;
                 }
                 lblInfo.Text = Resources.ValidPath;
                 lblInfo.ForeColor = Color.Green;

@@ -239,7 +239,7 @@
             this.Text = "NLock Locker - Face";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LockFormFormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LockFormFormClosed);
-            this.Load += new System.EventHandler(this.LoginFormLoad);
+            this.Load += new System.EventHandler(this.LockFormLoad);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.filePathErrorProvider)).EndInit();
             this.ResumeLayout(false);

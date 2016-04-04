@@ -12,8 +12,6 @@ namespace NLock.NLockFile
 {
     public class NLockContainerCommons : IDisposable
     {
-        #region Public constructors
-
         public enum ContainerStatus
         {
             Ok,
@@ -21,11 +19,13 @@ namespace NLock.NLockFile
             NullTemplate
         }
 
-        public enum VerificationStatus
+        private enum VerificationStatus
         {
             Verfified,
             Failed
         }
+
+        #region Public constructors
 
         public NLockContainerCommons()
         {
@@ -46,9 +46,13 @@ namespace NLock.NLockFile
 
         #endregion Private variables
 
-        #region public properties
+        #region Private Properties
 
-        public string FileName { get; private set; }
+        private string FileName { get; set; }
+
+        #endregion
+
+        #region public properties
 
         public byte[] Template { private get; set; }
 
@@ -202,9 +206,9 @@ namespace NLock.NLockFile
                 else
                 {
                     loginFrom = new UnlockForm(Template, fileName)
-                    {
-                        PwHash = null
-                    };
+                                {
+                                    PwHash = null
+                                };
                 }
                 loginFrom.ShowDialog();
                 var result = loginFrom.DialogResult;

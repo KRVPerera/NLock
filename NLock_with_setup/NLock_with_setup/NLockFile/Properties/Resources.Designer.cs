@@ -494,6 +494,15 @@ namespace NLock.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .nlk.
+        /// </summary>
+        public static string NLock_Extention {
+            get {
+                return ResourceManager.GetString("NLock_Extention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NLock is using .
         /// </summary>
         public static string NLock_is_using {

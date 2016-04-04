@@ -382,4 +382,7 @@ Press Retry to retry unlocking...</value>
   <data name="Not_a_valid_NLock_File___" xml:space="preserve">
     <value>Not a valid NLock File : </value>
   </data>
+  <data name="NLock_Extention" xml:space="preserve">
+    <value>.nlk</value>
+  </data>
 </root>

@@ -8,7 +8,7 @@ namespace NLock
 	{
 		#region Public property
 
-		public String Password { get; set; }
+		public string Password { get; private set; }
 
 		#endregion Public property
 

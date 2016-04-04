@@ -31,7 +31,7 @@ namespace NLock.NLockFile.UI
 
         public string RequiredComponents
         {
-            get
+            private get
             {
                 return _requiredComponents;
             }
@@ -50,7 +50,7 @@ namespace NLock.NLockFile.UI
 
         public string OptionalComponents
         {
-            get
+            private get
             {
                 return _optionalComponents;
             }
