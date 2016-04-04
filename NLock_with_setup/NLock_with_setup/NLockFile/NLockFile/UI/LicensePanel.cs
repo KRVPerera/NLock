@@ -1,8 +1,8 @@
-﻿using Neurotec.Licensing;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Neurotec.Licensing;
 
 namespace NLock.NLockFile.UI
 {
@@ -15,7 +15,7 @@ namespace NLock.NLockFile.UI
             InitializeComponent();
         }
 
-        #endregion Public constructor
+        #endregion
 
         #region Private fields
 
@@ -25,13 +25,13 @@ namespace NLock.NLockFile.UI
         private string _requiredComponents = string.Empty;
         private string _optionalComponents = string.Empty;
 
-        #endregion Private fields
+        #endregion
 
         #region Public properties
 
         public string RequiredComponents
         {
-            private get
+            get
             {
                 return _requiredComponents;
             }
@@ -40,7 +40,7 @@ namespace NLock.NLockFile.UI
                 _requiredComponents = value;
                 rtbComponents.SelectionColor = Color.Black;
                 rtbComponents.Text = GetRequiredComponentsString();
-                var optional = GetOptionalComponentsString();
+                string optional = GetOptionalComponentsString();
                 if (!string.IsNullOrEmpty(optional))
                 {
                     rtbComponents.AppendText(", " + optional);
@@ -50,7 +50,7 @@ namespace NLock.NLockFile.UI
 
         public string OptionalComponents
         {
-            private get
+            get
             {
                 return _optionalComponents;
             }
@@ -59,7 +59,7 @@ namespace NLock.NLockFile.UI
                 _optionalComponents = value;
                 rtbComponents.SelectionColor = Color.Black;
                 rtbComponents.Text = GetRequiredComponentsString();
-                var optional = GetOptionalComponentsString();
+                string optional = GetOptionalComponentsString();
                 if (!string.IsNullOrEmpty(optional))
                 {
                     rtbComponents.AppendText(", " + optional);
@@ -67,7 +67,7 @@ namespace NLock.NLockFile.UI
             }
         }
 
-        #endregion Public properties
+        #endregion
 
         #region Private methods
 
@@ -81,14 +81,14 @@ namespace NLock.NLockFile.UI
 
         private string GetRequiredComponentsString()
         {
-            return _requiredComponents?.Replace(",", " ") ?? string.Empty;
+            return _requiredComponents != null ? _requiredComponents.Replace(",", ", ") : string.Empty;
         }
 
         private string GetOptionalComponentsString()
         {
             if (_optionalComponents == null) return string.Empty;
 
-            var comps = _optionalComponents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] comps = _optionalComponents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (comps.Length == 0)
                 return string.Empty;
             var result = new StringBuilder();
@@ -104,15 +104,15 @@ namespace NLock.NLockFile.UI
 
         private void RefreshRequired()
         {
-            var text = rtbComponents.Text;
+            string text = rtbComponents.Text;
             try
             {
                 rtbComponents.Text = string.Empty;
-                var obtainedCount = 0;
-                var requiredComponents = RequiredComponents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                int obtainedCount = 0;
+                string[] requiredComponents = RequiredComponents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < requiredComponents.Length; i++)
                 {
-                    var item = requiredComponents[i];
+                    string item = requiredComponents[i];
                     rtbComponents.SelectionStart = rtbComponents.TextLength;
                     if (NLicense.IsComponentActivated(item))
                     {
@@ -153,15 +153,15 @@ namespace NLock.NLockFile.UI
 
         private void RefreshOptional()
         {
-            var text = rtbComponents.Text;
+            string text = rtbComponents.Text;
             try
             {
                 rtbComponents.SelectionColor = Color.Black;
                 rtbComponents.AppendText(", ");
-                var comps = OptionalComponents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] comps = OptionalComponents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < comps.Length; i++)
                 {
-                    var item = comps[i];
+                    string item = comps[i];
                     rtbComponents.SelectionStart = rtbComponents.TextLength;
                     rtbComponents.SelectionColor = NLicense.IsComponentActivated(item) ? Color.Green : Color.Red;
                     rtbComponents.AppendText(string.Format("{0} (optional)", item));
@@ -181,7 +181,7 @@ namespace NLock.NLockFile.UI
             }
         }
 
-        #endregion Private methods
+        #endregion
 
         #region Public methods
 
@@ -199,8 +199,6 @@ namespace NLock.NLockFile.UI
             }
         }
 
-        #endregion Public methods
-
-
+        #endregion
     }
 }

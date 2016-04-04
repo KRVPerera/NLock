@@ -595,9 +595,19 @@ namespace NLock
 
             if (FilelistView.Items.Count > 0)
             {
+                string predictedFileName = null;
+                if (FilelistView.Items.Count == 1)
+                {
+
+                    predictedFileName = FilelistView.Items[0].Text;
+                }
+
                 using (var lockForm = new LockForm())
                 {
+                   
+
                     lockForm.ShowDialog();
+
                     var result = lockForm.DialogResult;
                     if (result == DialogResult.OK)
                     {
@@ -795,16 +805,41 @@ namespace NLock
 
         public SortOrder Order { get; }
 
-        public int Compare(object x, object y)
+        private double GetAbsoluteValue(string value, string demention)
+        {
+            double val;
+            double.TryParse(value, out val);
+            switch (demention)
+            {
+                case "KiB":
+                    val = val*1024;
+                    break;
+                case "MiB":
+                    val = val * 1024*1024;
+                    break;
+                case "GiB":
+                    val = val * 1024 * 1024*1024;
+                    break;
+            }
+            return val;
+        }
+
+    public int Compare(object x, object y)
         {
             var returnVal = -1;
 
             if (Col == 1 || Col == 2)
             {
                 double xVal;
-                var xY = double.TryParse(((ListViewItem) x).SubItems[Col].Text.Split()[0], out xVal);
+                var xValue = ((ListViewItem) x).SubItems[Col].Text.Split()[0];
+                var xDemention = ((ListViewItem) x).SubItems[Col].Text.Split()[1];
+                var xY = double.TryParse(xValue, out xVal);
+                xVal = GetAbsoluteValue(xValue, xDemention);
                 double yVal;
-                var yY = double.TryParse(((ListViewItem) y).SubItems[Col].Text.Split()[0], out yVal);
+                var yValue = ((ListViewItem)y).SubItems[Col].Text.Split()[0];
+                var yDemention = ((ListViewItem)y).SubItems[Col].Text.Split()[1];
+                var yY = double.TryParse(yValue, out yVal);
+                yVal = GetAbsoluteValue(yValue, yDemention);
 
                 if (xY && yY)
                 {

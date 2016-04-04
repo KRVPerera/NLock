@@ -21,10 +21,14 @@ namespace NLock
         {
             _enumoperation = Modes.Initialization;
             InitializeComponent();
+           
         }
 
         #endregion Public Constructors
 
+
+
+        #region Private variables
         private enum Modes
         {
             Initialization,
@@ -33,8 +37,6 @@ namespace NLock
             Invalidpath,
             Capturesuccessnopassword
         }
-
-        #region Private variables
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof (LockForm));
 
@@ -45,6 +47,7 @@ namespace NLock
         private Modes _enumoperation;
         private bool _cboxSkipPWcheckState;
         public byte[] TemplateLoginForm;
+        private string _predictedFileName;
 
         #endregion Private variables
 
@@ -176,7 +179,7 @@ namespace NLock
 
         private void CheckLicense()
         {
-            licensePanel1.RefreshComponentsStatus();
+            //licensePanel2.RefreshComponentsStatus();
         }
 
         private void CapturingOperationRest()
@@ -564,5 +567,12 @@ namespace NLock
         }
 
         #endregion Private Methods
+
+        #region Public Methods
+        public void ChangeSaveFileName(string savePathName)
+        {
+            tboxFileName.Text = savePathName;
+        }
+        #endregion
     }
 }
