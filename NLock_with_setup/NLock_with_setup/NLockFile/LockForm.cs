@@ -21,7 +21,7 @@ namespace NLock
         {
             _enumoperation = Modes.Initialization;
             InitializeComponent();
-           
+
         }
 
         #endregion Public Constructors
@@ -211,9 +211,6 @@ namespace NLock
             ClientInit();
             CapStartButtonInitConfig();
             DeviceManagerUtilication();
-
-           
-
             btnMain.PerformClick();
         }
 
@@ -443,7 +440,7 @@ namespace NLock
 
         private void FormClose()
         {
-           
+
             var valid = IsValidFilename(tboxFileName.Text);
 
             if (valid <= 0)
@@ -465,7 +462,7 @@ namespace NLock
                     {
                         var fi = new FileInfo(tboxFileName.Text);
                         if (fi.Directory != null) fi.Directory.Create();
-   
+
                         SaveFileName = tboxFileName.Text;
 
                         DialogResult = DialogResult.OK;
@@ -587,7 +584,14 @@ namespace NLock
         #region Public Methods
         public void ChangeSaveFileName(string savePathName)
         {
-               _predictedFileName = Path.GetFileNameWithoutExtension(savePathName) + ".nlk";
+            if (savePathName != null)
+            {
+                _predictedFileName = Path.GetFileNameWithoutExtension(savePathName) + ".nlk";
+            }
+            else
+            {
+                _predictedFileName = null;
+            }
         }
         #endregion
     }
