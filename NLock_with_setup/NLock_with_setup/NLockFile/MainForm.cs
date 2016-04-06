@@ -122,7 +122,7 @@ namespace NLock
             {
                 FilelistView.EndUpdate();
                 toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
-               
+
             }
 
 
@@ -140,10 +140,9 @@ namespace NLock
                     if (_nlockContainer.ExtractToFolder(extractionFolderPath))
                     {
                         _status = Status.Sucessfullyextracted;
-                        _nlockContainer.Dispose();
-                        _nlockContainer = null;
                     }
                     _oldFolderSelectedPath = extractionFolderPath;
+
                 }
                 else // result == DialogResult.Cancel
                 {
@@ -733,6 +732,7 @@ namespace NLock
                 tsbExtract.Enabled = false;
                 MessageBox.Show(Resources.Successful___, Resources.Extraction_is, MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
+
             }
             else if (_status == Status.Extractionfailed)
             {
@@ -828,7 +828,7 @@ namespace NLock
             }
         }
 
- 
+
         private void FilelistView_MouseDown(object sender, MouseEventArgs e)
         {
             ListViewHitTestInfo HI = FilelistView.HitTest(e.Location);
