@@ -40,7 +40,7 @@ namespace NLock
 
         #endregion Private variables
 
-        #region Private Methods
+         #region Private Methods
 
         private void InitializeForm()
         {
