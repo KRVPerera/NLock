@@ -62,11 +62,10 @@ namespace NLock
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invertSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lineToolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.removeSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.removeItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripBottom.SuspendLayout();
             this.toolStripTopMenu.SuspendLayout();
             this.contextMenuStripFileList.SuspendLayout();
@@ -113,7 +112,6 @@ namespace NLock
             // 
             // toolStripTopMenu
             // 
-
             this.toolStripTopMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripTopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbOpen,
@@ -241,7 +239,6 @@ namespace NLock
             this.FilelistView.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragEnter);
             this.FilelistView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilelistViewKeyDown);
             this.FilelistView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilelistView_MouseDown);
-
             // 
             // chFileName
             // 
@@ -253,7 +250,6 @@ namespace NLock
             this.columnHeader2.Text = "Size";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader2.Width = 72;
-
             // 
             // columnHeader3
             // 
@@ -272,9 +268,10 @@ namespace NLock
             this.itemsToolStripMenuItem,
             this.lineToolStripMenuItem,
             this.removeItemToolStripMenuItem,
-            this.replaceFileToolStripMenuItem});
+            this.replaceFileToolStripMenuItem,
+            this.removeSelectedItemsToolStripMenuItem});
             this.contextMenuStripFileList.Name = "contextMenuStripFileList";
-            this.contextMenuStripFileList.Size = new System.Drawing.Size(137, 76);
+            this.contextMenuStripFileList.Size = new System.Drawing.Size(164, 98);
             // 
             // itemsToolStripMenuItem
             // 
@@ -283,11 +280,9 @@ namespace NLock
             this.refreshToolStripMenuItem1,
             this.toolStripSeparator1,
             this.selectAllToolStripMenuItem,
-            this.invertSelectionToolStripMenuItem,
-            this.lineToolStripMenuItem1,
-            this.removeSelectedItemsToolStripMenuItem});
+            this.invertSelectionToolStripMenuItem});
             this.itemsToolStripMenuItem.Name = "itemsToolStripMenuItem";
-            this.itemsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.itemsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.itemsToolStripMenuItem.Text = "Files";
             // 
             // addToolStripMenuItem
@@ -296,7 +291,7 @@ namespace NLock
             this.fileToolStripMenuItem,
             this.folderToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.addToolStripMenuItem.Text = "Add";
             // 
             // fileToolStripMenuItem
@@ -316,33 +311,47 @@ namespace NLock
             // refreshToolStripMenuItem1
             // 
             this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
-            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
-            this.refreshToolStripMenuItem1.Text = "Refresh All";
+            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(155, 22);
+            this.refreshToolStripMenuItem1.Text = "Refresh";
             this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.RefreshToolStripMenuItemClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.SelectAllToolStripMenuItemClick);
             // 
             // invertSelectionToolStripMenuItem
             // 
             this.invertSelectionToolStripMenuItem.Name = "invertSelectionToolStripMenuItem";
-            this.invertSelectionToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.invertSelectionToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.invertSelectionToolStripMenuItem.Text = "Invert Selection";
             this.invertSelectionToolStripMenuItem.Click += new System.EventHandler(this.InvertSelectionToolStripMenuItemClick);
             // 
-            // lineToolStripMenuItem1
+            // lineToolStripMenuItem
             // 
-            this.lineToolStripMenuItem1.Name = "lineToolStripMenuItem1";
-            this.lineToolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
+            this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
+            this.lineToolStripMenuItem.Size = new System.Drawing.Size(160, 6);
+            // 
+            // removeItemToolStripMenuItem
+            // 
+            this.removeItemToolStripMenuItem.Name = "removeItemToolStripMenuItem";
+            this.removeItemToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.removeItemToolStripMenuItem.Text = "Remove file";
+            this.removeItemToolStripMenuItem.Click += new System.EventHandler(this.RemoveItemToolStripMenuItemClick);
+            // 
+            // replaceFileToolStripMenuItem
+            // 
+            this.replaceFileToolStripMenuItem.Name = "replaceFileToolStripMenuItem";
+            this.replaceFileToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.replaceFileToolStripMenuItem.Text = "Replace file";
+            this.replaceFileToolStripMenuItem.Click += new System.EventHandler(this.ReplaceFileToolStripMenuItemClick);
             // 
             // removeSelectedItemsToolStripMenuItem
             // 
@@ -350,25 +359,6 @@ namespace NLock
             this.removeSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.removeSelectedItemsToolStripMenuItem.Text = "Remove selected";
             this.removeSelectedItemsToolStripMenuItem.Click += new System.EventHandler(this.RemoveSelectedItemsToolStripMenuItemClick);
-            // 
-            // lineToolStripMenuItem
-            // 
-            this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
-            this.lineToolStripMenuItem.Size = new System.Drawing.Size(133, 6);
-            // 
-            // removeItemToolStripMenuItem
-            // 
-            this.removeItemToolStripMenuItem.Name = "removeItemToolStripMenuItem";
-            this.removeItemToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.removeItemToolStripMenuItem.Text = "Remove file";
-            this.removeItemToolStripMenuItem.Click += new System.EventHandler(this.RemoveItemToolStripMenuItemClick);
-            // 
-            // replaceFileToolStripMenuItem
-            // 
-            this.replaceFileToolStripMenuItem.Name = "replaceFileToolStripMenuItem";
-            this.replaceFileToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.replaceFileToolStripMenuItem.Text = "Replace file";
-            this.replaceFileToolStripMenuItem.Click += new System.EventHandler(this.ReplaceFileToolStripMenuItemClick);
             // 
             // MainForm
             // 
@@ -426,16 +416,15 @@ namespace NLock
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFileList;
         private System.Windows.Forms.ToolStripMenuItem itemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem removeSelectedItemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator lineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invertSelectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeItemToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator lineToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem replaceFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeSelectedItemsToolStripMenuItem;
     }
 }

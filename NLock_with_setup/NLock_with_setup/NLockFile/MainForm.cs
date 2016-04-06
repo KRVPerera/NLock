@@ -836,13 +836,17 @@ namespace NLock
             {
                 if (HI.Location != ListViewHitTestLocations.None)//(FilelistView.FocusedItem.Bounds.Contains(e.Location))
                 {
+                    contextMenuStripFileList.Items[1].Visible = true;
                     contextMenuStripFileList.Items[2].Visible = true;
                     contextMenuStripFileList.Items[3].Visible = true;
+                    contextMenuStripFileList.Items[4].Visible = true;
                 }
                 else
                 {
+                    contextMenuStripFileList.Items[1].Visible = false;
                     contextMenuStripFileList.Items[2].Visible = false;
                     contextMenuStripFileList.Items[3].Visible = false;
+                    contextMenuStripFileList.Items[4].Visible = false;
                 }
                 contextMenuStripFileList.Show(Cursor.Position);
             }
