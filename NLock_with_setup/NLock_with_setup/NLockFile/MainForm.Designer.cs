@@ -86,9 +86,9 @@ namespace NLock
             this.toolStripStatusLabel2,
             this.toolStripFileCountLabel,
             this.tssStatus});
-            this.statusStripBottom.Location = new System.Drawing.Point(0, 472);
+            this.statusStripBottom.Location = new System.Drawing.Point(0, 497);
             this.statusStripBottom.Name = "statusStripBottom";
-            this.statusStripBottom.Size = new System.Drawing.Size(451, 22);
+            this.statusStripBottom.Size = new System.Drawing.Size(591, 22);
             this.statusStripBottom.TabIndex = 10;
             this.statusStripBottom.Text = "statusStrip1";
             // 
@@ -126,7 +126,7 @@ namespace NLock
             this.toolStripTopMenu.MaximumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.MinimumSize = new System.Drawing.Size(0, 27);
             this.toolStripTopMenu.Name = "toolStripTopMenu";
-            this.toolStripTopMenu.Size = new System.Drawing.Size(451, 27);
+            this.toolStripTopMenu.Size = new System.Drawing.Size(591, 27);
             this.toolStripTopMenu.TabIndex = 0;
             this.toolStripTopMenu.TabStop = true;
             this.toolStripTopMenu.Text = "toolStrip1";
@@ -229,7 +229,7 @@ namespace NLock
             this.FilelistView.Location = new System.Drawing.Point(1, 27);
             this.FilelistView.MinimumSize = new System.Drawing.Size(4, 75);
             this.FilelistView.Name = "FilelistView";
-            this.FilelistView.Size = new System.Drawing.Size(450, 442);
+            this.FilelistView.Size = new System.Drawing.Size(590, 467);
             this.FilelistView.TabIndex = 0;
             this.FilelistView.UseCompatibleStateImageBehavior = false;
             this.FilelistView.View = System.Windows.Forms.View.Details;
@@ -367,7 +367,7 @@ namespace NLock
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(451, 494);
+            this.ClientSize = new System.Drawing.Size(591, 519);
             this.Controls.Add(this.toolStripTopMenu);
             this.Controls.Add(this.FilelistView);
             this.Controls.Add(this.statusStripBottom);
