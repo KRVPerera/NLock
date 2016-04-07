@@ -1,14 +1,14 @@
+using log4net;
+using log4net.Config;
+using NLock.NLockFile;
+using NLock.NLockFile.Util;
+using NLock.Properties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using log4net;
-using log4net.Config;
-using NLock.NLockFile;
-using NLock.NLockFile.Util;
-using NLock.Properties;
 
 namespace NLock
 {
@@ -28,7 +28,7 @@ namespace NLock
 
         #region Private variables
 
-        private static readonly ILog Logger = LogManager.GetLogger(typeof (MainForm));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MainForm));
         private NLockContainerCommons _nlockContainer;
         private string _fileName;
         private readonly OperationModes _opMode;
@@ -40,7 +40,7 @@ namespace NLock
 
         #endregion Private variables
 
-         #region Private Methods
+        #region Private Methods
 
         private void InitializeForm()
         {
@@ -90,22 +90,22 @@ namespace NLock
                     double compressed = key.CompressedSize;
                     if (key.OriginalSize > 1024)
                     {
-                        original = key.OriginalSize/1024.0;
-                        compressed = key.CompressedSize/1024.0;
+                        original = key.OriginalSize / 1024.0;
+                        compressed = key.CompressedSize / 1024.0;
                         type = "KiB";
                     }
 
-                    if (key.OriginalSize > 1024*1024)
+                    if (key.OriginalSize > 1024 * 1024)
                     {
-                        original = original/1024;
-                        compressed = compressed/1024;
+                        original = original / 1024;
+                        compressed = compressed / 1024;
                         type = "MiB";
                     }
 
-                    if (key.OriginalSize > 1024*1024*1024)
+                    if (key.OriginalSize > 1024 * 1024 * 1024)
                     {
-                        original = original/1024;
-                        compressed = compressed/1024;
+                        original = original / 1024;
+                        compressed = compressed / 1024;
                         type = "GiB";
                     }
 
@@ -122,10 +122,7 @@ namespace NLock
             {
                 FilelistView.EndUpdate();
                 toolStripFileCountLabel.Text = FilelistView.Items.Count.ToString();
-
             }
-
-
         }
 
         private void Extract()
@@ -142,7 +139,6 @@ namespace NLock
                         _status = Status.Sucessfullyextracted;
                     }
                     _oldFolderSelectedPath = extractionFolderPath;
-
                 }
                 else // result == DialogResult.Cancel
                 {
@@ -168,7 +164,7 @@ namespace NLock
             {
                 foreach (var file in FilelistView.SelectedItems)
                 {
-                    var item = (ListViewItem)file;
+                    var item = (ListViewItem) file;
                     var tet = item.SubItems[0].Text;
                     var result = _nlockContainer.RemoveFile(tet);
                     if ((_fileName != null) && !_isDirty && result)
@@ -213,6 +209,7 @@ namespace NLock
         {
             UpdateListView(_nlockContainer.GetFileList());
         }
+
         #endregion Private Methods
 
         #region Private Form Events
@@ -240,7 +237,7 @@ namespace NLock
                     }
                     catch (Exception)
                     {
-                        using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                        using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                         {
                             MessageBox.Show(Resources.OpeningFile, Resources.Alert, MessageBoxButtons.OK,
                                 MessageBoxIcon.Stop);
@@ -268,7 +265,7 @@ namespace NLock
                         DialogResult result;
                         if (_nlockContainer.ExtractToFolder(currentPath))
                         {
-                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                             {
                                 result = MessageBox.Show(form,
                                     Resources.SuccessExtractedTo + currentPath + "\n" + Resources.ExitQ,
@@ -278,7 +275,7 @@ namespace NLock
                         }
                         else
                         {
-                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                             {
                                 result = MessageBox.Show(form,
                                     Resources.FailedExtractTo + currentPath + "\n" + Resources.ExitQ,
@@ -333,7 +330,7 @@ namespace NLock
                         if (_status == Status.Sucessfullyextracted)
                         {
                             tsbExtract.Enabled = false;
-                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                             {
                                 result = MessageBox.Show(form,
                                     Resources.SuccessExtractedTo + unlockingPath + "\n" + Resources.ExitQ,
@@ -343,7 +340,7 @@ namespace NLock
                         }
                         else if (_status == Status.Extractionfailed)
                         {
-                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                             {
                                 result = MessageBox.Show(form, Resources.Failed + "\n" + Resources.ExitQ,
                                     Resources.Unlocking,
@@ -366,7 +363,7 @@ namespace NLock
                     }
                     catch (InvalidOperationException)
                     {
-                        using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                        using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                         {
                             MessageBox.Show(form, Resources.InvalidUser, Resources.Alert, MessageBoxButtons.OK,
                                 MessageBoxIcon.Stop);
@@ -374,7 +371,7 @@ namespace NLock
                     }
                     catch (Exception)
                     {
-                        using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                        using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                         {
                             MessageBox.Show(Resources.UnlockingFailed, Resources.Alert, MessageBoxButtons.OK,
                                 MessageBoxIcon.Stop);
@@ -404,7 +401,7 @@ namespace NLock
 
                         if (_saved)
                         {
-                            using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                            using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                             {
                                 var result = MessageBox.Show(form,
                                     Resources.SuccessfullyLockedFilesTo + copiedName + "\n" + Resources.ExitQ,
@@ -446,7 +443,7 @@ namespace NLock
                     tsbLock.Enabled = true;
                     tsbLock.PerformClick();
 
-                    using (var form = new Form {WindowState = FormWindowState.Maximized, TopMost = true})
+                    using (var form = new Form { WindowState = FormWindowState.Maximized, TopMost = true })
                     {
                         var result = MessageBox.Show(form, Resources.WantToExitNLock, Resources.Locking,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -732,7 +729,6 @@ namespace NLock
                 tsbExtract.Enabled = false;
                 MessageBox.Show(Resources.Successful___, Resources.Extraction_is, MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-
             }
             else if (_status == Status.Extractionfailed)
             {
@@ -828,8 +824,7 @@ namespace NLock
             }
         }
 
-
-        private void FilelistView_MouseDown(object sender, MouseEventArgs e)
+        private void FilelistViewMouseDown(object sender, MouseEventArgs e)
         {
             ListViewHitTestInfo HI = FilelistView.HitTest(e.Location);
             if (e.Button == MouseButtons.Right)
@@ -851,6 +846,7 @@ namespace NLock
                 contextMenuStripFileList.Show(Cursor.Position);
             }
         }
+
         private void RefreshToolStripMenuItemClick(object sender, EventArgs e)
         {
             UpdateListView(_nlockContainer.GetFileList());
@@ -886,7 +882,6 @@ namespace NLock
             tsbAddFile.PerformClick();
         }
 
-
         private void FileToolStripMenuItemClick(object sender, EventArgs e)
         {
             tsbAddFile.PerformClick();
@@ -898,8 +893,6 @@ namespace NLock
         }
 
         #endregion Private Form Events
-
-
     }
 
     internal class ListViewItemComparer : IComparer
@@ -927,19 +920,21 @@ namespace NLock
             switch (demention)
             {
                 case "KiB":
-                    val = val*1024;
+                    val = val * 1024;
                     break;
+
                 case "MiB":
-                    val = val * 1024*1024;
+                    val = val * 1024 * 1024;
                     break;
+
                 case "GiB":
-                    val = val * 1024 * 1024*1024;
+                    val = val * 1024 * 1024 * 1024;
                     break;
             }
             return val;
         }
 
-    public int Compare(object x, object y)
+        public int Compare(object x, object y)
         {
             var returnVal = -1;
 
@@ -951,8 +946,8 @@ namespace NLock
                 var xY = double.TryParse(xValue, out xVal);
                 xVal = GetAbsoluteValue(xValue, xDemention);
                 double yVal;
-                var yValue = ((ListViewItem)y).SubItems[Col].Text.Split()[0];
-                var yDemention = ((ListViewItem)y).SubItems[Col].Text.Split()[1];
+                var yValue = ((ListViewItem) y).SubItems[Col].Text.Split()[0];
+                var yDemention = ((ListViewItem) y).SubItems[Col].Text.Split()[1];
                 var yY = double.TryParse(yValue, out yVal);
                 yVal = GetAbsoluteValue(yValue, yDemention);
 

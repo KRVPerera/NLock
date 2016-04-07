@@ -9,8 +9,8 @@ namespace NLock.NLockFile.Util
 
         private static int IsNLock(byte[] content)
         {
-            var headeridN = new byte[] {0x4E, 0x4C, 0x4F, 0x43, 0x4B}; //NLOCK
-            var headeridP = new byte[] {0x4E, 0x4C, 0x4F, 0x43, 0x50}; //NLOCP
+            var headeridN = new byte[] { 0x4E, 0x4C, 0x4F, 0x43, 0x4B }; //NLOCK
+            var headeridP = new byte[] { 0x4E, 0x4C, 0x4F, 0x43, 0x50 }; //NLOCP
 
             if (IsNLock(content, headeridN))
             {
@@ -57,13 +57,13 @@ namespace NLock.NLockFile.Util
             return extractedContent;
         }
 
-        #endregion
+        #endregion Private Static
 
         #region Public Static
 
         public static byte[] GetBytes(string str)
         {
-            var bytes = new byte[str.Length*sizeof (char)];
+            var bytes = new byte[str.Length * sizeof(char)];
             Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
             return bytes;
         }
@@ -85,7 +85,7 @@ namespace NLock.NLockFile.Util
             return isNlock;
         }
 
-        #endregion
+        #endregion Public Static
 
         #region Protected Static
 
@@ -125,7 +125,7 @@ namespace NLock.NLockFile.Util
 
         protected static string GetString(byte[] bytes)
         {
-            var chars = new char[bytes.Length/sizeof (char)];
+            var chars = new char[bytes.Length / sizeof(char)];
             Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
             return new string(chars);
         }
@@ -139,21 +139,25 @@ namespace NLock.NLockFile.Util
             return null;
         }
 
-        #endregion
+        #endregion Protected Static
 
         #region Public Abstract
 
         public abstract int TemplateLength { get; }
+
         public abstract byte[] GenerateNLockFileContent(byte[] template, byte[] originalFileContent);
 
         public abstract byte[] GenerateNLockFileContent(byte[] template, byte[] originalFileContent,
             string password = "null");
 
         public abstract byte[] GetHashFromNLock(byte[] full);
+
         public abstract byte[] ExtractDataContentFromNLock(string filePath);
+
         public abstract byte[] ExtractTemplateFromNLock(byte[] full);
+
         public abstract byte[] ExtractDataContentFromNLock(byte[] full);
 
-        #endregion
+        #endregion Public Abstract
     }
 }

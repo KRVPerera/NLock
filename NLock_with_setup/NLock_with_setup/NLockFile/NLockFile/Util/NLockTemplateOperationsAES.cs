@@ -8,7 +8,7 @@ namespace NLock.NLockFile.Util
 
         private const int Headerlength = 4053;
         private const int Templatelength = 4048;
-        private readonly byte[] _headeridN = {0x4E, 0x4C, 0x4F, 0x43, 0x4B};
+        private readonly byte[] _headeridN = { 0x4E, 0x4C, 0x4F, 0x43, 0x4B };
 
         #endregion Private variables
 

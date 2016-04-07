@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NLock.Properties;
+using System;
 using System.Windows.Forms;
-using NLock.Properties;
 
 namespace NLock
 {
@@ -15,8 +15,8 @@ namespace NLock
         {
             lblInfo.Text = Resources.CopyrightYear;
             lblInfo2.Text = Resources.AllRightsReserved;
-            lblNtInfo.Text = Resources.NLock_is_using ;
-            linkLabel.Text = Resources.CompanyNeurotechnology + " " +Resources.VeriLookSDK;
+            lblNtInfo.Text = Resources.NLock_is_using;
+            linkLabel.Text = Resources.CompanyNeurotechnology + " " + Resources.VeriLookSDK;
             linkLabelNt.Text = Resources.CompanyNeurotechnology;
         }
 

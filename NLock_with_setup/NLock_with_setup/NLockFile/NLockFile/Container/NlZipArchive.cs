@@ -1,11 +1,11 @@
-﻿using System;
+﻿using log4net;
+using NLock.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
-using log4net;
-using NLock.Properties;
 
 namespace NLock.NLockFile.Container
 {
@@ -59,7 +59,7 @@ namespace NLock.NLockFile.Container
                     using (ZipArchive zip = new ZipArchive(_memStream, ZipArchiveMode.Update, true))
                     {
                         Logger.Debug("Reading file : " + filePath + " Length : " + fs.Length);
-                        var compressionLevel = (CompressionLevel)Settings.Default.compressionLevel;
+                        var compressionLevel = (CompressionLevel) Settings.Default.compressionLevel;
                         var entry = zip.CreateEntry(filePath, compressionLevel);
 
                         using (var entryStream = entry.Open())
@@ -185,7 +185,7 @@ namespace NLock.NLockFile.Container
         {
             var curPosition = _memStream.Position;
             _memStream.Position = 0;
-            var outPutBuffer = ((MemoryStream)_memStream).ToArray();
+            var outPutBuffer = ((MemoryStream) _memStream).ToArray();
             _memStream.Position = curPosition;
             return outPutBuffer;
         }
@@ -351,7 +351,7 @@ namespace NLock.NLockFile.Container
                     return true;
                 }
                 catch (Exception)
-                {   
+                {
                     // Throw on empty folders within
                     throw;
                 }

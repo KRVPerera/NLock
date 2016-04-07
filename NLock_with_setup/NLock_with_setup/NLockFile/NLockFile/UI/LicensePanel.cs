@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Neurotec.Licensing;
+using NLock.Properties;
+using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Neurotec.Licensing;
-using NLock.Properties;
 
 namespace NLock.NLockFile.UI
 {
@@ -16,7 +16,7 @@ namespace NLock.NLockFile.UI
             InitializeComponent();
         }
 
-        #endregion
+        #endregion Public constructor
 
         #region Private fields
 
@@ -26,7 +26,7 @@ namespace NLock.NLockFile.UI
         private string _requiredComponents = string.Empty;
         private string _optionalComponents = string.Empty;
 
-        #endregion
+        #endregion Private fields
 
         #region Public properties
 
@@ -68,7 +68,7 @@ namespace NLock.NLockFile.UI
             }
         }
 
-        #endregion
+        #endregion Public properties
 
         #region Private methods
 
@@ -182,7 +182,7 @@ namespace NLock.NLockFile.UI
             }
         }
 
-        #endregion
+        #endregion Private methods
 
         #region Public methods
 
@@ -200,6 +200,6 @@ namespace NLock.NLockFile.UI
             }
         }
 
-        #endregion
+        #endregion Public methods
     }
 }

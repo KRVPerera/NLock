@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using NLock.Properties;
+using System.IO;
 using System.Windows.Forms;
-using NLock.Properties;
 
 namespace NLock.NLockFile.Util
 {
@@ -44,6 +44,8 @@ namespace NLock.NLockFile.Util
             if (Path.GetExtension(args[1]) == ".nlk" && NLockTemplateOperations.IsNLock(args[1]) > 0)
             {
                 app = new App(new MainForm(OperationModes.Unlockhere, args[1]));
+                app.Activate();
+                app.FocusMe();
             }
             else
             {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
-using log4net;
+﻿using log4net;
 using Neurotec.Biometrics;
 using Neurotec.Biometrics.Client;
 using Neurotec.Devices;
@@ -12,6 +7,11 @@ using Neurotec.IO;
 using Neurotec.Licensing;
 using NLock.NLockFile.Util;
 using NLock.Properties;
+using System;
+using System.Collections.Specialized;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace NLock
 {
@@ -43,7 +43,7 @@ namespace NLock
 
         private readonly byte[] _templateLoginFromFile;
 
-        private static readonly ILog Logger = LogManager.GetLogger(typeof (UnlockForm));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(UnlockForm));
 
         #endregion Private variables
 
@@ -75,12 +75,14 @@ namespace NLock
             PwHash = hash;
         }
 
-        public UnlockForm(byte[] template, string fileName) : this(template)
+        public UnlockForm(byte[] template, string fileName)
+            : this(template)
         {
             Text = Resources.NLock_Unlocker_ + fileName;
         }
 
-        public UnlockForm(byte[] template, byte[] hash, string fileName) : this(template, hash)
+        public UnlockForm(byte[] template, byte[] hash, string fileName)
+            : this(template, hash)
         {
             Text = Resources.NLock_Unlocker_ + fileName;
         }
@@ -98,6 +100,7 @@ namespace NLock
 
         private void FromInit()
         {
+            this.Focus();
             Verified = false;
             llblRetryWithPW.Visible = false;
             tbPw.Visible = false;
@@ -133,7 +136,7 @@ namespace NLock
 
         private void ClientInit()
         {
-            _biometricClient = new NBiometricClient {BiometricTypes = NBiometricType.Face, UseDeviceManager = true};
+            _biometricClient = new NBiometricClient { BiometricTypes = NBiometricType.Face, UseDeviceManager = true };
             _biometricClient.Initialize();
             _biometricClient.MatchingThreshold = 48;
             _biometricClient.FacesMatchingSpeed = NMatchingSpeed.High;
@@ -154,7 +157,7 @@ namespace NLock
             VerificationOperationButtonconfig();
             lblInfo.Text = Resources.Capturing_user___;
             _subject = new NSubject();
-            var face = new NFace {CaptureOptions = NBiometricCaptureOptions.Stream};
+            var face = new NFace { CaptureOptions = NBiometricCaptureOptions.Stream };
             _subject.Faces.Add(face);
             nlockLoginFaceView.Face = _subject.Faces[0];
             _currentop = Ops.Ongoing;
@@ -260,6 +263,7 @@ namespace NLock
                             Logger.Debug("Device list changed NotifyCollectionChangedAction.Reset");
                             CheckCamera();
                             break;
+
                         default:
                             Logger.Error("Device list changed unidentified collection action");
                             break;
@@ -458,7 +462,7 @@ namespace NLock
             {
                 btnMain.Visible = false;
 
-                Interlocked.Exchange(ref _initialRetryDelay, 1*(int) Math.Exp(_retryCount));
+                Interlocked.Exchange(ref _initialRetryDelay, 1 * (int) Math.Exp(_retryCount));
                 retryTimer.Start();
             }
         }
@@ -526,7 +530,7 @@ namespace NLock
                 "Biometrics.FaceMatching," +
                 "Devices.Cameras";
 
-            foreach (var component in Components.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var component in Components.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 if (!NLicense.IsComponentActivated(component))
                 {

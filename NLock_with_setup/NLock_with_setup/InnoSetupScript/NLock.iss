@@ -122,7 +122,7 @@ Root: "HKCR"; Subkey: "{#MyAppName}\Shell\{#MyAppName}"; ValueType: string; Valu
 Root: "HKCR"; Subkey: "{#MyAppName}\Shell\{#MyAppName}"; ValueType: string; ValueName: "MUIVerb"; ValueData: "{#MyAppName}"; Flags: uninsdeletekey preservestringtype deletevalue
 Root: "HKCR"; Subkey: "{#MyAppName}\Shell\{#MyAppName}"; ValueType: string; ValueName: "subcommands"; Flags: uninsdeletekey preservestringtype deletevalue
 ; NLock menu Lock command
-Root: "HKCR"; Subkey: "{#MyAppName}\Shell\{#MyAppName}\Shell\cmd1"; ValueType: string; ValueName: "MUIVerb"; ValueData: "Lock"; Flags: uninsdeletekey preservestringtype deletevalue
+Root: "HKCR"; Subkey: "{#MyAppName}\Shell\{#MyAppName}\Shell\cmd1"; ValueType: string; ValueName: "MUIVerb"; ValueData: "Add to {#MyAppName} list"; Flags: uninsdeletekey preservestringtype deletevalue
 Root: "HKCR"; Subkey: "{#MyAppName}\Shell\{#MyAppName}\Shell\cmd1"; ValueType: string; ValueName: "Icon"; ValueData: "{app}\Resources\Login_6031.ico"; Flags: uninsdeletekey preservestringtype deletevalue
 Root: "HKCR"; Subkey: "{#MyAppName}\Shell\{#MyAppName}\Shell\cmd1\command"; ValueType: string; ValueData: "{app}\{#MyAppExeName} -a ""%1"""; Flags: uninsdeletekey preservestringtype deletevalue
 ; NLock menu Unlock to command

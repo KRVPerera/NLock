@@ -1,5 +1,4 @@
-﻿
-namespace NLock.NLockFile.Encryption
+﻿namespace NLock.NLockFile.Encryption
 {
     internal interface IEncryptionStrategy
     {

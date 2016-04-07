@@ -66,7 +66,6 @@ namespace NLock.NLockFile.Util
             {
                 throw;
             }
-            
         }
 
         public override byte[] ExtractDataContentFromNLock(string filePath)
@@ -100,7 +99,7 @@ namespace NLock.NLockFile.Util
 
         private static byte[] CreateHeader(byte[] template, string password)
         {
-            var headerid = new byte[] {0x4E, 0x4C, 0x4F, 0x43, 0x50}; //NLOCK
+            var headerid = new byte[] { 0x4E, 0x4C, 0x4F, 0x43, 0x50 }; //NLOCK
             var hashed = CreateHashByte(password);
             var header = new byte[headerid.Length + template.Length + hashed.Length];
             Buffer.BlockCopy(headerid, 0, header, 0, headerid.Length);

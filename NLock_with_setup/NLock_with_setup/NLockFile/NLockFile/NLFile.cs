@@ -26,12 +26,12 @@ namespace NLock.NLockFile
             {
                 return _fileName;
             }
-
         }
 
         public string FilePath
         {
-            get; set;
+            get;
+            set;
         }
 
         #endregion Public Properties

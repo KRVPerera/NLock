@@ -1,16 +1,14 @@
-﻿using System.IO;
+﻿using log4net;
+using NLock.Properties;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using log4net;
-using NLock.Properties;
 
 namespace NLock.NLockFile.Util
 {
     internal class OperationsNew
     {
         #region Private variables
-
-
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof(OperationsNew));
 
@@ -30,7 +28,7 @@ namespace NLock.NLockFile.Util
             }
             else
             {
-                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]), Resources.Error, MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Not_a_valid_NLock_File___ + Path.GetFileName(args[1]), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

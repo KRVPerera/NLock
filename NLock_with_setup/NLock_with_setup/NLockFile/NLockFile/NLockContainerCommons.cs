@@ -1,12 +1,12 @@
-﻿using System;
+﻿using log4net;
+using NLock.NLockFile.Container;
+using NLock.NLockFile.Encryption;
+using NLock.NLockFile.Util;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using log4net;
-using NLock.NLockFile.Container;
-using NLock.NLockFile.Encryption;
-using NLock.NLockFile.Util;
 
 namespace NLock.NLockFile
 {
@@ -36,7 +36,7 @@ namespace NLock.NLockFile
 
         #region Private variables
 
-        private static readonly ILog Logger = LogManager.GetLogger(typeof (NLockContainerCommons));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(NLockContainerCommons));
 
         private readonly IEncryptionStrategy _encryptionStrategy = new AesEncryptionStrategy();
         private readonly IContainerInterface _container = new NlZipArchive();
@@ -50,7 +50,7 @@ namespace NLock.NLockFile
 
         private string FileName { get; set; }
 
-        #endregion
+        #endregion Private Properties
 
         #region public properties
 
@@ -182,7 +182,6 @@ namespace NLock.NLockFile
             if (type > 0)
             {
                 Logger.Debug("LoadFromFile Type : " + type);
-
 
                 var zipContent = TemplateOperations.ExtractDataContentFromNLock(full);
                 try

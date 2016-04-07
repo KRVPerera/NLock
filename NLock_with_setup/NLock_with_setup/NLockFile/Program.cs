@@ -1,10 +1,10 @@
 ﻿using log4net;
 using Microsoft.VisualBasic.ApplicationServices;
 using Neurotec.Licensing;
+using NLock.NLockFile.Util;
 using NLock.Properties;
 using System;
 using System.Windows.Forms;
-using NLock.NLockFile.Util;
 
 namespace NLock
 {
@@ -126,6 +126,7 @@ namespace NLock
                 if (_app != null)
                 {
                     Application.Run(_app);
+                    _app.FocusMe();
                 }
             }
             catch (Exception rx)
@@ -164,7 +165,7 @@ namespace NLock
                             break;
 
                         case 3:
-                            var nwForm = (MainForm)_app.MainForm;
+                            var nwForm = (MainForm) _app.MainForm;
                             nwForm.AddThisFiletoNLock(args[1]);
                             _app.FocusMe();
                             break;

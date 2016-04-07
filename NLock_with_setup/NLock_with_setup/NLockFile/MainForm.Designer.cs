@@ -238,7 +238,7 @@ namespace NLock
             this.FilelistView.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragDrop);
             this.FilelistView.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilelistViewDragEnter);
             this.FilelistView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilelistViewKeyDown);
-            this.FilelistView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilelistView_MouseDown);
+            this.FilelistView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FilelistViewMouseDown);
             // 
             // chFileName
             // 
